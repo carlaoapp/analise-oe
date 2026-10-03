@@ -1,0 +1,38 @@
+﻿# Backups e pastas pesadas locais
+backup_zip/
+archive/
+scratch/
+temp_apk/
+Sistema de Analises Orcamentos - Equip/
+
+# Ferramentas locais e SDK Android
+apk-builder/android-sdk/
+apk-builder/project/bin/
+apk-builder/project/obj/
+cloudflared.exe
+*.exe
+*.zip
+*.tar.gz
+*.7z
+debug.keystore
+
+# Permitir APK de download público
+*.apk
+!public/downloads/*.apk
+
+# Python
+__pycache__/
+*.py[cod]
+*.class
+.venv/
+venv/
+env/
+
+# Logs e temporários
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+APK Analise O.E/

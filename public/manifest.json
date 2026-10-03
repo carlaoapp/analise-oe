@@ -1,0 +1,54 @@
+﻿{
+  "name": "Análise O.E - Gestão & Campo",
+  "short_name": "Analise O.E",
+  "description": "Sistema Integrado de Gestão de Ordens de Serviço, Orçamentos e Checklists de Campo",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b1120",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "O.S. Campo",
+      "short_name": "Campo",
+      "description": "Abrir Ordem de Serviço de Campo",
+      "url": "/ordem_servico_campo.html",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Orçamento",
+      "short_name": "Orçamento",
+      "description": "Abrir Orçamentos",
+      "url": "/orcamento.html",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Painel Geral",
+      "short_name": "Painel",
+      "description": "Painel de Controle e Gestão",
+      "url": "/",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

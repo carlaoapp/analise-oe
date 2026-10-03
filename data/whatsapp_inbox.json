@@ -1,0 +1,98 @@
+[
+  {
+    "id": "msg_wa_1001",
+    "tipo_registro": "chamado",
+    "timestamp": "2026-09-15 08:14:00",
+    "remetente_nome": "Carlos Mendes (Gerente Agrícola)",
+    "remetente_numero": "5544998110001",
+    "status": "processado",
+    "mensagem_original": "Bom dia equipe! O Trator Frota 101 estourou a mangueira do hidráulico no Talhão 03. Podem atender agora?",
+    "dados_extraidos": {
+      "cliente": "Agropecuária Vale Verde Ltda.",
+      "frota": "Frota 101",
+      "os": "1001",
+      "problema": "Mangueira hidráulica estourada"
+    },
+    "midias": []
+  },
+  {
+    "id": "msg_wa_1002",
+    "tipo_registro": "chamado",
+    "timestamp": "2026-09-15 09:00:00",
+    "remetente_nome": "Eduardo Silveira (Encarregado)",
+    "remetente_numero": "5544998220002",
+    "status": "processado",
+    "mensagem_original": "Socorro mecânico urgente! Colheitadeira Frota 204 esquentando mancal do rotor. Precisamos de mecânico urgente.",
+    "dados_extraidos": {
+      "cliente": "Fazenda Santa Cecília Agronegócios",
+      "frota": "Frota 204",
+      "os": "1002",
+      "problema": "Mancal do rotor aquecendo"
+    },
+    "midias": []
+  },
+  {
+    "id": "msg_wa_1003",
+    "tipo_registro": "chamado",
+    "timestamp": "2026-09-15 09:45:00",
+    "remetente_nome": "Fernando Dias (Operações)",
+    "remetente_numero": "5544998330003",
+    "status": "processado",
+    "mensagem_original": "Manutenção corretiva Frota 308 Pulverizador Jacto com falha nas seções de bico. Favor verificar.",
+    "dados_extraidos": {
+      "cliente": "Cerealista e Grãos São Pedro",
+      "frota": "Frota 308",
+      "os": "1003",
+      "problema": "Falha no corte de seções"
+    },
+    "midias": []
+  },
+  {
+    "id": "msg_wa_1004",
+    "tipo_registro": "chamado",
+    "timestamp": "2026-09-15 10:30:00",
+    "remetente_nome": "Ricardo Antunes (Coord. Frotas)",
+    "remetente_numero": "5544998440004",
+    "status": "processado",
+    "mensagem_original": "Trator Frota 415 acusando perda de água e aquecimento. Enviar especialista diesel.",
+    "dados_extraidos": {
+      "cliente": "Usina Alvorada Bioenergia",
+      "frota": "Frota 415",
+      "os": "1004",
+      "problema": "Vazamento no radiador / bomba d água"
+    },
+    "midias": []
+  },
+  {
+    "id": "msg_wa_1005",
+    "tipo_registro": "chamado",
+    "timestamp": "2026-09-15 10:50:00",
+    "remetente_nome": "Alexandre Pires (Logística)",
+    "remetente_numero": "5544998550005",
+    "status": "cancelado",
+    "mensagem_original": "Chamado Frota 502 Caminhão Pipa. [Atualização: Atendimento cancelado, concessionária acionada na garantia].",
+    "dados_extraidos": {
+      "cliente": "Agroindustrial Monte Belo",
+      "frota": "Frota 502",
+      "os": "1005",
+      "problema": "Cancelado"
+    },
+    "midias": []
+  },
+  {
+    "id": "msg_wa_1006",
+    "tipo_registro": "chamado",
+    "timestamp": "2026-09-15 11:20:00",
+    "remetente_nome": "Marcelo Tavares (Proprietário)",
+    "remetente_numero": "5544998660006",
+    "status": "pendente",
+    "mensagem_original": "Olá, meu Trator Frota 610 Valtra não pega de manhã cedo. Suspeita de ar no diesel. Podem vir olhar?",
+    "dados_extraidos": {
+      "cliente": "Sítio Primavera Fruticultura",
+      "frota": "Frota 610",
+      "os": "1006",
+      "problema": "Entrada de ar no diesel"
+    },
+    "midias": []
+  }
+]

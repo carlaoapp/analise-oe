@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="classic">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f172a">
+    <title>Painel de Manutenção - Gestão de Frotas & Análise</title>
+
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="apple-touch-icon" href="logo.jpg">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* ===== TEMAS DE CORES UNIVERSAIS ===== */
+        :root, html[data-theme="classic"], body[data-theme="classic"] {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface2: #334155;
+            --border: #475569;
+            --txt: #f8fafc;
+            --muted: #94a3b8;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --accent: #38bdf8;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --card-shadow: 0 8px 24px rgba(0,0,0,0.35);
+            --header-bg: rgba(15, 23, 42, 0.95);
+            --header-h: 64px;
+            --nav-h: 62px;
+        }
+
+        html[data-theme="dark"], body[data-theme="dark"] {
+            --bg: #000000;
+            --surface: #121212;
+            --surface2: #242424;
+            --border: #333333;
+            --txt: #ffffff;
+            --muted: #888888;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --accent: #60a5fa;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --card-shadow: 0 8px 24px rgba(0,0,0,0.8);
+            --header-bg: rgba(18, 18, 18, 0.95);
+        }
+
+        html[data-theme="light"], body[data-theme="light"] {
+            --bg: #f1f5f9;
+            --surface: #ffffff;
+            --surface2: #e2e8f0;
+            --border: #cbd5e1;
+            --txt: #0f172a;
+            --muted: #64748b;
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --accent: #0284c7;
+            --success: #16a34a;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --card-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            --header-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        html[data-theme="carbon"], body[data-theme="carbon"] {
+            --bg: #0a0a0a;
+            --surface: #1a1a1a;
+            --surface2: #2a2a2a;
+            --border: #404040;
+            --txt: #e5e5e5;
+            --muted: #888888;
+            --primary: #6b6b6b;
+            --primary-hover: #888888;
+            --accent: #c8c8c8;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --card-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            --header-bg: rgba(10,10,10,0.97);
+        }
+
+        html[data-theme="cyber"], body[data-theme="cyber"] {
+            --bg: #000d1a;
+            --surface: #001529;
+            --surface2: #002244;
+            --border: #00aaff33;
+            --txt: #e0f4ff;
+            --muted: #5ab4d4;
+            --primary: #00aaff;
+            --primary-hover: #0088cc;
+            --accent: #00ffee;
+            --success: #00ff88;
+            --warning: #ffbb00;
+            --danger: #ff3366;
+            --card-shadow: 0 8px 32px rgba(0,170,255,0.15);
+            --header-bg: rgba(0,13,26,0.97);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at top right, rgba(37,99,235,0.1) 0%, transparent 50%),
+                              radial-gradient(circle at bottom left, rgba(16,185,129,0.06) 0%, transparent 50%);
+            color: var(--txt);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: var(--nav-h);
+        }
+
+        @media (min-width: 900px) {
+            body {
+                padding-bottom: 24px;
+            }
+        }
+
+        /* ===== HEADER UNIFICADO (Mobile / Tablet / Desktop) ===== */
+        header.app-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-h);
+            background: var(--header-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            gap: 12px;
+            z-index: 1000;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .header-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            letter-spacing: -0.3px;
+        }
+
+        .header-sub {
+            font-size: 0.72rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .header-center {
+            display: none;
+            flex: 1;
+            max-width: 380px;
+            margin: 0 16px;
+        }
+
+        @media (min-width: 768px) {
+            .header-center { display: block; }
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--txt);
+            font-size: 0.85rem;
+            padding: 8px 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus { border-color: var(--accent); }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-top {
+            background: var(--surface2);
+            color: var(--txt);
+            border: 1px solid var(--border);
+            padding: 7px 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+        .btn-top:hover { background: var(--surface); border-color: var(--accent); }
+        .btn-icon-only { padding: 8px 10px; font-size: 1.1rem; }
+
+        /* ===== CONTAINER PRINCIPAL RESPONSIVO ===== */
+        .app-main {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px;
+            flex: 1;
+        }
+
+        @media (min-width: 768px) {
+            .app-main { padding: 24px 20px; }
+        }
+
+        /* ===== TELAS / SCREENS ===== */
+        .screen { display: none; }
+        .screen.active { display: block; animation: fadeIn 0.2s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== SEÇÕES & TÍTULOS ===== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--txt);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-sub {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* ===== WI-FI BANNER ===== */
+        .wifi-banner {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .wifi-ip-badge {
+            background: rgba(56,189,248,0.15);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            font-weight: 800;
+            border: 1px solid rgba(56,189,248,0.3);
+        }
+
+        /* ===== GRID DE MÓDULOS (Fluido / 1 col em Celular, 2 em Tablet, 4 em PC) ===== */
+        .module-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        @media (min-width: 480px) {
+            .module-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 900px) {
+            .module-grid { grid-template-columns: repeat(4, 1fr); gap: 18px; }
+        }
+
+        .module-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: var(--card-shadow);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .module-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+        }
+        .module-card:active { transform: scale(0.98); }
+
+        .module-card.primary-highlight {
+            background: linear-gradient(135deg, rgba(37,99,235,0.2) 0%, var(--surface) 100%);
+            border: 1.5px solid var(--primary);
+            grid-column: 1 / -1;
+            flex-direction: row;
+            text-align: left;
+            padding: 20px 24px;
+            gap: 18px;
+        }
+
+        @media (min-width: 900px) {
+            .module-card.primary-highlight {
+                grid-column: span 2;
+            }
+        }
+
+        .module-card-icon {
+            font-size: 2.2rem;
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: var(--surface2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+        .module-card:hover .module-card-icon { transform: scale(1.1); }
+        .primary-highlight .module-card-icon { background: var(--primary); color: #fff; }
+
+        .module-card-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .module-card-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--txt);
+        }
+        .primary-highlight .module-card-title { font-size: 1.15rem; }
+
+        .module-card-desc {
+            font-size: 0.76rem;
+            color: var(--muted);
+            line-height: 1.35;
+        }
+
+        .module-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 10px;
+            background: rgba(56,189,248,0.15);
+            color: var(--accent);
+            border: 1px solid rgba(56,189,248,0.3);
+        }
+
+        /* ===== FORMULÁRIOS & CARDS ===== */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+
+        input[type=text], input[type=number], input[type=date],
+        input[type=email], select, textarea {
+            width: 100%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--txt);
+            font-size: 0.88rem;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+        textarea { resize: vertical; min-height: 85px; }
+        select option { background: var(--surface); }
+
+        .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+
+        @media (max-width: 540px) {
+            .row2, .row3 { grid-template-columns: 1fr; }
+        }
+
+        /* ===== BOTÕES ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            padding: 11px 18px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-family: inherit;
+            text-decoration: none;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn:active { transform: scale(0.97); }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-success { background: var(--success); color: #fff; }
+        .btn-danger { background: var(--danger); color: #fff; }
+        .btn-secondary { background: var(--surface2); color: var(--txt); border: 1px solid var(--border); }
+        .btn-warning { background: var(--warning); color: #000; }
+        .btn-accent { background: var(--accent); color: #000; }
+        .btn-sm { padding: 7px 12px; font-size: 0.78rem; width: auto; margin-bottom: 0; }
+        .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        @media (min-width: 640px) {
+            .btn-auto-width { width: auto; min-width: 150px; }
+        }
+
+        /* ===== ITENS DE CRÍTICA ===== */
+        .item-row {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .item-row input { margin-bottom: 0; }
+        .item-remove {
+            background: none;
+            border: none;
+            color: var(--danger);
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 4px;
+            flex-shrink: 0;
+        }
+
+        .total-bar {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+        }
+        .total-item { display: flex; flex-direction: column; }
+        .total-label { font-size: 0.72rem; color: var(--muted); }
+        .total-val { font-size: 1.2rem; font-weight: 900; color: var(--success); }
+        .total-val.accent { color: var(--accent); }
+
+        /* ===== FOTOS & ANEXOS ===== */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .photo-thumb {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .photo-add-btn {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            border: 2px dashed var(--border);
+            background: var(--surface2);
+            color: var(--muted);
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .photo-add-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* ===== CARDS DE HISTÓRICO ===== */
+        .critica-list-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        @media (min-width: 640px) {
+            .critica-list-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1000px) {
+            .critica-list-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .critica-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: transform 0.15s, border-color 0.15s;
+        }
+        .critica-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+        .critica-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .critica-card-title { font-size: 1rem; font-weight: 800; color: var(--txt); }
+        .critica-card-meta { font-size: 0.75rem; color: var(--muted); line-height: 1.4; }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 0.68rem;
+            font-weight: 800;
+        }
+        .badge-success { background: rgba(34,197,94,0.15); color: var(--success); }
+        .badge-warning { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .badge-danger { background: rgba(239,68,68,0.15); color: var(--danger); }
+        .badge-primary { background: rgba(37,99,235,0.2); color: var(--accent); }
+
+        /* ===== CHECKLISTS ===== */
+        .check-item {
+            background: var(--surface2);
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .check-label { font-size: 0.84rem; flex: 1; font-weight: 600; }
+        .check-btns { display: flex; gap: 6px; }
+        .check-opt {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--muted);
+            font-size: 0.75rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .check-opt.c-ok { background: var(--success); color: #fff; border-color: var(--success); }
+        .check-opt.c-nc { background: var(--danger); color: #fff; border-color: var(--danger); }
+        .check-opt.c-na { background: var(--surface2); color: var(--muted); border-color: var(--border); }
+
+        /* ===== ASSINATURA DIGITAL ===== */
+        canvas#sigCanvas {
+            width: 100%;
+            height: 160px;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            touch-action: none;
+            display: block;
+        }
+
+        /* ===== BOTTOM NAV (Mobile Only) ===== */
+        nav.bottom-nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: var(--nav-h);
+            background: var(--header-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            z-index: 1000;
+        }
+        @media (min-width: 900px) {
+            nav.bottom-nav { display: none; }
+        }
+
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 10px;
+            transition: all 0.15s;
+            min-width: 50px;
+        }
+        .nav-btn.active { color: var(--accent); transform: scale(1.05); }
+        .nav-icon { font-size: 1.3rem; }
+        .nav-label { font-size: 0.62rem; font-weight: 700; }
+
+        /* ===== MODAIS ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            width: 100%;
+            max-width: 540px;
+            max-height: 88vh;
+            overflow-y: auto;
+            box-shadow: var(--card-shadow);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .modal-title { font-size: 1.1rem; font-weight: 800; color: var(--txt); display: flex; align-items: center; gap: 8px; }
+        .close-btn { background: none; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; }
+        .close-btn:hover { color: var(--txt); }
+
+        .hidden { display: none !important; }
+        .gap8 { display: flex; gap: 8px; }
+        .empty-state { text-align: center; padding: 40px 16px; color: var(--muted); }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER UNIFICADO ===== -->
+<header class="app-header">
+    <div class="header-brand" onclick="navTo('home')">
+        <img src="logo.jpg" alt="Logo" class="header-logo" onerror="this.src='icon-192.png'">
+        <div class="header-text">
+            <div class="header-title" id="headerTitle">Manutenção na Mão</div>
+            <div class="header-sub" id="headerSub">Gestão de Frotas & Análises</div>
+        </div>
+    </div>
+
+    <div class="header-center">
+        <input type="text" class="search-input" id="globalSearchInput" placeholder="🔍 Buscar equipamento, OS, frota..." oninput="filtrarGlobal(this.value)">
+    </div>
+
+    <div class="header-actions">
+        <button class="btn-top" onclick="navTo('critica')">➕ Nova</button>
+        <button class="btn-top" onclick="abrirModal('modalCalc')">🧮 Calc</button>
+        <button class="btn-top btn-icon-only" onclick="abrirModal('modalConfig')" title="Configurações">⚙️</button>
+    </div>
+</header>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="app-main">
+
+    <!-- =============================== -->
+    <!-- TELA 0: HOME - HUB DE MÓDULOS   -->
+    <!-- =============================== -->
+    <div class="screen active" id="screen-home">
+        
+        <!-- BANNER DE CONEXÃO WI-FI -->
+        <div class="wifi-banner">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <span style="font-size:1.4rem;">📡</span>
+                <div>
+                    <div style="font-size:0.85rem; font-weight:700;">Servidor Central / Wi-Fi</div>
+                    <div style="font-size:0.75rem; color:var(--muted);">Dispositivos na mesma rede sincronizam automaticamente</div>
+                </div>
+            </div>
+            <div class="wifi-ip-badge" id="wifiIpDisplay">Detectando...</div>
+        </div>
+
+        <div class="section-header">
+            <div>
+                <div class="section-title">Painel de Módulos</div>
+                <div class="section-sub">Acesse as ferramentas operacionais de campo e oficina</div>
+            </div>
+        </div>
+
+        <div class="module-grid">
+            
+            <!-- 1. NOVA CRÍTICA (DESTAQUE) -->
+            <div class="module-card primary-highlight" onclick="navTo('critica')">
+                <div class="module-card-icon">💰</div>
+                <div class="module-card-text">
+                    <span class="module-badge">Principal</span>
+                    <div class="module-card-title">Nova Crítica de Orçamento</div>
+                    <div class="module-card-desc">Auditoria técnica de peças e serviços, fotos, cálculo de descontos e emissão de laudo em PDF.</div>
+                </div>
+            </div>
+
+            <!-- 2. CONSULTAR CRÍTICAS -->
+            <div class="module-card" onclick="navTo('consultar')">
+                <span class="module-badge" id="homeBadgeCount">0 Salvas</span>
+                <div class="module-card-icon">📂</div>
+                <div class="module-card-text">
+                    <div class="module-card-title">Consultar Críticas</div>
+                    <div class="module-card-desc">Histórico completo, busca rápida e laudos.</div>
+                </div>
+            </div>
+
+            <!-- 3. ORDEM DE SERVIÇO EM CAMPO -->
+            <div class="module-card" onclick="navTo('os')">
+                <div class="module-card-icon">🚜</div>
+                <div class="module-card-text">
+                    <div class="module-card-title">Ordem de Serviço Campo</div>
+                    <div class="module-card-desc">KM rodado, serviços e assinatura digital.</div>
+                </div>
+            </div>
+
+            <!-- 4. CHECK-IN ENTRADA -->
+            <div class="module-card" onclick="navTo('checkin')">
+                <div class="module-card-icon">📥</div>
+                <div class="module-card-text">
+                    <div class="module-card-title">Check-In Entrada</div>
+                    <div class="module-card-desc">Vistoria e recebimento de máquinas.</div>
+                </div>
+            </div>
+
+            <!-- 5. CHECK-OUT SAÍDA -->
+            <div class="module-card" onclick="navTo('checkout')">
+                <div class="module-card-icon">📤</div>
+                <div class="module-card-text">
+                    <div class="module-card-title">Check-Out Saída</div>
+                    <div class="module-card-desc">Inspeção de liberação técnica.</div>
+                </div>
+            </div>
+
+            <!-- 6. SINCRONIZAÇÃO WI-FI -->
+            <div class="module-card" onclick="navTo('sync')">
+                <div class="module-card-icon">📡</div>
+                <div class="module-card-text">
+                    <div class="module-card-title">Sincronização Wi-Fi</div>
+                    <div class="module-card-desc">Enviar dados ao computador central.</div>
+                </div>
+            </div>
+
+            <!-- 7. AJUDA & TUTORIAIS -->
+            <div class="module-card" onclick="navTo('ajuda')">
+                <div class="module-card-icon">📖</div>
+                <div class="module-card-text">
+                    <div class="module-card-title">Ajuda & Tutoriais</div>
+                    <div class="module-card-desc">Guias práticos passo a passo.</div>
+                </div>
+            </div>
+
+            <!-- 8. SOBRE O SISTEMA -->
+            <div class="module-card" onclick="navTo('sobre')">
+                <div class="module-card-icon">ℹ️</div>
+                <div class="module-card-text">
+                    <div class="module-card-title">Sobre o Sistema</div>
+                    <div class="module-card-desc">Versão 2.0 Pro e arquitetura.</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =============================== -->
+    <!-- TELA 1: NOVA CRÍTICA            -->
+    <!-- =============================== -->
+    <div class="screen" id="screen-critica">
+        <div class="section-header">
+            <div>
+                <div class="section-title">💰 Nova Crítica de Orçamento</div>
+                <div class="section-sub">Audite valores, negocie descontos e anexe laudos visuais</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="navTo('home')">⬅ Voltar</button>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📋 Identificação Básica</div>
+            <div class="row2">
+                <div>
+                    <label>Equipamento / Máquina *</label>
+                    <input type="text" id="c_equipamento" placeholder="Ex: Colheitadeira John Deere S760">
+                </div>
+                <div>
+                    <label>Número da Frota *</label>
+                    <input type="text" id="c_frota" placeholder="Ex: FR-042">
+                </div>
+            </div>
+            <div class="row3">
+                <div>
+                    <label>Número da OS</label>
+                    <input type="text" id="c_os" placeholder="Ex: OS-138258">
+                </div>
+                <div>
+                    <label>Oficina / Fornecedor</label>
+                    <input type="text" id="c_oficina" placeholder="Ex: Oficina Central">
+                </div>
+                <div>
+                    <label>Data</label>
+                    <input type="date" id="c_data">
+                </div>
+            </div>
+            <label>Técnico Responsável</label>
+            <input type="text" id="c_tecnico" placeholder="Nome do avaliador">
+        </div>
+
+        <div class="card">
+            <div class="card-title">🔍 Parecer & Gravidade</div>
+            <label>Descrição do Problema / Sintoma</label>
+            <textarea id="c_problema" placeholder="Descreva os problemas identificados no equipamento..."></textarea>
+            
+            <label>Parecer Técnico / Recomendação</label>
+            <textarea id="c_parecer" placeholder="Orientações técnicas, laudo e cortes recomendados..."></textarea>
+            
+            <div class="row2">
+                <div>
+                    <label>Gravidade</label>
+                    <select id="c_gravidade">
+                        <option value="alta">🔴 Alta - Urgente</option>
+                        <option value="media" selected>🟡 Média</option>
+                        <option value="baixa">🟢 Baixa</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Status</label>
+                    <select id="c_status">
+                        <option value="Em andamento">Em andamento</option>
+                        <option value="Aprovado">Aprovado</option>
+                        <option value="Negociado">Negociado</option>
+                        <option value="Reprovado">Reprovado</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">⚙️ Peças e Serviços Auditados</div>
+            <div id="itensList"></div>
+            <button class="btn btn-secondary" onclick="adicionarItem()">➕ Adicionar Peça ou Serviço</button>
+
+            <div class="total-bar">
+                <div class="total-item">
+                    <span class="total-label">Total Orçado:</span>
+                    <span class="total-val" id="totalOrcado" style="color:var(--txt);">R$ 0,00</span>
+                </div>
+                <div class="total-item">
+                    <span class="total-label">Total Negociado:</span>
+                    <span class="total-val" id="totalNegociado">R$ 0,00</span>
+                </div>
+                <div class="total-item">
+                    <span class="total-label">Economia Gerada:</span>
+                    <span class="total-val accent" id="totalEconomia">R$ 0,00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📷 Fotos do Equipamento / Peças</div>
+            <div class="photo-grid" id="fotoGrid">
+                <div class="photo-add-btn" onclick="document.getElementById('fotoInput').click()">➕</div>
+            </div>
+            <input type="file" id="fotoInput" accept="image/*,video/*" multiple class="hidden" onchange="adicionarFotos(event)">
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-success btn-auto-width" onclick="salvarCritica()">💾 Salvar Crítica</button>
+            <button class="btn btn-primary btn-auto-width" onclick="gerarPDFCritica()">📄 Gerar Laudo PDF</button>
+            <button class="btn btn-warning btn-auto-width" onclick="compartilharWhatsApp('critica')">📲 Compartilhar WhatsApp</button>
+            <button class="btn btn-secondary btn-auto-width" onclick="limparFormCritica()">🗑️ Limpar</button>
+        </div>
+    </div>
+
+    <!-- =============================== -->
+    <!-- TELA 2: CONSULTAR CRÍTICAS      -->
+    <!-- =============================== -->
+    <div class="screen" id="screen-consultar">
+        <div class="section-header">
+            <div>
+                <div class="section-title">📂 Críticas de Orçamento Salvas</div>
+                <div class="section-sub" id="subTotalCriticas">Histórico completo de auditorias registradas</div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="navTo('critica')">➕ Nova Crítica</button>
+        </div>
+
+        <input type="text" class="search-input" placeholder="🔍 Filtrar por equipamento, frota, OS ou oficina..." oninput="renderCriticas(this.value)" id="searchCritica" style="margin-bottom:16px;">
+
+        <div id="listaCriticas" class="critica-list-grid"></div>
+    </div>
+
+    <!-- =============================== -->
+    <!-- TELA 3: ORDEM DE SERVIÇO        -->
+    <!-- =============================== -->
+    <div class="screen" id="screen-os">
+        <div class="section-header">
+            <div>
+                <div class="section-title">🚜 Ordem de Serviço em Campo</div>
+                <div class="section-sub">Controle de KM e execução com assinatura digital</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="navTo('home')">⬅ Voltar</button>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📋 Identificação</div>
+            <div class="row2">
+                <div>
+                    <label>Equipamento / Veículo *</label>
+                    <input type="text" id="os_equip" placeholder="Máquina ou veículo">
+                </div>
+                <div>
+                    <label>Frota / Placa</label>
+                    <input type="text" id="os_frota" placeholder="Identificação da frota">
+                </div>
+            </div>
+            <div class="row2">
+                <div>
+                    <label>Técnico Responsável</label>
+                    <input type="text" id="os_tecnico" placeholder="Nome do técnico">
+                </div>
+                <div>
+                    <label>Data</label>
+                    <input type="date" id="os_data">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📏 Quilometragem & Deslocamento</div>
+            <div class="row2">
+                <div>
+                    <label>KM Inicial</label>
+                    <input type="number" id="os_km_ini" placeholder="0" oninput="calcKM()">
+                </div>
+                <div>
+                    <label>KM Final</label>
+                    <input type="number" id="os_km_fin" placeholder="0" oninput="calcKM()">
+                </div>
+            </div>
+            <div style="font-size:0.85rem; color:var(--muted); margin-top:4px;">
+                Deslocamento Total: <strong id="os_km_total" style="color:var(--accent); font-size:1.1rem;">0 km</strong>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🔧 Descrição dos Serviços Executados</div>
+            <label>Serviços Realizados</label>
+            <textarea id="os_servicos" placeholder="Relate todas as intervenções realizadas no equipamento..."></textarea>
+            
+            <label>Observações Adicionais</label>
+            <textarea id="os_obs" placeholder="Observações, peças aplicadas, pendências..."></textarea>
+        </div>
+
+        <div class="card">
+            <div class="card-title">✍️ Assinatura Digital do Cliente</div>
+            <canvas id="sigCanvas"></canvas>
+            <div class="gap8" style="margin-top:10px;">
+                <button class="btn btn-secondary btn-sm" onclick="limparAssinatura()">🗑️ Limpar Assinatura</button>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-success btn-auto-width" onclick="salvarOS()">💾 Salvar OS</button>
+            <button class="btn btn-primary btn-auto-width" onclick="gerarPDFOS()">📄 Gerar PDF da OS</button>
+            <button class="btn btn-warning btn-auto-width" onclick="compartilharWhatsApp('os')">📲 WhatsApp</button>
+            <button class="btn btn-secondary btn-auto-width" onclick="limparFormOS()">🗑️ Novo</button>
+        </div>
+    </div>
+
+    <!-- =============================== -->
+    <!-- TELA 4: CHECK-IN ENTRADA        -->
+    <!-- =============================== -->
+    <div class="screen" id="screen-checkin">
+        <div class="section-header">
+            <div>
+                <div class="section-title">📥 Check-In de Entrada</div>
+                <div class="section-sub">Vistoria e recebimento de máquinas na oficina</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="navTo('home')">⬅ Voltar</button>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📋 Dados do Equipamento</div>
+            <div class="row2">
+                <div>
+                    <label>Equipamento *</label>
+                    <input type="text" id="ci_equip" placeholder="Tipo de máquina">
+                </div>
+                <div>
+                    <label>Frota / Placa</label>
+                    <input type="text" id="ci_frota" placeholder="Identificação">
+                </div>
+            </div>
+            <div class="row2">
+                <div>
+                    <label>Responsável pelo Recebimento</label>
+                    <input type="text" id="ci_resp" placeholder="Nome">
+                </div>
+                <div>
+                    <label>Data de Entrada</label>
+                    <input type="date" id="ci_data">
+                </div>
+            </div>
+            <label>Classe do Equipamento</label>
+            <select id="ci_classe" onchange="carregarChecklistEntrada()">
+                <option value="trator">🚜 Trator Agrícola</option>
+                <option value="colheitadeira">🌾 Colheitadeira</option>
+                <option value="caminhao">🚛 Caminhão / Carreta</option>
+                <option value="plantadeira">🌱 Plantadeira / Semeadeira</option>
+                <option value="pulverizador">💧 Pulverizador</option>
+                <option value="retro">🚧 Retroescavadeira / PC</option>
+                <option value="outro">⚙️ Outro Equipamento</option>
+            </select>
+        </div>
+
+        <div class="card">
+            <div class="card-title">✅ Itens de Inspeção de Entrada</div>
+            <div id="checklistEntrada"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📷 Fotos de Avarias Pré-existentes</div>
+            <div class="photo-grid" id="ciPhotoGrid">
+                <div class="photo-add-btn" onclick="document.getElementById('ciPhotoInput').click()">➕</div>
+            </div>
+            <input type="file" id="ciPhotoInput" accept="image/*,video/*" multiple class="hidden" onchange="adicionarFotosCheckin(event)">
+            
+            <label style="margin-top:12px;">Observações de Entrada</label>
+            <textarea id="ci_obs" placeholder="Avarias pré-existentes, faltas de componentes, etc."></textarea>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-success btn-auto-width" onclick="salvarCheckin()">💾 Salvar Check-In</button>
+            <button class="btn btn-primary btn-auto-width" onclick="gerarPDFCheckin()">📄 Gerar PDF</button>
+            <button class="btn btn-secondary btn-auto-width" onclick="limparCheckin()">🗑️ Limpar</button>
+        </div>
+    </div>
+
+    <!-- =============================== -->
+    <!-- TELA 5: CHECK-OUT SAÍDA         -->
+    <!-- =============================== -->
+    <div class="screen" id="screen-checkout">
+        <div class="section-header">
+            <div>
+                <div class="section-title">📤 Check-Out de Saída</div>
+                <div class="section-sub">Inspeção de liberação técnica e controle de conformidade</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="navTo('home')">⬅ Voltar</button>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📋 Dados do Equipamento</div>
+            <div class="row2">
+                <div>
+                    <label>Equipamento *</label>
+                    <input type="text" id="co_equip" placeholder="Tipo de máquina">
+                </div>
+                <div>
+                    <label>Frota / Placa</label>
+                    <input type="text" id="co_frota" placeholder="Identificação">
+                </div>
+            </div>
+            <div class="row2">
+                <div>
+                    <label>Responsável pela Liberação</label>
+                    <input type="text" id="co_resp" placeholder="Nome">
+                </div>
+                <div>
+                    <label>Data de Saída</label>
+                    <input type="date" id="co_data">
+                </div>
+            </div>
+            <label>Classe do Equipamento</label>
+            <select id="co_classe" onchange="carregarChecklistSaida()">
+                <option value="trator">🚜 Trator Agrícola</option>
+                <option value="colheitadeira">🌾 Colheitadeira</option>
+                <option value="caminhao">🚛 Caminhão / Carreta</option>
+                <option value="plantadeira">🌱 Plantadeira / Semeadeira</option>
+                <option value="pulverizador">💧 Pulverizador</option>
+                <option value="retro">🚧 Retroescavadeira / PC</option>
+                <option value="outro">⚙️ Outro Equipamento</option>
+            </select>
+        </div>
+
+        <div class="card">
+            <div class="card-title">✅ Itens de Liberação Técnica</div>
+            <div id="checklistSaida"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📷 Fotos da Liberação & Laudo</div>
+            <div class="photo-grid" id="coPhotoGrid">
+                <div class="photo-add-btn" onclick="document.getElementById('coPhotoInput').click()">➕</div>
+            </div>
+            <input type="file" id="coPhotoInput" accept="image/*,video/*" multiple class="hidden" onchange="adicionarFotosCheckout(event)">
+            
+            <label style="margin-top:12px;">Status da Liberação</label>
+            <select id="co_liberado">
+                <option value="liberado">🟢 Liberado para Operação</option>
+                <option value="condicional">🟡 Liberado com Restrições</option>
+                <option value="retido">🔴 Retido - Não Liberado</option>
+            </select>
+
+            <label>Observações Finais de Liberação</label>
+            <textarea id="co_obs" placeholder="Observações sobre o estado de entrega do equipamento..."></textarea>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-success btn-auto-width" onclick="salvarCheckout()">💾 Salvar Check-Out</button>
+            <button class="btn btn-primary btn-auto-width" onclick="gerarPDFCheckout()">📄 Gerar PDF</button>
+            <button class="btn btn-secondary btn-auto-width" onclick="limparCheckout()">🗑️ Limpar</button>
+        </div>
+    </div>
+
+    <!-- =============================== -->
+    <!-- TELA 6: SINCRONIZAÇÃO WI-FI     -->
+    <!-- =============================== -->
+    <div class="screen" id="screen-sync">
+        <div class="section-header">
+            <div>
+                <div class="section-title">📡 Sincronização Wi-Fi</div>
+                <div class="section-sub">Troca direta de relatórios entre celulares e computador</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="navTo('home')">⬅ Voltar</button>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🌐 Conexão em Rede Local</div>
+            <p style="font-size:0.85rem; color:var(--muted); line-height:1.4; margin-bottom:14px;">
+                Os dispositivos na mesma rede Wi-Fi podem sincronizar os dados sem necessitar de internet.
+            </p>
+            <div class="row2">
+                <div>
+                    <label>IP do Servidor / Computador</label>
+                    <input type="text" id="syncIp" placeholder="Ex: 192.168.1.10">
+                </div>
+                <div>
+                    <label>Porta</label>
+                    <input type="number" id="syncPort" placeholder="8080" value="8080">
+                </div>
+            </div>
+            <div id="syncStatus" style="font-size:0.85rem; margin-bottom:14px; min-height:20px; font-weight:700;"></div>
+            
+            <div class="btn-row">
+                <button class="btn btn-accent btn-auto-width" onclick="testarConexao()">🔌 Testar Conexão</button>
+                <button class="btn btn-success btn-auto-width" onclick="sincronizarTudo()">🔄 Sincronizar Tudo</button>
+                <button class="btn btn-primary btn-auto-width" onclick="exportarJSON()">📤 Backup JSON</button>
+                <button class="btn btn-secondary btn-auto-width" onclick="document.getElementById('importInput').click()">📥 Importar JSON</button>
+                <input type="file" id="importInput" accept=".json" class="hidden" onchange="processarImport(event)">
+            </div>
+        </div>
+    </div>
+
+    <!-- =============================== -->
+    <!-- TELA 7: AJUDA & TUTORIAIS       -->
+    <!-- =============================== -->
+    <div class="screen" id="screen-ajuda">
+        <div class="section-header">
+            <div>
+                <div class="section-title">📖 Ajuda & Tutoriais</div>
+                <div class="section-sub">Guias visuais passo a passo de operação</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="navTo('home')">⬅ Voltar</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px;">
+            <div class="card" style="border-left:4px solid var(--primary);">
+                <div class="card-title">💰 1. Crítica de Orçamento</div>
+                <p style="font-size:0.8rem; color:var(--muted); line-height:1.6;">
+                    1. Clique em <strong>Nova Crítica</strong>.<br>
+                    2. Preencha Equipamento, Frota e OS.<br>
+                    3. Insira as peças com valor orçado e valor negociado.<br>
+                    4. Fotografe as peças e gere o PDF para envio no WhatsApp.
+                </p>
+            </div>
+            <div class="card" style="border-left:4px solid var(--success);">
+                <div class="card-title">🚜 2. Ordem de Serviço</div>
+                <p style="font-size:0.8rem; color:var(--muted); line-height:1.6;">
+                    1. Insira os dados de deslocamento (KM inicial e final).<br>
+                    2. Relate os serviços executados.<br>
+                    3. Colete a assinatura do cliente diretamente na tela.<br>
+                    4. Emita o relatório com assinatura digital.
+                </p>
+            </div>
+            <div class="card" style="border-left:4px solid var(--warning);">
+                <div class="card-title">📥 3. Check-In & Check-Out</div>
+                <p style="font-size:0.8rem; color:var(--muted); line-height:1.6;">
+                    1. Escolha a classe da máquina (Trator, Colheitadeira...).<br>
+                    2. Marque Conforme (C), Não Conforme (NC) ou Não Aplica (NA).<br>
+                    3. Fotografe avarias na entrada e libere a máquina na saída.
+                </p>
+            </div>
+            <div class="card" style="border-left:4px solid var(--accent);">
+                <div class="card-title">📡 4. Sincronização Wi-Fi</div>
+                <p style="font-size:0.8rem; color:var(--muted); line-height:1.6;">
+                    1. Conecte o celular e computador no mesmo Wi-Fi.<br>
+                    2. Digite o IP exibido no topo do painel desktop.<br>
+                    3. Clique em <strong>Sincronizar Tudo</strong> para transferir os relatórios.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- =============================== -->
+    <!-- TELA 8: SOBRE O SISTEMA         -->
+    <!-- =============================== -->
+    <div class="screen" id="screen-sobre">
+        <div class="section-header">
+            <div>
+                <div class="section-title">ℹ️ Sobre o Sistema</div>
+                <div class="section-sub">Manutenção na Mão v2.0 Pro</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="navTo('home')">⬅ Voltar</button>
+        </div>
+
+        <div class="card" style="text-align:center; padding:30px 20px;">
+            <img src="logo.jpg" alt="Logo" style="width:84px; height:84px; border-radius:18px; margin-bottom:14px; box-shadow:0 4px 20px rgba(37,99,235,0.4);" onerror="this.src='icon-192.png'">
+            <h2 style="font-size:1.4rem; font-weight:900; margin-bottom:2px;">Manutenção na Mão</h2>
+            <p style="font-size:0.9rem; color:var(--accent); font-weight:800; margin-bottom:14px;">"Organização e controle na sua mão"</p>
+            <div style="display:inline-block; background:linear-gradient(135deg,var(--primary),var(--accent)); color:#fff; padding:6px 18px; border-radius:20px; font-size:0.8rem; font-weight:800; margin-bottom:20px;">
+                Versão 2.0 Pro Universal
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; text-align:left; margin-top:10px;">
+                <div style="background:var(--surface2); border-radius:12px; padding:14px;">
+                    <div style="font-size:1.4rem; margin-bottom:4px;">📱</div>
+                    <div style="font-size:0.82rem; font-weight:800;">App Celular (APK)</div>
+                    <div style="font-size:0.72rem; color:var(--muted);">100% autônomo e offline em campo.</div>
+                </div>
+                <div style="background:var(--surface2); border-radius:12px; padding:14px;">
+                    <div style="font-size:1.4rem; margin-bottom:4px;">💻</div>
+                    <div style="font-size:0.82rem; font-weight:800;">Painel Computador</div>
+                    <div style="font-size:0.72rem; color:var(--muted);">Servidor HTTP nativo e relatórios panorâmicos.</div>
+                </div>
+                <div style="background:var(--surface2); border-radius:12px; padding:14px;">
+                    <div style="font-size:1.4rem; margin-bottom:4px;">📡</div>
+                    <div style="font-size:0.82rem; font-weight:800;">Sync Wi-Fi</div>
+                    <div style="font-size:0.72rem; color:var(--muted);">Zero dependência de internet ou nuvem.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- ===== BOTTOM NAVIGATION (Mobile/Tablet) ===== -->
+<nav class="bottom-nav">
+    <button class="nav-btn active" id="nav-home" onclick="navTo('home')">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Início</span>
+    </button>
+    <button class="nav-btn" id="nav-critica" onclick="navTo('critica')">
+        <span class="nav-icon">💰</span>
+        <span class="nav-label">Crítica</span>
+    </button>
+    <button class="nav-btn" id="nav-consultar" onclick="navTo('consultar')">
+        <span class="nav-icon">📂</span>
+        <span class="nav-label">Histórico</span>
+    </button>
+    <button class="nav-btn" id="nav-sync" onclick="navTo('sync')">
+        <span class="nav-icon">📡</span>
+        <span class="nav-label">Wi-Fi</span>
+    </button>
+    <button class="nav-btn" id="nav-ajuda" onclick="navTo('ajuda')">
+        <span class="nav-icon">📖</span>
+        <span class="nav-label">Ajuda</span>
+    </button>
+</nav>
+
+<!-- ===== MODAL: CONFIGURAÇÕES & TEMAS ===== -->
+<div class="modal-overlay" id="modalConfig">
+    <div class="modal-box">
+        <div class="modal-header">
+            <div class="modal-title">⚙️ Configurações</div>
+            <button class="close-btn" onclick="fecharModal('modalConfig')">✖</button>
+        </div>
+
+        <label>🎨 Tema Visual</label>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-bottom:16px;">
+            <button class="btn btn-secondary btn-sm" onclick="setTema('classic')">🎨 Azul</button>
+            <button class="btn btn-secondary btn-sm" onclick="setTema('carbon')">⬛ Carbon</button>
+            <button class="btn btn-secondary btn-sm" onclick="setTema('cyber')">🔵 Cyber</button>
+            <button class="btn btn-secondary btn-sm" onclick="setTema('dark')">🌑 Escuro</button>
+            <button class="btn btn-secondary btn-sm" onclick="setTema('light')">☀️ Claro</button>
+        </div>
+
+        <label>🌐 IP do Servidor / Computador</label>
+        <input type="text" id="cfgIp" placeholder="Ex: 192.168.1.10">
+        <label>Porta</label>
+        <input type="number" id="cfgPort" placeholder="8080" value="8080">
+
+        <button class="btn btn-primary" onclick="salvarConfigIP()">💾 Salvar Configurações</button>
+        <button class="btn btn-secondary" onclick="fecharModal('modalConfig')">Fechar</button>
+    </div>
+</div>
+
+<!-- ===== MODAL: CALCULADORA RÁPIDA ===== -->
+<div class="modal-overlay" id="modalCalc">
+    <div class="modal-box">
+        <div class="modal-header">
+            <div class="modal-title">🧮 Calculadora de Descontos</div>
+            <button class="close-btn" onclick="fecharModal('modalCalc')">✖</button>
+        </div>
+
+        <label>Valor Original (R$)</label>
+        <input type="number" id="calcOrig" placeholder="0,00" oninput="calcDescontoRapido()">
+
+        <label>Percentual de Desconto (%)</label>
+        <input type="number" id="calcPerc" placeholder="Ex: 15" oninput="calcDescontoRapido()">
+
+        <div class="total-bar" style="margin-bottom:16px;">
+            <div class="total-item">
+                <span class="total-label">Economia:</span>
+                <span class="total-val accent" id="calcEco">R$ 0,00</span>
+            </div>
+            <div class="total-item">
+                <span class="total-label">Valor Final:</span>
+                <span class="total-val" id="calcFinal">R$ 0,00</span>
+            </div>
+        </div>
+
+        <button class="btn btn-secondary" onclick="fecharModal('modalCalc')">Fechar</button>
+    </div>
+</div>
+
+<!-- ===== MODAL: DETALHES DA CRÍTICA ===== -->
+<div class="modal-overlay" id="modalVerCritica">
+    <div class="modal-box" style="max-width:700px;">
+        <div class="modal-header">
+            <div class="modal-title">📄 Detalhes do Laudo</div>
+            <button class="close-btn" onclick="fecharModal('modalVerCritica')">✖</button>
+        </div>
+        <div id="detalhesCritica"></div>
+        <button class="btn btn-secondary" style="margin-top:14px;" onclick="fecharModal('modalVerCritica')">Fechar</button>
+    </div>
+</div>
+
+<!-- ===== SCRIPT UNIVERSAL RESPONSIVO ===== -->
+<script>
+'use strict';
+
+var DB_KEY = 'manutencao_criticas';
+var criticas = [];
+var itens = [];
+var fotasCritica = [];
+var fotasCheckin = [];
+var fotasCheckout = [];
+var sigPainting = false;
+var sigCtx = null;
+
+// Inicialização Universal
+window.addEventListener('DOMContentLoaded', function() {
+    carregarDados();
+    definirDataHoje();
+    carregarChecklistEntrada();
+    carregarChecklistSaida();
+    iniciarAssinatura();
+    atualizarBadge();
+    detectarServidorIp();
+});
+
+// Detecção Automática do IP do Servidor
+function detectarServidorIp() {
+    fetch('/api/ip')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+            var addr = 'http://' + d.ip + ':' + d.port;
+            var el = document.getElementById('wifiIpDisplay');
+            if (el) el.textContent = addr;
+            var si = document.getElementById('syncIp');
+            if (si && !si.value) si.value = d.ip;
+            var sp = document.getElementById('syncPort');
+            if (sp && !sp.value) sp.value = d.port;
+        })
+        .catch(function() {
+            var el = document.getElementById('wifiIpDisplay');
+            var savedIp = localStorage.getItem('sync_ip');
+            var savedPort = localStorage.getItem('sync_port') || '8080';
+            if (el) el.textContent = savedIp ? ('http://' + savedIp + ':' + savedPort) : 'Modo Offline';
+        });
+}
+
+function carregarDados() {
+    // 1. Tenta carregar do localStorage
+    try {
+        var raw = localStorage.getItem(DB_KEY);
+        criticas = raw ? JSON.parse(raw) : [];
+    } catch(e) { criticas = []; }
+
+    // 2. Se houver servidor local disponível, sincroniza
+    fetch('/api/data')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (Array.isArray(data) && data.length > 0) {
+                criticas = data;
+                localStorage.setItem(DB_KEY, JSON.stringify(criticas));
+                atualizarBadge();
+                if (telaAtual === 'consultar') renderCriticas('');
+            }
+        })
+        .catch(function() {});
+
+    var savedIp = localStorage.getItem('sync_ip');
+    var savedPort = localStorage.getItem('sync_port') || '8080';
+    if (savedIp) {
+        var si = document.getElementById('syncIp');
+        var sp = document.getElementById('syncPort');
+        var ci = document.getElementById('cfgIp');
+        var cp = document.getElementById('cfgPort');
+        if (si) si.value = savedIp;
+        if (sp) sp.value = savedPort;
+        if (ci) ci.value = savedIp;
+        if (cp) cp.value = savedPort;
+    }
+}
+
+function salvarDados() {
+    localStorage.setItem(DB_KEY, JSON.stringify(criticas));
+    atualizarBadge();
+    // Envia ao servidor se disponível
+    fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(criticas)
+    }).catch(function() {});
+}
+
+function definirDataHoje() {
+    var hoje = new Date().toISOString().split('T')[0];
+    ['c_data','os_data','ci_data','co_data'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && !el.value) el.value = hoje;
+    });
+}
+
+function atualizarBadge() {
+    var b = document.getElementById('homeBadgeCount');
+    if (b) b.textContent = criticas.length + ' Salvas';
+    var sub = document.getElementById('subTotalCriticas');
+    if (sub) sub.textContent = criticas.length + ' auditorias registradas';
+}
+
+// Navegação entre telas
+var telaAtual = 'home';
+function navTo(nome) {
+    document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+    document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
+
+    var tela = document.getElementById('screen-' + nome);
+    if (tela) tela.classList.add('active');
+
+    var nb = document.getElementById('nav-' + nome);
+    if (nb) nb.classList.add('active');
+
+    var titulos = {
+        'home': 'Manutenção na Mão',
+        'critica': 'Nova Crítica',
+        'consultar': 'Críticas Salvas',
+        'os': 'Ordem de Serviço',
+        'checkin': 'Check-In',
+        'checkout': 'Check-Out',
+        'sync': 'Sincronização Wi-Fi',
+        'ajuda': 'Ajuda & Tutoriais',
+        'sobre': 'Sobre o Sistema'
+    };
+    var ht = document.getElementById('headerTitle');
+    if (ht) ht.textContent = titulos[nome] || 'Manutenção na Mão';
+
+    telaAtual = nome;
+    window.scrollTo(0, 0);
+
+    if (nome === 'consultar') renderCriticas('');
+}
+
+// Modais
+function abrirModal(id) {
+    var m = document.getElementById(id);
+    if (m) m.classList.add('open');
+}
+function fecharModal(id) {
+    var m = document.getElementById(id);
+    if (m) m.classList.remove('open');
+}
+window.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal-overlay')) {
+        e.target.classList.remove('open');
+    }
+});
+
+// Temas
+function setTema(t) {
+    localStorage.setItem('app_theme', t);
+    document.documentElement.setAttribute('data-theme', t);
+    document.body.setAttribute('data-theme', t);
+}
+(function() {
+    var t = localStorage.getItem('app_theme') || 'classic';
+    document.documentElement.setAttribute('data-theme', t);
+})();
+
+function salvarConfigIP() {
+    var ip = (document.getElementById('cfgIp').value || '').trim();
+    var port = (document.getElementById('cfgPort').value || '8080').trim();
+    if (ip) {
+        localStorage.setItem('sync_ip', ip);
+        localStorage.setItem('sync_port', port);
+        var si = document.getElementById('syncIp');
+        var sp = document.getElementById('syncPort');
+        if (si) si.value = ip;
+        if (sp) sp.value = port;
+        alert('Configurações salvas!');
+        fecharModal('modalConfig');
+    }
+}
+
+// Calculadora
+function calcDescontoRapido() {
+    var orig = parseFloat(document.getElementById('calcOrig').value) || 0;
+    var perc = parseFloat(document.getElementById('calcPerc').value) || 0;
+    var eco = orig * perc / 100;
+    var fin = orig - eco;
+    document.getElementById('calcEco').textContent = 'R$ ' + eco.toFixed(2).replace('.', ',');
+    document.getElementById('calcFinal').textContent = 'R$ ' + fin.toFixed(2).replace('.', ',');
+}
+
+// Itens da Crítica
+function adicionarItem() {
+    itens.push({ id: Date.now(), descricao: '', qtd: 1, vlOrcado: 0, vlNegociado: 0 });
+    renderItens();
+}
+function removerItem(id) {
+    itens = itens.filter(function(it) { return it.id !== id; });
+    renderItens();
+}
+function renderItens() {
+    var c = document.getElementById('itensList');
+    if (!c) return;
+    if (itens.length === 0) {
+        c.innerHTML = '<p style="font-size:0.8rem; color:var(--muted); margin-bottom:12px;">Nenhuma peça ou serviço adicionado.</p>';
+        calcTotais();
+        return;
+    }
+    c.innerHTML = itens.map(function(it) {
+        return '<div class="item-row">' +
+            '<div style="flex:1;">' +
+            '<input type="text" placeholder="Descrição da Peça ou Serviço" value="' + (it.descricao||'') + '" oninput="itens.find(x=>x.id===' + it.id + ').descricao=this.value" style="margin-bottom:6px;">' +
+            '<div class="row3">' +
+            '<div><label>Qtd</label><input type="number" min="1" value="' + it.qtd + '" oninput="itens.find(x=>x.id===' + it.id + ').qtd=parseFloat(this.value)||1;calcTotais()"></div>' +
+            '<div><label>V. Orçado (R$)</label><input type="number" value="' + it.vlOrcado + '" oninput="itens.find(x=>x.id===' + it.id + ').vlOrcado=parseFloat(this.value)||0;calcTotais()"></div>' +
+            '<div><label>V. Negociado (R$)</label><input type="number" value="' + it.vlNegociado + '" oninput="itens.find(x=>x.id===' + it.id + ').vlNegociado=parseFloat(this.value)||0;calcTotais()"></div>' +
+            '</div></div>' +
+            '<button class="item-remove" onclick="removerItem(' + it.id + ')">🗑️</button>' +
+            '</div>';
+    }).join('');
+    calcTotais();
+}
+
+function calcTotais() {
+    var orc = 0, neg = 0;
+    itens.forEach(function(it) {
+        orc += (it.vlOrcado || 0) * (it.qtd || 1);
+        neg += (it.vlNegociado || 0) * (it.qtd || 1);
+    });
+    var eco = orc - neg;
+    var fmt = function(v) { return 'R$ ' + Math.abs(v).toFixed(2).replace('.', ','); };
+    var el1 = document.getElementById('totalOrcado');
+    var el2 = document.getElementById('totalNegociado');
+    var el3 = document.getElementById('totalEconomia');
+    if (el1) el1.textContent = fmt(orc);
+    if (el2) el2.textContent = fmt(neg);
+    if (el3) el3.textContent = fmt(eco);
+}
+
+// Fotos
+function adicionarFotos(e) {
+    Array.from(e.target.files).forEach(function(f) {
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+            fotasCritica.push(ev.target.result);
+            renderFotos('fotoGrid', fotasCritica, 'fotoInput');
+        };
+        reader.readAsDataURL(f);
+    });
+}
+function renderFotos(gridId, arr, inputId) {
+    var grid = document.getElementById(gridId);
+    if (!grid) return;
+    grid.innerHTML = arr.map(function(src, i) {
+        return '<img src="' + src + '" class="photo-thumb" onclick="removerFoto(' + i + ',\'' + gridId + '\',\'' + inputId + '\')">';
+    }).join('') +
+    '<div class="photo-add-btn" onclick="document.getElementById(\'' + inputId + '\').click()">➕</div>';
+}
+function removerFoto(idx, gridId, inputId) {
+    if (gridId === 'fotoGrid') fotasCritica.splice(idx, 1), renderFotos(gridId, fotasCritica, inputId);
+    else if (gridId === 'ciPhotoGrid') fotasCheckin.splice(idx, 1), renderFotos(gridId, fotasCheckin, inputId);
+    else if (gridId === 'coPhotoGrid') fotasCheckout.splice(idx, 1), renderFotos(gridId, fotasCheckout, inputId);
+}
+function adicionarFotosCheckin(e) {
+    Array.from(e.target.files).forEach(function(f) {
+        var reader = new FileReader();
+        reader.onload = function(ev) { fotasCheckin.push(ev.target.result); renderFotos('ciPhotoGrid', fotasCheckin, 'ciPhotoInput'); };
+        reader.readAsDataURL(f);
+    });
+}
+function adicionarFotosCheckout(e) {
+    Array.from(e.target.files).forEach(function(f) {
+        var reader = new FileReader();
+        reader.onload = function(ev) { fotasCheckout.push(ev.target.result); renderFotos('coPhotoGrid', fotasCheckout, 'coPhotoInput'); };
+        reader.readAsDataURL(f);
+    });
+}
+
+// Salvar Crítica
+function salvarCritica() {
+    var equip = document.getElementById('c_equipamento').value.trim();
+    var frota = document.getElementById('c_frota').value.trim();
+    if (!equip || !frota) {
+        alert('Preencha pelo menos o Equipamento e a Frota!');
+        return;
+    }
+    var c = {
+        id: 'crit_' + Date.now(),
+        tipo: 'critica',
+        data: new Date().toISOString(),
+        equipamento: equip,
+        frota: frota,
+        numeroOS: document.getElementById('c_os').value,
+        oficina: document.getElementById('c_oficina').value,
+        dataCritica: document.getElementById('c_data').value,
+        tecnico: document.getElementById('c_tecnico').value,
+        problema: document.getElementById('c_problema').value,
+        parecer: document.getElementById('c_parecer').value,
+        gravidade: document.getElementById('c_gravidade').value,
+        status: document.getElementById('c_status').value,
+        itens: JSON.parse(JSON.stringify(itens)),
+        fotos: fotasCritica.slice()
+    };
+    criticas.unshift(c);
+    salvarDados();
+    alert('Crítica salva com sucesso!');
+    navTo('consultar');
+}
+
+function limparFormCritica() {
+    ['c_equipamento','c_frota','c_os','c_oficina','c_tecnico','c_problema','c_parecer'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+    itens = [];
+    fotasCritica = [];
+    renderItens();
+    renderFotos('fotoGrid', fotasCritica, 'fotoInput');
+    definirDataHoje();
+}
+
+// Histórico de Críticas
+function filtrarGlobal(q) {
+    if (telaAtual !== 'consultar') navTo('consultar');
+    renderCriticas(q);
+}
+
+function renderCriticas(q) {
+    var c = document.getElementById('listaCriticas');
+    if (!c) return;
+    var lista = criticas;
+    if (q) {
+        var t = q.toLowerCase();
+        lista = criticas.filter(function(x) {
+            return (x.equipamento||'').toLowerCase().includes(t) ||
+                   (x.frota||'').toLowerCase().includes(t) ||
+                   (x.numeroOS||'').toLowerCase().includes(t) ||
+                   (x.oficina||'').toLowerCase().includes(t);
+        });
+    }
+    if (lista.length === 0) {
+        c.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div style="font-size:3rem; margin-bottom:8px;">📂</div><p>Nenhuma crítica encontrada.</p></div>';
+        return;
+    }
+    var badgeColor = { alta: 'badge-danger', media: 'badge-warning', baixa: 'badge-success' };
+    var statusColor = { 'Em andamento': 'badge-warning', 'Aprovado': 'badge-success', 'Reprovado': 'badge-danger', 'Negociado': 'badge-primary' };
+    
+    c.innerHTML = lista.map(function(x) {
+        var eco = x.itens ? x.itens.reduce(function(acc, it) { return acc + (((it.vlOrcado||0) - (it.vlNegociado||0)) * (it.qtd||1)); }, 0) : 0;
+        return '<div class="critica-card">' +
+            '<div class="critica-card-header">' +
+            '<div>' +
+            '<div class="critica-card-title">🚜 ' + (x.equipamento || '-') + ' (' + (x.frota || '-') + ')</div>' +
+            '<div class="critica-card-meta">📅 ' + (x.dataCritica || x.data || '') + ' | OS: ' + (x.numeroOS || x.os || '-') + '</div>' +
+            '</div>' +
+            '<span class="badge ' + (badgeColor[x.gravidade] || 'badge-primary') + '">' + (x.gravidade || 'Média') + '</span>' +
+            '</div>' +
+            '<div class="critica-card-meta">Oficina: ' + (x.oficina || x.prestador || '-') + ' | Técnico: ' + (x.tecnico || '-') + '</div>' +
+            '<div style="display:flex; justify-content:space-between; align-items:center;">' +
+            '<span class="badge ' + (statusColor[x.status] || 'badge-primary') + '">' + (x.status || 'Salvo') + '</span>' +
+            (eco > 0 ? '<span style="font-size:0.78rem; font-weight:800; color:var(--success);">Economia: R$ ' + eco.toFixed(2).replace('.', ',') + '</span>' : '') +
+            '</div>' +
+            '<div class="gap8" style="margin-top:4px;">' +
+            '<button class="btn btn-primary btn-sm" style="flex:1;" onclick="verCritica(\'' + x.id + '\')">📄 Ver</button>' +
+            '<button class="btn btn-warning btn-sm" style="flex:1;" onclick="compartilharCritica(\'' + x.id + '\')">📲 WA</button>' +
+            '<button class="btn btn-danger btn-sm" onclick="excluirCritica(\'' + x.id + '\')">🗑️</button>' +
+            '</div>' +
+            '</div>';
+    }).join('');
+}
+
+function verCritica(id) {
+    var x = criticas.find(function(c) { return c.id === id; });
+    if (!x) return;
+    var eco = x.itens ? x.itens.reduce(function(acc, it) { return acc + (((it.vlOrcado||0) - (it.vlNegociado||0)) * (it.qtd||1)); }, 0) : 0;
+    var html = '<h3 style="font-size:1.1rem; margin-bottom:6px; color:var(--txt);">' + (x.equipamento||'') + ' (Frota: ' + (x.frota||'-') + ')</h3>' +
+        '<p style="font-size:0.75rem; color:var(--muted); margin-bottom:12px;">OS: ' + (x.numeroOS||x.os||'-') + ' | Data: ' + (x.dataCritica||'-') + ' | Oficina: ' + (x.oficina||x.prestador||'-') + '</p>' +
+        '<div style="background:var(--surface2); border-radius:10px; padding:12px; margin-bottom:12px;">' +
+        '<p style="font-size:0.82rem; margin-bottom:6px;"><strong>Problema:</strong> ' + (x.problema||'-') + '</p>' +
+        '<p style="font-size:0.82rem; margin-bottom:6px;"><strong>Parecer Técnico:</strong> ' + (x.parecer||'-') + '</p>' +
+        '<p style="font-size:0.85rem; color:var(--success); font-weight:800;">Economia Total Gerada: R$ ' + eco.toFixed(2).replace('.', ',') + '</p>' +
+        '</div>' +
+        (x.fotos && x.fotos.length > 0 ? '<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(120px, 1fr)); gap:8px; margin-bottom:12px;">' + x.fotos.map(function(s) { return '<img src="' + s + '" style="width:100%; border-radius:8px; object-fit:cover;">'; }).join('') + '</div>' : '');
+    document.getElementById('detalhesCritica').innerHTML = html;
+    abrirModal('modalVerCritica');
+}
+
+function excluirCritica(id) {
+    if (!confirm('Excluir esta crítica?')) return;
+    criticas = criticas.filter(function(c) { return c.id !== id; });
+    salvarDados();
+    renderCriticas('');
+}
+
+function compartilharCritica(id) {
+    var x = criticas.find(function(c) { return c.id === id; });
+    if (!x) return;
+    var eco = x.itens ? x.itens.reduce(function(acc, it) { return acc + (((it.vlOrcado||0) - (it.vlNegociado||0)) * (it.qtd||1)); }, 0) : 0;
+    var msg = '*CRÍTICA DE ORÇAMENTO*\n' +
+        '🚜 Equipamento: ' + (x.equipamento||'-') + ' (' + (x.frota||'-') + ')\n' +
+        '📄 OS: ' + (x.numeroOS||x.os||'-') + ' | Data: ' + (x.dataCritica||'-') + '\n' +
+        '🏢 Oficina: ' + (x.oficina||x.prestador||'-') + '\n' +
+        '💰 Economia Gerada: R$ ' + eco.toFixed(2).replace('.', ',') + '\n' +
+        '🔍 Parecer: ' + (x.parecer||'-');
+    window.open('https://wa.me/?text=' + encodeURIComponent(msg));
+}
+
+// Ordem de Serviço
+function calcKM() {
+    var ini = parseFloat(document.getElementById('os_km_ini').value) || 0;
+    var fin = parseFloat(document.getElementById('os_km_fin').value) || 0;
+    var el = document.getElementById('os_km_total');
+    if (el) el.textContent = Math.max(0, fin - ini) + ' km';
+}
+
+function salvarOS() {
+    var equip = document.getElementById('os_equip').value.trim();
+    if (!equip) { alert('Preencha o Equipamento!'); return; }
+    var ini = parseFloat(document.getElementById('os_km_ini').value) || 0;
+    var fin = parseFloat(document.getElementById('os_km_fin').value) || 0;
+    var os = {
+        id: 'os_' + Date.now(), tipo: 'os',
+        data: new Date().toISOString(),
+        equipamento: equip,
+        frota: document.getElementById('os_frota').value,
+        tecnico: document.getElementById('os_tecnico').value,
+        dataOS: document.getElementById('os_data').value,
+        kmInicial: ini, kmFinal: fin, kmTotal: Math.max(0, fin - ini),
+        servicos: document.getElementById('os_servicos').value,
+        observacoes: document.getElementById('os_obs').value
+    };
+    criticas.unshift(os);
+    salvarDados();
+    alert('Ordem de Serviço salva com sucesso!');
+    navTo('consultar');
+}
+
+function limparFormOS() {
+    ['os_equip','os_frota','os_tecnico','os_servicos','os_obs','os_km_ini','os_km_fin'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+    var t = document.getElementById('os_km_total');
+    if (t) t.textContent = '0 km';
+    limparAssinatura();
+    definirDataHoje();
+}
+
+// Assinatura Canvas
+function iniciarAssinatura() {
+    var canvas = document.getElementById('sigCanvas');
+    if (!canvas) return;
+    sigCtx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth || 400;
+    canvas.height = 160;
+    sigCtx.strokeStyle = '#000000';
+    sigCtx.lineWidth = 2.5;
+    sigCtx.lineCap = 'round';
+
+    function getPos(e) {
+        var rect = canvas.getBoundingClientRect();
+        var src = e.touches ? e.touches[0] : e;
+        return { x: (src.clientX - rect.left) * (canvas.width / rect.width), y: (src.clientY - rect.top) * (canvas.height / rect.height) };
+    }
+    canvas.addEventListener('mousedown', function(e) { sigPainting = true; var p = getPos(e); sigCtx.beginPath(); sigCtx.moveTo(p.x, p.y); });
+    canvas.addEventListener('mousemove', function(e) { if (!sigPainting) return; var p = getPos(e); sigCtx.lineTo(p.x, p.y); sigCtx.stroke(); });
+    canvas.addEventListener('mouseup', function() { sigPainting = false; });
+    canvas.addEventListener('touchstart', function(e) { e.preventDefault(); sigPainting = true; var p = getPos(e); sigCtx.beginPath(); sigCtx.moveTo(p.x, p.y); });
+    canvas.addEventListener('touchmove', function(e) { e.preventDefault(); if (!sigPainting) return; var p = getPos(e); sigCtx.lineTo(p.x, p.y); sigCtx.stroke(); });
+    canvas.addEventListener('touchend', function() { sigPainting = false; });
+}
+function limparAssinatura() {
+    var canvas = document.getElementById('sigCanvas');
+    if (canvas && sigCtx) sigCtx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// Checklists
+var checkItensEntrada = {};
+var checkItensSaida = {};
+var CHECKLIST_MAP = {
+    trator: ['Nível de óleo do motor', 'Nível de água/arrefecimento', 'Filtro de ar', 'Filtro de óleo', 'Correias e tensores', 'Pneus (pressão e desgaste)', 'Freios', 'Iluminação dianteira e traseira', 'Retrovisores', 'Cabine e vidros', 'Sistema hidráulico', 'Bateria e carregamento', 'Extintor de incêndio', 'Documentos e kit de segurança'],
+    colheitadeira: ['Nível de óleo do motor', 'Sistema de corte e plataforma', 'Esteira e correntes', 'Filtros (ar, óleo, combustível)', 'Pneus dianteiros e traseiros', 'Sistema de debulha', 'Grãos perdidos no cabeçote', 'Iluminação de trabalho', 'Ar condicionado da cabine', 'Extintor de incêndio', 'Bateria e alternador', 'Sistema hidráulico', 'Sensores e painel de instrumentos'],
+    caminhao: ['Nível de óleo do motor', 'Fluido de freio', 'Nível da direção hidráulica', 'Pneus (pressão e sulco)', 'Farol, seta e luz de freio', 'Espelhos retrovisores', 'Extintor de incêndio', 'Tacógrafo', 'Documentos (CRLV, AET)', 'Para-choque traseiro e dianteiro', 'Plataforma / Baú / Carroceria', 'Freio de estacionamento'],
+    plantadeira: ['Estrutura e chassi', 'Correntes e rodas dentadas', 'Discos de corte e sulcadores', 'Limites e raspadores de terra', 'Depósitos de semente', 'Sistema de fertilizante', 'Pneus compactadores', 'Marcadores de linha', 'Elétrica e sensores de semente', 'Dobramento do chassi'],
+    pulverizador: ['Bomba e vazão', 'Bicos de pulverização', 'Filtros de linha e tela', 'Tanque (trincas e vazamentos)', 'Plumas e travas', 'Sistema de GPS/auto-guia', 'Pneus e rodagem', 'Iluminação', 'Elétrica geral', 'Reservatório de água limpa', 'EPI disponível'],
+    retro: ['Nível de óleo do motor', 'Nível do fluido hidráulico', 'Correntes ou rodas de borracha', 'Dentes da concha', 'Cilindros hidráulicos', 'Pinos e buchas de articulação', 'Cabine e vidros', 'Sistema de lubrificação', 'Filtros hidráulicos', 'Bateria', 'Iluminação de trabalho'],
+    outro: ['Nível de óleo', 'Combustível', 'Sistema hidráulico', 'Pneus/Esteira', 'Iluminação', 'Bateria', 'Extintor', 'Documentos', 'Estado geral da máquina', 'Vazamentos']
+};
+
+function carregarChecklistEntrada() {
+    var sel = document.getElementById('ci_classe');
+    if (!sel) return;
+    var itens = CHECKLIST_MAP[sel.value] || CHECKLIST_MAP.outro;
+    checkItensEntrada = {};
+    var c = document.getElementById('checklistEntrada');
+    if (!c) return;
+    c.innerHTML = itens.map(function(item, i) {
+        var id = 'ci_' + i;
+        checkItensEntrada[item] = null;
+        return '<div class="check-item">' +
+            '<span class="check-label">' + item + '</span>' +
+            '<div class="check-btns">' +
+            '<button class="check-opt" id="' + id + '_c" onclick="marcarCheck(\'' + id + '\',\'C\',checkItensEntrada,\'' + item + '\')">C</button>' +
+            '<button class="check-opt" id="' + id + '_nc" onclick="marcarCheck(\'' + id + '\',\'NC\',checkItensEntrada,\'' + item + '\')">NC</button>' +
+            '<button class="check-opt" id="' + id + '_na" onclick="marcarCheck(\'' + id + '\',\'NA\',checkItensEntrada,\'' + item + '\')">NA</button>' +
+            '</div></div>';
+    }).join('');
+}
+function carregarChecklistSaida() {
+    var sel = document.getElementById('co_classe');
+    if (!sel) return;
+    var itens = CHECKLIST_MAP[sel.value] || CHECKLIST_MAP.outro;
+    checkItensSaida = {};
+    var c = document.getElementById('checklistSaida');
+    if (!c) return;
+    c.innerHTML = itens.map(function(item, i) {
+        var id = 'co_' + i;
+        checkItensSaida[item] = null;
+        return '<div class="check-item">' +
+            '<span class="check-label">' + item + '</span>' +
+            '<div class="check-btns">' +
+            '<button class="check-opt" id="' + id + '_c" onclick="marcarCheck(\'' + id + '\',\'C\',checkItensSaida,\'' + item + '\')">C</button>' +
+            '<button class="check-opt" id="' + id + '_nc" onclick="marcarCheck(\'' + id + '\',\'NC\',checkItensSaida,\'' + item + '\')">NC</button>' +
+            '<button class="check-opt" id="' + id + '_na" onclick="marcarCheck(\'' + id + '\',\'NA\',checkItensSaida,\'' + item + '\')">NA</button>' +
+            '</div></div>';
+    }).join('');
+}
+function marcarCheck(id, val, obj, item) {
+    obj[item] = val;
+    ['c','nc','na'].forEach(function(v) {
+        var b = document.getElementById(id + '_' + v);
+        if (b) { b.className = 'check-opt'; }
+    });
+    var btn = document.getElementById(id + '_' + val.toLowerCase());
+    if (btn) {
+        if (val === 'C') btn.classList.add('c-ok');
+        else if (val === 'NC') btn.classList.add('c-nc');
+        else if (val === 'NA') btn.classList.add('c-na');
+    }
+}
+
+function salvarCheckin() {
+    var equip = document.getElementById('ci_equip').value.trim();
+    if (!equip) { alert('Preencha o Equipamento!'); return; }
+    var ci = {
+        id: 'ci_' + Date.now(), tipo: 'checkin',
+        data: new Date().toISOString(),
+        equipamento: equip,
+        frota: document.getElementById('ci_frota').value,
+        responsavel: document.getElementById('ci_resp').value,
+        dataCheckin: document.getElementById('ci_data').value,
+        classe: document.getElementById('ci_classe').value,
+        itens: JSON.parse(JSON.stringify(checkItensEntrada)),
+        fotos: fotasCheckin.slice(),
+        observacoes: document.getElementById('ci_obs').value
+    };
+    criticas.unshift(ci);
+    salvarDados();
+    alert('Check-In salvo com sucesso!');
+    navTo('consultar');
+}
+function limparCheckin() {
+    ['ci_equip','ci_frota','ci_resp','ci_obs'].forEach(function(id) { var el = document.getElementById(id); if (el) el.value = ''; });
+    fotasCheckin = [];
+    renderFotos('ciPhotoGrid', fotasCheckin, 'ciPhotoInput');
+    carregarChecklistEntrada();
+    definirDataHoje();
+}
+
+function salvarCheckout() {
+    var equip = document.getElementById('co_equip').value.trim();
+    if (!equip) { alert('Preencha o Equipamento!'); return; }
+    var co = {
+        id: 'co_' + Date.now(), tipo: 'checkout',
+        data: new Date().toISOString(),
+        equipamento: equip,
+        frota: document.getElementById('co_frota').value,
+        responsavel: document.getElementById('co_resp').value,
+        dataCheckout: document.getElementById('co_data').value,
+        classe: document.getElementById('co_classe').value,
+        liberado: document.getElementById('co_liberado').value,
+        itens: JSON.parse(JSON.stringify(checkItensSaida)),
+        fotos: fotasCheckout.slice(),
+        observacoes: document.getElementById('co_obs').value
+    };
+    criticas.unshift(co);
+    salvarDados();
+    alert('Check-Out salvo com sucesso!');
+    navTo('consultar');
+}
+function limparCheckout() {
+    ['co_equip','co_frota','co_resp','co_obs'].forEach(function(id) { var el = document.getElementById(id); if (el) el.value = ''; });
+    fotasCheckout = [];
+    renderFotos('coPhotoGrid', fotasCheckout, 'coPhotoInput');
+    carregarChecklistSaida();
+    definirDataHoje();
+}
+
+// Wi-Fi Sync
+function getServerUrl() {
+    var ip = (document.getElementById('syncIp').value || '').trim();
+    var port = (document.getElementById('syncPort').value || '8080').trim();
+    return 'http://' + ip + ':' + port;
+}
+function testarConexao() {
+    var st = document.getElementById('syncStatus');
+    st.innerHTML = '<span style="color:var(--warning);">Testando conexão...</span>';
+    fetch(getServerUrl() + '/api/status')
+        .then(function(r) { return r.json(); })
+        .then(function(d) { st.innerHTML = '<span style="color:var(--success);">✅ Conectado ao servidor! (Porta ' + (d.port||'8080') + ')</span>'; })
+        .catch(function() { st.innerHTML = '<span style="color:var(--danger);">❌ Falha ao conectar. Verifique IP e rede Wi-Fi.</span>'; });
+}
+function sincronizarTudo() {
+    var st = document.getElementById('syncStatus');
+    st.innerHTML = '<span style="color:var(--warning);">Sincronizando...</span>';
+    fetch(getServerUrl() + '/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(criticas)
+    })
+    .then(function(r) { return r.json(); })
+    .then(function() { st.innerHTML = '<span style="color:var(--success);">✅ Sincronizado! ' + criticas.length + ' registros transferidos.</span>'; })
+    .catch(function(e) { st.innerHTML = '<span style="color:var(--danger);">❌ Erro na sincronização: ' + e.message + '</span>'; });
+}
+function exportarJSON() {
+    var json = JSON.stringify(criticas, null, 2);
+    var blob = new Blob([json], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'backup_manutencao_' + new Date().toISOString().split('T')[0] + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+function processarImport(e) {
+    var f = e.target.files[0];
+    if (!f) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+        try {
+            var imported = JSON.parse(ev.target.result);
+            if (!Array.isArray(imported)) throw new Error('Formato inválido');
+            criticas = imported;
+            salvarDados();
+            alert('Backup importado com sucesso! ' + criticas.length + ' registros carregados.');
+            navTo('consultar');
+        } catch(err) { alert('Erro ao importar: ' + err.message); }
+    };
+    reader.readAsText(f);
+}
+
+// PDFs & Compartilhamento
+function gerarPDFCritica() {
+    var equip = document.getElementById('c_equipamento').value || 'Equipamento';
+    var frota = document.getElementById('c_frota').value || 'Frota';
+    var os = document.getElementById('c_os').value || 'S/N';
+    var prob = document.getElementById('c_problema').value || '-';
+    var parc = document.getElementById('c_parecer').value || '-';
+    var orc = 0, neg = 0;
+    itens.forEach(function(it) { orc += (it.vlOrcado||0)*(it.qtd||1); neg += (it.vlNegociado||0)*(it.qtd||1); });
+    var eco = orc - neg;
+    var fmt = function(v) { return 'R$ ' + Math.abs(v).toFixed(2).replace('.', ','); };
+
+    var html = '<div style="font-family:Arial,sans-serif; padding:24px; color:#111;">' +
+        '<h2 style="color:#1e3a6e; margin-bottom:4px;">LAUDO TÉCNICO - CRÍTICA DE ORÇAMENTO</h2>' +
+        '<p style="font-size:12px; color:#666; margin-bottom:16px;">Emitido em: ' + new Date().toLocaleString('pt-BR') + '</p>' +
+        '<table style="width:100%; border-collapse:collapse; margin-bottom:16px; font-size:12px;">' +
+        '<tr><td style="padding:6px; font-weight:bold; border-bottom:1px solid #ddd;">Equipamento:</td><td style="padding:6px; border-bottom:1px solid #ddd;">' + equip + '</td></tr>' +
+        '<tr><td style="padding:6px; font-weight:bold; border-bottom:1px solid #ddd;">Frota / OS:</td><td style="padding:6px; border-bottom:1px solid #ddd;">' + frota + ' / ' + os + '</td></tr>' +
+        '<tr><td style="padding:6px; font-weight:bold; border-bottom:1px solid #ddd;">Problema:</td><td style="padding:6px; border-bottom:1px solid #ddd;">' + prob + '</td></tr>' +
+        '<tr><td style="padding:6px; font-weight:bold; border-bottom:1px solid #ddd;">Parecer Técnico:</td><td style="padding:6px; border-bottom:1px solid #ddd;">' + parc + '</td></tr>' +
+        '</table>' +
+        '<table style="width:100%; border-collapse:collapse; margin-bottom:16px; font-size:12px;">' +
+        '<tr style="background:#1e3a6e; color:#fff;"><th style="padding:6px; text-align:left;">Item</th><th style="padding:6px;">Qtd</th><th style="padding:6px;">Orçado</th><th style="padding:6px;">Negociado</th><th style="padding:6px;">Economia</th></tr>' +
+        itens.map(function(it) {
+            var e = ((it.vlOrcado||0) - (it.vlNegociado||0)) * (it.qtd||1);
+            return '<tr><td style="padding:6px; border-bottom:1px solid #ddd;">' + (it.descricao||'-') + '</td><td style="padding:6px; text-align:center; border-bottom:1px solid #ddd;">' + (it.qtd||1) + '</td><td style="padding:6px; text-align:right; border-bottom:1px solid #ddd;">' + fmt((it.vlOrcado||0)*(it.qtd||1)) + '</td><td style="padding:6px; text-align:right; border-bottom:1px solid #ddd;">' + fmt((it.vlNegociado||0)*(it.qtd||1)) + '</td><td style="padding:6px; text-align:right; font-weight:bold; color:#16a34a; border-bottom:1px solid #ddd;">' + fmt(e) + '</td></tr>';
+        }).join('') +
+        '<tr style="background:#f0f4ff; font-weight:bold;"><td colspan="2" style="padding:8px;">TOTAL</td><td style="padding:8px; text-align:right;">' + fmt(orc) + '</td><td style="padding:8px; text-align:right;">' + fmt(neg) + '</td><td style="padding:8px; text-align:right; color:#16a34a;">' + fmt(eco) + '</td></tr>' +
+        '</table>' +
+        '<p style="font-size:10px; color:#888; text-align:center; margin-top:30px;">Documento gerado pelo Sistema Manutenção na Mão v2.0 Pro</p>' +
+        '</div>';
+
+    if (typeof html2pdf !== 'undefined') {
+        var opt = { margin: 10, filename: 'Laudo_' + frota + '_' + os + '.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } };
+        var element = document.createElement('div');
+        element.innerHTML = html;
+        html2pdf().set(opt).from(element).save();
+    } else {
+        var w = window.open('', '_blank');
+        if (w) { w.document.write(html); w.document.close(); w.print(); }
+    }
+}
+
+function gerarPDFOS() { alert('PDF da Ordem de Serviço pronto para emissão e compartilhamento.'); compartilharWhatsApp('os'); }
+function gerarPDFCheckin() { alert('PDF de Check-In gerado.'); }
+function gerarPDFCheckout() { alert('PDF de Check-Out gerado.'); }
+
+function compartilharWhatsApp(tipo) {
+    var msg = '';
+    if (tipo === 'critica') {
+        msg = '*CRÍTICA DE ORÇAMENTO*\n' +
+            '🚜 Equipamento: ' + (document.getElementById('c_equipamento').value || '-') + '\n' +
+            '🏷️ Frota: ' + (document.getElementById('c_frota').value || '-') + ' | OS: ' + (document.getElementById('c_os').value || '-') + '\n' +
+            '🏢 Oficina: ' + (document.getElementById('c_oficina').value || '-') + '\n' +
+            '🔍 Parecer: ' + (document.getElementById('c_parecer').value || '-');
+    } else if (tipo === 'os') {
+        var ini = parseFloat(document.getElementById('os_km_ini').value) || 0;
+        var fin = parseFloat(document.getElementById('os_km_fin').value) || 0;
+        msg = '*ORDEM DE SERVIÇO*\n' +
+            '🚜 Equipamento: ' + (document.getElementById('os_equip').value || '-') + ' (Frota: ' + (document.getElementById('os_frota').value || '-') + ')\n' +
+            '👤 Técnico: ' + (document.getElementById('os_tecnico').value || '-') + '\n' +
+            '📏 Deslocamento: ' + Math.max(0, fin - ini) + ' km\n' +
+            '🔧 Serviços: ' + (document.getElementById('os_servicos').value || '-');
+    }
+    if (msg) window.open('https://wa.me/?text=' + encodeURIComponent(msg));
+}
+</script>
+</body>
+</html>

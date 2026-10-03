@@ -1,0 +1,122 @@
+{
+  "0": {
+    "id": 0,
+    "titulo": "Apresentação: O Que É a Plataforma & Benefícios Reais",
+    "duracao": "⏱️ 36 seg",
+    "categoria": "Institucional",
+    "descricao": "Visão geral executiva de como o sistema e o app eliminam a burocracia do papel, controlam horímetro de maquinário e aceleram o faturamento.",
+    "voz_ativa": "antonio",
+    "video_ativo": "/videos/tutoriais/modulo_00_visao_geral.mp4",
+    "atualizado_em": "15/09/2026",
+    "o_que_mudou": "Nova versão executiva com dados 100% fictícios e sem cortes de áudio.",
+    "roteiro": [
+      "Sem papel ou pranchetas molhadas: gerencie manutenções de frotas com clareza e precisão.",
+      "Conecte a equipe técnica no campo, a oficina e o escritório em uma única plataforma.",
+      "Pelo celular o técnico anota peças, horímetro e colhe o visto digital na hora.",
+      "Mais controle para a frota, zero burocracia e total transparência para o cliente."
+    ]
+  },
+  "1": {
+    "id": 1,
+    "titulo": "Simulação 01: Do WhatsApp ao Comprovante Pronto",
+    "duracao": "⏱️ 30 seg",
+    "categoria": "O.S. Campo",
+    "descricao": "O cliente solicita atendimento pelo WhatsApp, você abre a O.S. no celular, o operador assina com o dedo e o comprovante volta na conversa.",
+    "voz_ativa": "antonio",
+    "video_ativo": "/videos/tutoriais/modulo_01_fluxo_completo.mp4",
+    "atualizado_em": "15/09/2026",
+    "o_que_mudou": "Atualizado com dados 100% fictícios (Agropecuária Vale Verde) e áudio completo sem cortes.",
+    "roteiro": [
+      "O cliente da Agropecuária Vale Verde manda pedido de socorro no WhatsApp.",
+      "Você abre o aplicativo no celular e seleciona o Trator 101 com um toque.",
+      "O sistema preenche a frota e você anota a troca da mangueira hidráulica.",
+      "O encarregado assina com o dedo na tela do celular.",
+      "Você aperta Enviar WhatsApp e o comprovante chega na hora com check azul!"
+    ]
+  },
+  "2": {
+    "id": 2,
+    "titulo": "Módulo 02: Frota & Horímetro / KM",
+    "duracao": "⏱️ 28 seg",
+    "categoria": "O.S. Campo",
+    "descricao": "Seleção do cliente, localização do veículo por placa/frota e lançamento rápido do horímetro.",
+    "voz_ativa": "antonio",
+    "video_ativo": "/videos/tutoriais/modulo_02_dados_frota.mp4",
+    "atualizado_em": "15/09/2026",
+    "o_que_mudou": "Vídeo e áudio gerados com simulação da Colheitadeira 204 e horímetro de 1.850h.",
+    "roteiro": [
+      "Escolha a Fazenda Santa Cecília na busca rápida.",
+      "Digite a frota 204 para carregar a Colheitadeira Case IH 8250.",
+      "Anote o horímetro de 1.850 horas exibido no painel de instrumentos.",
+      "Tudo fica salvo com data, hora e histórico de manutenção inviolável."
+    ]
+  },
+  "3": {
+    "id": 3,
+    "titulo": "Módulo 03: Peças & Serviços",
+    "duracao": "⏱️ 27 seg",
+    "categoria": "O.S. Campo",
+    "descricao": "Preenchimento do diagnóstico mecânico, inserção de peças trocadas e soma automática do total.",
+    "voz_ativa": "antonio",
+    "video_ativo": "/videos/tutoriais/modulo_03_pecas_servicos.mp4",
+    "atualizado_em": "15/09/2026",
+    "o_que_mudou": "Totalização automática demonstrada com dados da O.S. 1002 sem uso de calculadora.",
+    "roteiro": [
+      "Descreva o diagnóstico técnico de falha no rolamento do rotor.",
+      "Toque em Adicionar Peça e digite a quantidade e valor unitário.",
+      "Insira a mão de obra especializada do mecânico Rodrigo Sanches.",
+      "O sistema calcula os subtotais e soma o valor total de R$ 1.540,00 sozinho!"
+    ]
+  },
+  "4": {
+    "id": 4,
+    "titulo": "Módulo 04: Assinatura Digital Touch",
+    "duracao": "⏱️ 24 seg",
+    "categoria": "O.S. Campo",
+    "descricao": "Assinatura do operador ou encarregado direto no vidro do celular, com carimbo de horário.",
+    "voz_ativa": "antonio",
+    "video_ativo": "/videos/tutoriais/modulo_04_assinatura_digital.mp4",
+    "atualizado_em": "15/09/2026",
+    "o_que_mudou": "Animação realista de assinatura no vidro com autenticação por carimbo digital.",
+    "roteiro": [
+      "Mostre a tela do celular para o encarregado Eduardo Silveira na lavoura.",
+      "Ele assina com a ponta do dedo no quadro em branco.",
+      "Se errar, aperte Limpar e faça novamente com facilidade.",
+      "A assinatura fica gravada com validade jurídica e carimbo criptografado."
+    ]
+  },
+  "5": {
+    "id": 5,
+    "titulo": "Módulo 05: Envio ao WhatsApp com 1 Toque & Modo Equipe",
+    "duracao": "⏱️ 24 seg",
+    "categoria": "O.S. Campo",
+    "descricao": "Disparo direto ao WhatsApp do cliente com link do comprovante e gestão de retornos de equipe com aprovação ou pendência.",
+    "voz_ativa": "antonio",
+    "video_ativo": "/videos/tutoriais/modulo_05_retorno_whatsapp.mp4",
+    "atualizado_em": "15/09/2026",
+    "o_que_mudou": "Fluxo com botão verde 100% e demonstração de retorno aprovado e reenviado para correção.",
+    "roteiro": [
+      "No final da tela, toque no botão verde Enviar WhatsApp de largura total.",
+      "A mensagem abre com resumo completo e link do comprovante assinado.",
+      "No Modo Equipe, o gestor avalia o retorno do técnico de campo.",
+      "Aprove a ordem ou devolva com pendência antes do faturamento final."
+    ]
+  },
+  "6": {
+    "id": 6,
+    "titulo": "Módulo 06: Modelos de Orçamento (Padrão Corporativo & Fornecedores)",
+    "duracao": "⏱️ 26 seg",
+    "categoria": "Orçamento",
+    "descricao": "O sistema opera por padrão com o Modelo Corporativo Nativo da sua empresa. Fornecedores e modelos parceiros (Terra Viva PDF, Sultratores Excel e Alvorada Word) ficam disponíveis no seletor para escolha livre!",
+    "voz_ativa": "antonio",
+    "video_ativo": "/videos/tutoriais/modulo_06_modelos_orcamento.mp4",
+    "atualizado_em": "15/09/2026",
+    "o_que_mudou": "Inclusão dos 3 novos modelos de layout solicitados (Terra Viva, Sultratores e Alvorada).",
+    "roteiro": [
+      "O sistema opera por padrão com o Modelo Corporativo Nativo da sua empresa.",
+      "Alterne no menu para o modelo Terra Viva Agromecânica em formato PDF.",
+      "Utilize os formatos Sultratores em planilha Excel ou Alvorada em proposta Word.",
+      "Total controle e liberdade para escolher qual layout atende cada cliente."
+    ]
+  }
+}

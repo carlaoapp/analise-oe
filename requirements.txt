@@ -1,0 +1,7 @@
+﻿# Analise O.E - Dependencias do Backend Python
+# Para instalar execute: pip install -r requirements.txt
+
+reportlab>=3.6.0
+openpyxl>=3.1.0
+python-docx>=1.1.0
+PyMuPDF>=1.23.0

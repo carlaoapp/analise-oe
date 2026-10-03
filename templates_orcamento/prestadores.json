@@ -1,0 +1,36 @@
+[
+  {
+    "id": "terra_viva",
+    "nome": "Terra Viva Agromecânica (Modelo PDF)",
+    "tipo": "pdf",
+    "formato": "PDF Técnico A4",
+    "arquivo": "terra_viva_agromecanica.png",
+    "arquivo_original": "terra_viva_agromecanica.pdf",
+    "cnpj": "14.892.310/0001-44",
+    "cidade": "Paranavaí - PR",
+    "contato": "(44) 3422-5500",
+    "descricao": "Layout oficial em PDF de padrão técnico com discriminação de itens, mão de obra e condições comerciais."
+  },
+  {
+    "id": "sultratores",
+    "nome": "Sultratores Manutenção & Peças (Modelo Planilha Excel)",
+    "tipo": "excel",
+    "formato": "Planilha Excel / Grid",
+    "arquivo": "sultratores_excel.png",
+    "cnpj": "27.419.805/0001-72",
+    "cidade": "Maringá - PR",
+    "contato": "(44) 3224-8800",
+    "descricao": "Layout em formato de planilha de cálculo com grade técnica de peças, códigos e totais consolidados."
+  },
+  {
+    "id": "alvorada",
+    "nome": "Alvorada Soluções Mecânicas (Modelo Word / Proposta)",
+    "tipo": "word",
+    "formato": "Documento Word / Proposta Técnica",
+    "arquivo": "alvorada_word.png",
+    "cnpj": "38.650.192/0001-08",
+    "cidade": "Londrina - PR",
+    "contato": "(43) 3375-4000",
+    "descricao": "Proposta técnica de prestação de serviços com engenharia de manutenção pesada e usinagem de campo."
+  }
+]

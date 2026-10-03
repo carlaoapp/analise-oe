@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Histórico de Ordens de Serviço &amp; Ciclo Financeiro</title>
+    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #090e1a;
+            --surface: #111827;
+            --surface2: #1f293d;
+            --border: #2e3d5b;
+            --txt: #f8fafc;
+            --txt2: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0284c7;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --accent: #6366f1;
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--txt);
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* HEADER */
+        .page-header-card {
+            background: rgba(17, 24, 39, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-sub {
+            font-size: 0.82rem;
+            color: var(--txt2);
+            margin-top: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 16px;
+            border-radius: 9px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--txt);
+        }
+        .btn-outline:hover { background: var(--surface2); }
+
+        .btn-primary { background: var(--primary); color: #090e1a; }
+        .btn-primary:hover { background: var(--primary-hover); color: #fff; }
+
+        .btn-secondary { background: #334155; color: #e2e8f0; }
+        .btn-secondary:hover { background: #475569; }
+
+        .btn-accent { background: var(--accent); color: #fff; }
+        .btn-accent:hover { opacity: 0.9; }
+
+        /* BARRA DE FILTROS */
+        .filter-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .filter-tabs-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 12px;
+        }
+
+        .filter-label {
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--txt2);
+            margin-right: 6px;
+        }
+
+        .filter-btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--txt2);
+            transition: all 0.2s;
+        }
+        .filter-btn:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+        .filter-btn.active {
+            background: var(--primary);
+            color: #090e1a;
+            border-color: var(--primary);
+        }
+
+        .filter-btn.btn-pendente.active {
+            background: rgba(245, 158, 11, 0.25);
+            color: #f59e0b;
+            border-color: #f59e0b;
+        }
+        .filter-btn.btn-aguardando.active {
+            background: rgba(59, 130, 246, 0.25);
+            color: #38bdf8;
+            border-color: #38bdf8;
+        }
+        .filter-btn.btn-faturada.active {
+            background: rgba(16, 185, 129, 0.25);
+            color: #10b981;
+            border-color: #10b981;
+        }
+
+        .search-bar-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-input-wrapper input {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+        }
+        .search-input-wrapper input:focus {
+            border-color: var(--primary);
+        }
+
+        /* GRID DE CARDS */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 16px;
+        }
+
+        .os-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .os-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .os-card.status-faturada { border-top: 4px solid #10b981; }
+        .os-card.status-aguardando { border-top: 4px solid #38bdf8; }
+        .os-card.status-pendente { border-top: 4px solid #f59e0b; }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.12rem;
+            font-weight: 800;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-meta {
+            font-size: 0.78rem;
+            color: var(--txt2);
+            margin-top: 3px;
+        }
+
+        .badges-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .badge {
+            font-size: 0.72rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .badge-pendente { background: rgba(245, 158, 11, 0.18); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .badge-aguardando { background: rgba(59, 130, 246, 0.18); color: #38bdf8; border: 1px solid rgba(59, 130, 246, 0.4); }
+        .badge-faturada { background: rgba(16, 185, 129, 0.18); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-op { background: rgba(255, 255, 255, 0.08); color: #e2e8f0; border: 1px solid rgba(255, 255, 255, 0.15); }
+
+        .card-details-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .card-details-box strong { color: #f8fafc; }
+        .card-details-box span { color: var(--txt2); }
+
+        .card-financial-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-top: 1px dashed var(--border);
+            margin-top: 8px;
+        }
+
+        .grand-value {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #10b981;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .card-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .status-changer-select {
+            background: var(--surface2);
+            color: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            outline: none;
+            width: 100%;
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            grid-column: 1 / -1;
+            padding: 60px 20px;
+            text-align: center;
+            background: var(--surface);
+            border: 1px dashed var(--border);
+            border-radius: 16px;
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- CABEÇALHO -->
+    <header class="page-header-card">
+        <div class="header-left">
+            <a href="index.html" class="btn btn-outline" title="Voltar ao Painel">◀ Painel</a>
+            <div>
+                <div class="header-title">
+                    📂 Histórico de Ordens de Serviço
+                </div>
+                <div class="header-sub">
+                    Acompanhamento operacional e ciclo de faturamento da oficina
+                </div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="orcamento.html" class="btn btn-accent" title="Abrir Folha de Orçamento">
+                📑 Módulo Orçamento
+            </a>
+            <button type="button" class="btn btn-primary" onclick="carregarHistorico()">
+                🔄 Atualizar
+            </button>
+        </div>
+    </header>
+
+    <!-- BARRA DE FILTROS RÁPIDOS & STATUS FINANCEIRO -->
+    <section class="filter-panel">
+        <!-- Ciclo Financeiro (Conforme Solicitado) -->
+        <div class="filter-tabs-row">
+            <span class="filter-label">Status Financeiro:</span>
+            <button type="button" class="filter-btn active" id="btnFiltro-todas" onclick="filtrarStatusFinanceiro('')">
+                Todas
+            </button>
+            <button type="button" class="filter-btn btn-pendente" id="btnFiltro-pendente_orcamento" onclick="filtrarStatusFinanceiro('pendente_orcamento')">
+                🟡 Pendente Orçamento
+            </button>
+            <button type="button" class="filter-btn btn-aguardando" id="btnFiltro-aguardando_faturamento" onclick="filtrarStatusFinanceiro('aguardando_faturamento')">
+                🔵 Aguardando Faturamento
+            </button>
+            <button type="button" class="filter-btn btn-faturada" id="btnFiltro-faturada" onclick="filtrarStatusFinanceiro('faturada')">
+                🟢 Faturadas
+            </button>
+        </div>
+
+        <!-- Campo de Busca -->
+        <div class="search-bar-row">
+            <div class="search-input-wrapper">
+                <input type="text" id="inputBusca" placeholder="🔍 Buscar por Frota, Nº da O.S., Cliente, Veículo ou Técnico..." oninput="filtrarLista()">
+            </div>
+        </div>
+    </section>
+
+    <!-- LISTAGEM DE CARDS -->
+    <main class="cards-grid" id="gridOrdens"></main>
+</div>
+
+<!-- TOAST NOTIFICAÇÃO -->
+<div class="toast" id="toastMsg">
+    <span id="toastIcon">ℹ️</span>
+    <span id="toastText">Mensagem</span>
+</div>
+
+<script>
+let todasOS = [];
+let filtroFinAtual = '';
+
+function mostrarToast(msg, tipo = 'info') {
+    const toast = document.getElementById('toastMsg');
+    const txt = document.getElementById('toastText');
+    const ic = document.getElementById('toastIcon');
+    txt.textContent = msg;
+    ic.textContent = tipo === 'sucesso' ? '✅' : (tipo === 'erro' ? '❌' : 'ℹ️');
+    toast.className = 'toast show';
+    setTimeout(() => { toast.className = 'toast'; }, 3500);
+}
+
+function formatBRL(val) {
+    return (parseFloat(val) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+async function carregarHistorico() {
+    // 1º Tenta renderizar do cache imediatamente para exibição instantânea
+    try {
+        const rawCache = localStorage.getItem('db_ordens_cache');
+        if (rawCache) {
+            const parsed = JSON.parse(rawCache);
+            if (Array.isArray(parsed.criticas) && parsed.criticas.length > 0) {
+                todasOS = parsed.criticas.filter(x => x.tipo === 'os' || !x.tipo);
+                filtrarLista();
+            }
+        }
+    } catch(e){}
+
+    mostrarToast('Atualizando histórico...', 'info');
+    try {
+        const resp = await fetch('/api/all');
+        if (!resp.ok) throw new Error('Falha ao obter dados');
+        const data = await resp.json();
+        const criticas = data.criticas || [];
+        
+        // Filtra apenas O.S.
+        todasOS = criticas.filter(x => x.tipo === 'os' || !x.tipo);
+        try { localStorage.setItem('db_ordens_cache', JSON.stringify(data)); } catch(e){}
+        filtrarLista();
+        mostrarToast('Histórico sincronizado com sucesso!', 'sucesso');
+    } catch (e) {
+        console.warn('API indisponível, mantendo cache local...', e);
+        if (todasOS && todasOS.length > 0) {
+            mostrarToast('Histórico carregado do cache local.', 'info');
+        } else {
+            mostrarToast('Erro ao carregar dados: ' + e.message, 'erro');
+        }
+    }
+}
+
+function filtrarStatusFinanceiro(status) {
+    filtroFinAtual = status;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    const btnId = 'btnFiltro-' + (status || 'todas');
+    const btn = document.getElementById(btnId);
+    if (btn) btn.classList.add('active');
+    filtrarLista();
+}
+
+function filtrarLista() {
+    const termo = (document.getElementById('inputBusca').value || '').toLowerCase().trim();
+    const grid = document.getElementById('gridOrdens');
+    
+    let lista = todasOS;
+
+    // Filtro financeiro
+    if (filtroFinAtual) {
+        lista = lista.filter(x => {
+            const stFin = x.status_financeiro || 'pendente_orcamento';
+            return stFin === filtroFinAtual;
+        });
+    }
+
+    // Filtro de texto
+    if (termo) {
+        lista = lista.filter(x => 
+            (x.numeroOS || '').toLowerCase().includes(termo) ||
+            (x.frota || '').toLowerCase().includes(termo) ||
+            (x.cliente || '').toLowerCase().includes(termo) ||
+            (x.equipamento || '').toLowerCase().includes(termo) ||
+            (x.tecnico || '').toLowerCase().includes(termo) ||
+            (x.localAtendimento || '').toLowerCase().includes(termo)
+        );
+    }
+
+    if (lista.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state">
+                <div style="font-size: 3rem; margin-bottom: 12px;">📑</div>
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Nenhuma Ordem Encontrada</h3>
+                <p style="color: var(--txt2); font-size: 0.88rem;">Tente ajustar os filtros ou o termo de busca acima.</p>
+            </div>
+        `;
+        return;
+    }
+
+    grid.innerHTML = lista.map(x => {
+        const numOS = x.numeroOS || x.id || '-';
+        const frota = x.frota || x.equipamento || 'O.S.';
+        const dataOS = x.dataOS || (x.data ? x.data.slice(0, 10) : '-');
+        const stOp = x.status || x.statusOS || 'Finalizada';
+        const stFin = x.status_financeiro || 'pendente_orcamento';
+
+        // Badge financeiro
+        let badgeFin = '<span class="badge badge-pendente">🟡 Pendente Orçamento</span>';
+        let cardBorderClass = 'status-pendente';
+        if (stFin === 'faturada') {
+            badgeFin = '<span class="badge badge-faturada">🟢 Faturada</span>';
+            cardBorderClass = 'status-faturada';
+        } else if (stFin === 'aguardando_faturamento') {
+            badgeFin = '<span class="badge badge-aguardando">🔵 Aguardando Faturamento</span>';
+            cardBorderClass = 'status-aguardando';
+        }
+
+        // Calcula total
+        let total = parseFloat(x.totalGeral) || 0;
+        if (!total) {
+            const sTot = (x.servicosItens || []).reduce((acc, i) => acc + (parseFloat(i.valor) || 0), 0);
+            const pTot = (x.pecasItens || []).reduce((acc, i) => acc + (parseFloat(i.subtotal || (i.qtd * i.valor)) || 0), 0);
+            const kmTot = parseFloat(x.valorKmTotal) || 0;
+            total = sTot + pTot + kmTot;
+        }
+
+        return `
+            <div class="os-card ${cardBorderClass}">
+                <div>
+                    <div class="card-top">
+                        <div>
+                            <div class="card-title">🚗 Frota: ${frota}</div>
+                            <div class="card-meta"><b>OS #${numOS}</b> • 📅 ${dataOS}</div>
+                        </div>
+                        <div class="badges-group">
+                            ${badgeFin}
+                            <span class="badge badge-op">${stOp}</span>
+                        </div>
+                    </div>
+
+                    <div class="card-details-box">
+                        <div><span>Cliente:</span> <strong>${x.cliente || 'Não informado'}</strong></div>
+                        ${x.tecnico ? `<div><span>Técnico:</span> <strong>${x.tecnico}</strong></div>` : ''}
+                        ${x.localAtendimento ? `<div><span>Local:</span> ${x.localAtendimento}</div>` : ''}
+                    </div>
+
+                    <div class="card-financial-summary">
+                        <span style="font-size:0.8rem; color:var(--txt2); font-weight:700;">VALOR TOTAL:</span>
+                        <span class="grand-value">${formatBRL(total)}</span>
+                    </div>
+                </div>
+
+                <div>
+                    <!-- Alteração rápida de status financeiro -->
+                    <div style="margin-top: 10px;">
+                        <label style="font-size:0.72rem; color:var(--txt2); font-weight:800; text-transform:uppercase; display:block; margin-bottom:4px;">Atualizar Ciclo:</label>
+                        <select class="status-changer-select" onchange="alterarStatus('${numOS}', this.value)">
+                            <option value="pendente_orcamento" ${stFin === 'pendente_orcamento' ? 'selected' : ''}>🟡 Pendente Orçamento</option>
+                            <option value="aguardando_faturamento" ${stFin === 'aguardando_faturamento' ? 'selected' : ''}>🔵 Aguardando Faturamento</option>
+                            <option value="faturada" ${stFin === 'faturada' ? 'selected' : ''}>🟢 Faturada</option>
+                        </select>
+                    </div>
+
+                    <div class="card-actions-grid">
+                        <a href="orcamento.html?os=${encodeURIComponent(numOS)}" class="btn btn-accent btn-sm" style="grid-column: span 2; font-size:0.82rem;">
+                            📑 Abrir Folha de Orçamento
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+async function alterarStatus(numOS, novoStatus) {
+    mostrarToast('Alterando status financeiro...', 'info');
+    try {
+        const resp = await fetch('/api/orcamento/status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ numero_os: numOS, status: novoStatus })
+        });
+        const res = await resp.json();
+        if (res && res.ok) {
+            mostrarToast(res.mensagem || 'Status financeiro atualizado!', 'sucesso');
+            // Atualiza localmente
+            const item = todasOS.find(x => String(x.numeroOS || x.id) === String(numOS));
+            if (item) {
+                item.status_financeiro = novoStatus;
+                item.status_financeiro_rotulo = res.rotulo;
+            }
+            filtrarLista();
+        } else {
+            throw new Error(res.mensagem || 'Erro ao alterar status');
+        }
+    } catch (e) {
+        console.error(e);
+        mostrarToast('Erro ao atualizar status: ' + e.message, 'erro');
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    carregarHistorico();
+});
+</script>
+</body>
+</html>

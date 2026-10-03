@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Instalação do Aplicativo - Análise O.E</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <meta name="theme-color" content="#0f172a">
+    <style>
+        :root {
+            --bg: #0b1120;
+            --surface: #1e293b;
+            --surface2: #334155;
+            --border: #475569;
+            --primary: #38bdf8;
+            --primary-hover: #0284c7;
+            --success: #22c55e;
+            --success-hover: #16a34a;
+            --txt: #f8fafc;
+            --txt2: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body {
+            background: var(--bg);
+            color: var(--txt);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 16px;
+        }
+        .install-box {
+            max-width: 480px;
+            width: 100%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 20px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 18px;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 12px rgba(56,189,248,0.3);
+            display: block;
+            border: 2px solid var(--primary);
+        }
+        h1 { font-size: 1.35rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+        p.subtitle { font-size: 0.88rem; color: var(--txt2); margin-bottom: 24px; line-height: 1.4; }
+        
+        .opt-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .opt-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .opt-desc {
+            font-size: 0.8rem;
+            color: var(--txt2);
+            margin-bottom: 12px;
+            line-height: 1.35;
+        }
+        .btn-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .btn-pwa {
+            background: var(--primary);
+            color: #0b1120;
+        }
+        .btn-pwa:hover {
+            background: var(--primary-hover);
+            color: #fff;
+        }
+        .btn-apk {
+            background: var(--success);
+            color: #0b1120;
+        }
+        .btn-apk:hover {
+            background: var(--success-hover);
+            color: #fff;
+        }
+        .btn-back {
+            background: var(--surface2);
+            color: var(--txt);
+            margin-top: 8px;
+            font-size: 0.85rem;
+            padding: 10px;
+        }
+        .btn-back:hover {
+            background: var(--border);
+        }
+        .instructions {
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-top: 10px;
+            font-size: 0.76rem;
+            color: var(--txt2);
+            line-height: 1.4;
+        }
+        .instructions strong { color: #f8fafc; }
+    </style>
+</head>
+<body>
+
+    <div class="install-box">
+        <img src="/icon-192.png" alt="Análise O.E" class="app-icon">
+        <h1>Instalar Aplicativo</h1>
+        <p class="subtitle">Análise O.E • Gestão de Ordens de Serviço, Orçamentos e Checklists de Campo</p>
+
+        <!-- OPÇÃO 1: PWA (TODOS OS DISPOSITIVOS) -->
+        <div class="opt-card">
+            <div class="opt-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                <span>Instalar no Celular ou PC (PWA)</span>
+            </div>
+            <div class="opt-desc">
+                Recomendado para Android, iPhone (iOS) e Computador. Abre em tela cheia sem barra de navegador, ocupa poucos megas e atualiza sozinho.
+            </div>
+            <button type="button" id="btnInstalarPWA" class="btn-action btn-pwa" onclick="instalarPWA()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span id="btnPwaTexto">Instalar no Dispositivo</span>
+            </button>
+            <div class="instructions" id="instrucoesManual">
+                <strong>iPhone (Safari):</strong> Toque no ícone de <em>Compartilhar</em> (quadrado com seta para cima) e escolha <strong>"Adicionar à Tela de Início"</strong>.<br>
+                <strong>Android (Chrome):</strong> Toque nos 3 pontinhos do menu e escolha <strong>"Instalar aplicativo"</strong>.
+            </div>
+        </div>
+
+        <!-- OPÇÃO 2: APK ANDROID DIRETO -->
+        <div class="opt-card">
+            <div class="opt-title" style="color:var(--success);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"></path></svg>
+                <span>Baixar Instalador Android (.APK)</span>
+            </div>
+            <div class="opt-desc">
+                Pacote instalador nativo para tablets e smartphones Android (578 KB).
+            </div>
+            <a href="/downloads/Analise_O_E.apk" download="Analise_O_E.apk" class="btn-action btn-apk">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 12 21 16 17"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"></path></svg>
+                <span>Baixar APK Direto</span>
+            </a>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+            <a href="/ordem_servico_campo.html" class="btn-action btn-back" style="flex:1;">
+                🚜 O.S. Campo
+            </a>
+            <a href="/" class="btn-action btn-back" style="flex:1;">
+                📊 Painel Geral
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let deferredPrompt = null;
+        const btnPWA = document.getElementById('btnInstalarPWA');
+        const txtPWA = document.getElementById('btnPwaTexto');
+
+        // Registra Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(() => {
+                console.log('Service Worker registrado com sucesso');
+            }).catch(e => console.warn('Falha SW:', e));
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (txtPWA) txtPWA.textContent = 'Instalar Agora no Aparelho';
+        });
+
+        async function instalarPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    if (txtPWA) txtPWA.textContent = 'Aplicativo Instalado!';
+                }
+                deferredPrompt = null;
+            } else {
+                alert('Para instalar:\n\n• No Android/Chrome: Toque no menu (3 pontinhos) e selecione "Instalar aplicativo" ou "Adicionar à tela inicial".\n\n• No iPhone/Safari: Toque no botão Compartilhar e escolha "Adicionar à Tela de Início".\n\n• No Computador: Clique no ícone de computador/instalar ao lado da barra de endereço.');
+            }
+        }
+
+        window.addEventListener('appinstalled', () => {
+            if (txtPWA) txtPWA.textContent = 'Aplicativo Instalado com Sucesso!';
+            deferredPrompt = null;
+        });
+    </script>
+</body>
+</html>

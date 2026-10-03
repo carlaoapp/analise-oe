@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check List de Entrada - Painel de Manutencao</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+    :root {
+        --bg: #0f172a;
+        --surface: #1e293b;
+        --surface2: #334155;
+        --border: #475569;
+        --txt: #f8fafc;
+        --muted: #94a3b8;
+        --primary: #2563eb;
+        --primary-hover: #1d4ed8;
+        --accent: #38bdf8;
+        --success: #22c55e;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --card-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg);
+        color: var(--txt);
+        min-height: 100vh;
+        padding-bottom: 40px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HEADER */
+    .top-bar {
+        background: rgba(30,41,59,0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 10px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .top-bar img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; }
+    .top-bar .brand { font-size: 1rem; font-weight: 800; color: var(--txt); }
+    .top-bar .subbrand { font-size: 0.7rem; color: var(--muted); }
+    .btn-back {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--txt);
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: auto;
+        transition: background 0.2s;
+    }
+    .btn-back:hover { background: var(--border); text-decoration: none; }
+
+    /* CONTAINER */
+    .page-wrap {
+        max-width: 1000px;
+        margin: 28px auto;
+        padding: 0 24px;
+    }
+    .page-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin-bottom: 4px;
+        color: var(--txt);
+    }
+    .page-sub {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-bottom: 28px;
+    }
+
+    /* CARDS */
+    .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 22px;
+        margin-bottom: 20px;
+        box-shadow: var(--card-shadow);
+    }
+    .card-title {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* FORM ELEMENTS */
+    label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--muted);
+        margin-bottom: 5px;
+    }
+    input[type=text], input[type=number], input[type=date],
+    input[type=email], select, textarea {
+        width: 100%;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--txt);
+        font-size: 0.88rem;
+        padding: 10px 13px;
+        margin-bottom: 14px;
+        outline: none;
+        font-family: inherit;
+        transition: border-color 0.2s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+    textarea { resize: vertical; min-height: 90px; }
+    select option { background: var(--surface); }
+
+    /* GRID */
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    /* BUTTONS */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        border-radius: 10px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        padding: 11px 20px;
+        cursor: pointer;
+        transition: opacity 0.2s, transform 0.1s;
+        font-family: inherit;
+        text-decoration: none;
+    }
+    .btn:active { transform: scale(0.98); opacity: 0.85; }
+    .btn:hover { opacity: 0.88; text-decoration: none; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-secondary { background: var(--surface2); color: var(--txt); border: 1px solid var(--border); }
+    .btn-warning { background: var(--warning); color: #000; }
+    .btn-accent { background: var(--accent); color: #000; }
+    .btn-sm { padding: 7px 14px; font-size: 0.78rem; }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+    /* ITEMS (Critica) */
+    .item-row {
+        background: var(--surface2);
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    .item-row input, .item-row select { margin-bottom: 0; }
+    .item-content { flex: 1; }
+    .item-remove {
+        background: none;
+        border: none;
+        color: var(--danger);
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 4px;
+        flex-shrink: 0;
+    }
+    .item-num {
+        background: var(--primary);
+        color: #fff;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.72rem;
+        font-weight: 800;
+        flex-shrink: 0;
+        margin-top: 4px;
+    }
+
+    /* TOTAL BAR */
+    .total-bar {
+        background: var(--surface2);
+        border-radius: 10px;
+        padding: 14px 16px;
+        margin-top: 8px;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .total-item { flex: 1; min-width: 140px; }
+    .total-label { font-size: 0.72rem; color: var(--muted); margin-bottom: 2px; }
+    .total-value { font-size: 1.15rem; font-weight: 800; color: var(--success); }
+    .total-value.economia { color: var(--accent); }
+
+    /* PHOTOS */
+    .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+    .photo-thumb {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+    .photo-thumb:hover { opacity: 0.7; }
+    .photo-add {
+        width: 100%;
+        aspect-ratio: 1;
+        border: 2px dashed var(--border);
+        border-radius: 10px;
+        background: var(--surface2);
+        color: var(--muted);
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: border-color 0.2s;
+    }
+    .photo-add:hover { border-color: var(--primary); }
+
+    /* CHECKLIST */
+    .check-item {
+        background: var(--surface2);
+        border-radius: 10px;
+        padding: 10px 14px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .check-label { flex: 1; font-size: 0.85rem; }
+    .check-btns { display: flex; gap: 6px; }
+    .check-btn {
+        padding: 5px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+    .check-btn.ok { background: var(--success); color: #fff; border-color: var(--success); }
+    .check-btn.nc { background: var(--danger); color: #fff; border-color: var(--danger); }
+    .check-btn.na { background: var(--surface2); color: var(--muted); border-color: var(--border); font-style: italic; }
+
+    /* SIGNATURE */
+    canvas#sigCanvas {
+        width: 100%;
+        height: 180px;
+        background: #fff;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        display: block;
+        cursor: crosshair;
+    }
+
+    /* BADGE */
+    .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 10px;
+        font-size: 0.7rem;
+        font-weight: 700;
+    }
+    .badge-success { background: rgba(34,197,94,0.15); color: var(--success); }
+    .badge-warning { background: rgba(245,158,11,0.15); color: var(--warning); }
+    .badge-danger  { background: rgba(239,68,68,0.15); color: var(--danger); }
+    .badge-primary { background: rgba(37,99,235,0.2); color: var(--accent); }
+
+    /* INFO BANNER */
+    .info-banner {
+        background: rgba(37,99,235,0.1);
+        border: 1px solid rgba(56,189,248,0.25);
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 0.78rem;
+        color: var(--accent);
+        margin-bottom: 14px;
+    }
+
+    /* ALERT */
+    .alert { padding: 12px 16px; border-radius: 10px; margin-bottom: 14px; font-size: 0.82rem; }
+    .alert-success { background: rgba(34,197,94,0.12); border: 1px solid var(--success); color: var(--success); }
+    .alert-danger  { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); color: var(--danger); }
+
+    .hidden { display: none !important; }
+    .mb0 { margin-bottom: 0 !important; }
+    .mt8 { margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+    <img src="logo.jpg" alt="Logo" onerror="this.src='icon-192.png'">
+    <div><div class="brand">Painel de Manutencao</div><div class="subbrand">Check List de Entrada</div></div>
+    <a href="index.html" class="btn-back">&#8592; Voltar ao Painel</a>
+</div>
+
+<div class="page-wrap">
+    <div class="page-title">&#128229; Check List de Entrada</div>
+    <div class="page-sub">Vistoria e recebimento do equipamento. Documente avarias pre-existentes com fotos para protecao juridica.</div>
+    <div id="msgBox"></div>
+
+    <div class="card">
+        <div class="card-title">&#128203; Dados do Equipamento</div>
+        <div class="row3">
+            <div><label>Equipamento / Maquina *</label><input type="text" id="ci_equip" placeholder="Ex: Trator Massey Ferguson 7219" class="mb0"></div>
+            <div><label>Frota / Placa</label><input type="text" id="ci_frota" placeholder="Ex: FR-078" class="mb0"></div>
+            <div><label>Data</label><input type="date" id="ci_data" class="mb0"></div>
+        </div>
+        <div class="row2" style="margin-top:14px;">
+            <div><label>Responsavel pela Vistoria</label><input type="text" id="ci_resp" placeholder="Nome do vistoriador" class="mb0"></div>
+            <div>
+                <label>Classe do Equipamento</label>
+                <select id="ci_classe" onchange="carregarChecklist()" class="mb0">
+                    <option value="trator">Trator Agricola</option>
+                    <option value="colheitadeira">Colheitadeira</option>
+                    <option value="caminhao">Caminhao / Carreta</option>
+                    <option value="plantadeira">Plantadeira / Semeadeira</option>
+                    <option value="pulverizador">Pulverizador Autopropelido</option>
+                    <option value="retro">Retroescavadeira / PC</option>
+                    <option value="outro">Outro Equipamento</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">&#9989; Itens de Inspecao</div>
+        <div class="info-banner">Marque cada item como <strong>C</strong> (Conforme), <strong>NC</strong> (Nao Conforme) ou <strong>NA</strong> (Nao Aplicavel).</div>
+        <div id="checklistItems"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">&#128247; Fotos de Avarias / Condicao</div>
+        <div class="photo-grid" id="ciPhotoGrid">
+            <div class="photo-add" onclick="document.getElementById('ciPhotoInput').click()">&#43;</div>
+        </div>
+        <input type="file" id="ciPhotoInput" accept="image/*" multiple class="hidden" onchange="adicionarFotos(event)">
+    </div>
+
+    <div class="card">
+        <div class="card-title">&#128221; Observacoes</div>
+        <textarea id="ci_obs" placeholder="Descreva avarias pre-existentes, itens em falta, condicoes especiais do equipamento..." style="min-height:100px;"></textarea>
+    </div>
+
+    <div class="btn-row">
+        <button class="btn btn-success" onclick="salvarChecklist()">&#128190; Salvar Vistoria</button>
+        <button class="btn btn-primary" onclick="gerarPDFVistoria()">&#128196; Gerar PDF</button>
+        <button class="btn btn-secondary" onclick="limparVistoria()">&#128465; Nova Vistoria</button>
+        <a href="index.html" class="btn btn-secondary">&#8592; Voltar</a>
+    </div>
+</div>
+
+<script>
+var fotos = [];
+var checkItems = {};
+var TIPO_CHECKLIST = 'checkin';
+
+var CHECKLIST_MAP = {
+    trator: ['Nivel de oleo do motor', 'Nivel de agua / arrefecimento', 'Filtro de ar', 'Filtro de oleo', 'Correia do alternador e tensores', 'Pneus - pressao e desgaste', 'Freios de servico e estacionamento', 'Iluminacao dianteira e traseira', 'Espelhos retrovisores', 'Cabine / ROPS e vidros', 'Sistema hidraulico e levante', 'Bateria e sistema de carregamento', 'Extintor de incendio', 'EPI e documentos do operador'],
+    colheitadeira: ['Nivel de oleo do motor', 'Sistema de corte e plataforma', 'Esteira e correntes de transmissao', 'Filtros de ar, oleo e combustivel', 'Pneus dianteiros e traseiros', 'Sistema de debulha e separacao', 'Perdas de graos no cabecote', 'Iluminacao de trabalho noturno', 'Ar condicionado da cabine', 'Extintor de incendio', 'Bateria e alternador', 'Sistema hidraulico', 'Sensores e painel de instrumentos', 'Documentos e PPIs'],
+    caminhao: ['Nivel de oleo do motor', 'Fluido de freio', 'Nivel da direcao hidraulica', 'Pneus - pressao e profundidade do sulco', 'Farol, seta e luz de freio', 'Espelhos retrovisores', 'Extintor de incendio', 'Tacografo e cronotacografo', 'Documentos - CRLV, AET, CNH', 'Para-choque traseiro e dianteiro', 'Plataforma / Bau / Carroceria', 'Freio de estacionamento', 'Bateria e carregamento', 'Estepe, macaco e chave de roda'],
+    plantadeira: ['Estrutura e chassi geral', 'Correntes e rodas dentadas', 'Discos de corte e sulcadores', 'Limitadores e raspadores de terra', 'Depositos de semente - estado e vedacao', 'Sistema de fertilizante e caixa', 'Pneus compactadores', 'Marcadores de linha', 'Eletrica e sensores de semente', 'Dobramento e trava do chassi', 'Conectores e engate ao trator', 'Calibracao de taxa de semeacao'],
+    pulverizador: ['Bomba e vazao de pulverizacao', 'Bicos e ponteiras', 'Filtros de linha e tela', 'Tanque principal - trincas e vazamentos', 'Plumas e travas de seguranca', 'Sistema GPS / auto-guia', 'Pneus e alinhamento', 'Iluminacao de trabalho', 'Eletrica geral e fuseis', 'Reservatorio de agua de lavagem', 'Computador de bordo e painel', 'EPI disponivel ao operador'],
+    retro: ['Nivel de oleo do motor', 'Nivel do fluido hidraulico', 'Correntes ou rodas de borracha / pneus', 'Dentes e desgaste da concha', 'Cilindros hidraulicos - vazamentos', 'Pinos e buchas de articulacao', 'Cabine e vidros', 'Sistema de lubrificacao geral', 'Filtros hidraulicos', 'Bateria', 'Iluminacao de trabalho', 'Extintor', 'Estrutura ROPS/FOPS', 'Documentos de operacao'],
+    outro: ['Nivel de oleo', 'Combustivel', 'Sistema hidraulico', 'Pneus / Esteira', 'Iluminacao', 'Bateria', 'Extintor', 'Documentos', 'Estado geral da maquina', 'Vazamentos em geral', 'Parafusos e fixacoes', 'Limpeza geral']
+};
+
+window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('ci_data').value = new Date().toISOString().split('T')[0];
+    carregarChecklist();
+});
+
+function carregarChecklist() {
+    var sel = document.getElementById('ci_classe');
+    var tipo = sel ? sel.value : 'outro';
+    var lista = CHECKLIST_MAP[tipo] || CHECKLIST_MAP.outro;
+    checkItems = {};
+    lista.forEach(function(item) { checkItems[item] = null; });
+
+    var c = document.getElementById('checklistItems');
+    c.innerHTML = lista.map(function(item, i) {
+        var id = 'chk_' + i;
+        return '<div class="check-item" id="row_' + id + '">' +
+            '<span class="check-label">' + item + '</span>' +
+            '<div class="check-btns">' +
+            '<button class="check-btn" id="' + id + '_c" onclick="marcar(\'' + id + '\',\'' + item.replace(/'/g,"\\'") + '\',\'C\')">C</button>' +
+            '<button class="check-btn" id="' + id + '_nc" onclick="marcar(\'' + id + '\',\'' + item.replace(/'/g,"\\'") + '\',\'NC\')">NC</button>' +
+            '<button class="check-btn" id="' + id + '_na" onclick="marcar(\'' + id + '\',\'' + item.replace(/'/g,"\\'") + '\',\'NA\')">NA</button>' +
+            '</div></div>';
+    }).join('');
+}
+
+function marcar(id, item, val) {
+    checkItems[item] = val;
+    ['c','nc','na'].forEach(function(v) {
+        var b = document.getElementById(id + '_' + v);
+        if (b) b.className = 'check-btn';
+    });
+    var btn = document.getElementById(id + '_' + val.toLowerCase());
+    if (btn) {
+        if (val === 'C') btn.classList.add('ok');
+        else if (val === 'NC') btn.classList.add('nc');
+        else btn.classList.add('na');
+    }
+}
+
+function adicionarFotos(e) {
+    Array.from(e.target.files).forEach(function(f) {
+        var r = new FileReader();
+        r.onload = function(ev) { fotos.push(ev.target.result); renderFotos(); };
+        r.readAsDataURL(f);
+    });
+    e.target.value = '';
+}
+
+function renderFotos() {
+    var g = document.getElementById('ciPhotoGrid');
+    g.innerHTML = fotos.map(function(src, i) {
+        return '<img src="' + src + '" class="photo-thumb" onclick="fotos.splice(' + i + ',1);renderFotos();" title="Clique para remover">';
+    }).join('') + '<div class="photo-add" onclick="document.getElementById(\'ciPhotoInput\').click()">&#43;</div>';
+}
+
+function mostrarMsg(txt, tipo) {
+    var box = document.getElementById('msgBox');
+    box.innerHTML = '<div class="alert alert-' + tipo + '">' + txt + '</div>';
+    setTimeout(function() { box.innerHTML = ''; }, 5000);
+}
+
+function coletarVistoria() {
+    var lib = document.getElementById('ci_liberado');
+    return {
+        id: TIPO_CHECKLIST + '_' + Date.now(),
+        tipo: TIPO_CHECKLIST,
+        dataCriado: new Date().toISOString(),
+        equipamento: document.getElementById('ci_equip').value,
+        frota: document.getElementById('ci_frota').value,
+        dataVistoria: document.getElementById('ci_data').value,
+        responsavel: document.getElementById('ci_resp').value,
+        classe: document.getElementById('ci_classe').value,
+        itens: JSON.parse(JSON.stringify(checkItems)),
+        liberado: lib ? lib.value : null,
+        observacoes: document.getElementById('ci_obs').value,
+        fotos: fotos.slice()
+    };
+}
+
+function salvarChecklist() {
+    var d = coletarVistoria();
+    if (!d.equipamento) { mostrarMsg('Preencha o Equipamento!', 'danger'); return; }
+    fetch('/api/data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
+        .then(function() { mostrarMsg('Vistoria salva com sucesso!', 'success'); })
+        .catch(function() {
+            var stored = JSON.parse(localStorage.getItem(TIPO_CHECKLIST + '_local') || '[]');
+            stored.push(d); localStorage.setItem(TIPO_CHECKLIST + '_local', JSON.stringify(stored));
+            mostrarMsg('Vistoria salva localmente.', 'success');
+        });
+}
+
+function limparVistoria() {
+    ['ci_equip','ci_frota','ci_resp','ci_obs'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+    fotos = []; renderFotos();
+    carregarChecklist();
+    document.getElementById('ci_data').value = new Date().toISOString().split('T')[0];
+}
+
+function gerarPDFVistoria() {
+    var d = coletarVistoria();
+    var conformes = 0, nao_conformes = 0, na_count = 0;
+    Object.values(d.itens).forEach(function(v) {
+        if (v === 'C') conformes++;
+        else if (v === 'NC') nao_conformes++;
+        else if (v === 'NA') na_count++;
+    });
+    var html = '<html><head><meta charset="UTF-8"><style>body{font-family:Arial,sans-serif;padding:30px;color:#000;}h1{font-size:18px;margin-bottom:4px;}.sub{color:#555;font-size:12px;margin-bottom:20px;}table{width:100%;border-collapse:collapse;margin-bottom:16px;}th{background:#1e3a6e;color:#fff;padding:8px;text-align:left;font-size:12px;}td{padding:6px 8px;border-bottom:1px solid #ddd;font-size:11px;}.ok{color:#166534;font-weight:bold;}.nc{color:#dc2626;font-weight:bold;}.na{color:#92400e;}</style></head><body>' +
+        '<h1>' + (TIPO_CHECKLIST === 'checkin' ? 'CHECK LIST DE ENTRADA' : 'CHECK LIST DE SAIDA') + '</h1>' +
+        '<div class="sub">Equipamento: ' + (d.equipamento||'-') + ' | Frota: ' + (d.frota||'-') + ' | Data: ' + (d.dataVistoria||'-') + ' | Classe: ' + d.classe + '</div>' +
+        '<p style="font-size:12px; margin-bottom:16px;">Responsavel: <strong>' + (d.responsavel||'-') + '</strong> | Conformes: <span style="color:#166534;">' + conformes + '</span> | Nao Conformes: <span style="color:#dc2626;">' + nao_conformes + '</span> | NA: ' + na_count + '</p>' +
+        '<table><tr><th>Item Inspecionado</th><th>Status</th></tr>' +
+        Object.entries(d.itens).map(function(e) {
+            var cls = e[1] === 'C' ? 'ok' : e[1] === 'NC' ? 'nc' : 'na';
+            return '<tr><td>' + e[0] + '</td><td class="' + cls + '">' + (e[1] || 'Nao avaliado') + '</td></tr>';
+        }).join('') +
+        '</table>' +
+        (d.liberado ? '<p style="font-size:13px; font-weight:bold; margin-bottom:16px;">Status de Liberacao: ' + d.liberado + '</p>' : '') +
+        '<table><tr><th>Observacoes</th></tr><tr><td style="white-space:pre-wrap;">' + (d.observacoes||'Sem observacoes.') + '</td></tr></table>' +
+        '</body></html>';
+    var w = window.open('', '_blank');
+    if (!w) { alert('Permita pop-ups para gerar o PDF.'); return; }
+    w.document.write(html);
+    w.document.close();
+    w.print();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,545 @@
+{
+  "criticas": [
+    {
+      "id": "1001",
+      "numeroOS": "1001",
+      "tipo": "os",
+      "data": "2026-09-15 08:30:00",
+      "dataOS": "2026-09-15",
+      "cliente": "Agropecuária Vale Verde Ltda.",
+      "solicitante": "Carlos Mendes (Gerente Agrícola)",
+      "telefone": "5544998110001",
+      "frota": "Frota 101",
+      "veiculo": "Trator Massey Ferguson 7719 Dyna-6",
+      "modelo": "Massey Ferguson 7719",
+      "placa": "BBO-1010",
+      "local": "Fazenda Vale Verde - Talhão 03",
+      "horimetro": "3420",
+      "km_final": "3420",
+      "modo_atendimento": "solo",
+      "tecnico": "Carlos Mendes / Atendimento Direto",
+      "status": "Finalizada",
+      "statusOS": "Finalizada",
+      "status_financeiro": "faturada",
+      "valor_total": 1250.0,
+      "valor_pecas": 800.0,
+      "valor_servicos": 450.0,
+      "diagnostico": "Rompimento de mangueira hidráulica do comando principal com perda de fluido.",
+      "servicos_executados": "Substituição da mangueira de alta pressão R2 1/2 e sangria com reposição de óleo.",
+      "itens_pecas": [
+        {
+          "codigo": "MNG-501",
+          "descricao": "Mangueira Hidráulica R2 1/2 Pol 2 Tramas",
+          "quantidade": 1,
+          "valor_unitario": 380.0,
+          "valor_total": 380.0
+        },
+        {
+          "codigo": "LUB-68",
+          "descricao": "Óleo Hidráulico ISO VG 68 Balde 20L",
+          "quantidade": 1,
+          "valor_unitario": 420.0,
+          "valor_total": 420.0
+        }
+      ],
+      "itens_servicos": [
+        {
+          "descricao": "Mão de Obra Mecânica de Campo - Desmontagem e Montagem",
+          "horas": 3,
+          "valor_hora": 150.0,
+          "valor_total": 450.0
+        }
+      ],
+      "assinatura": {
+        "nome_assinante": "Carlos Mendes",
+        "documento": "CPF: 123.456.789-00",
+        "data_hora": "15/09/2026 10:15:30",
+        "status": "assinada_touch"
+      },
+      "comprovante_pdf": "/comprovantes/OS_1001_Vale_Verde.pdf",
+      "retornos_campo": [],
+      "pecasTotal": 800.0,
+      "servicosFinal": 450.0,
+      "totalGeral": 1250.0,
+      "totalOS": 1250.0,
+      "pecasItens": [
+        {
+          "codigo": "MNG-501",
+          "descricao": "Mangueira Hidráulica R2 1/2 Pol 2 Tramas",
+          "produto": "Mangueira Hidráulica R2 1/2 Pol 2 Tramas",
+          "qtd": 1.0,
+          "valor": 380.0,
+          "subtotal": 380.0
+        },
+        {
+          "codigo": "LUB-68",
+          "descricao": "Óleo Hidráulico ISO VG 68 Balde 20L",
+          "produto": "Óleo Hidráulico ISO VG 68 Balde 20L",
+          "qtd": 1.0,
+          "valor": 420.0,
+          "subtotal": 420.0
+        }
+      ],
+      "pecas": [
+        {
+          "codigo": "MNG-501",
+          "descricao": "Mangueira Hidráulica R2 1/2 Pol 2 Tramas",
+          "produto": "Mangueira Hidráulica R2 1/2 Pol 2 Tramas",
+          "qtd": 1.0,
+          "valor": 380.0,
+          "subtotal": 380.0
+        },
+        {
+          "codigo": "LUB-68",
+          "descricao": "Óleo Hidráulico ISO VG 68 Balde 20L",
+          "produto": "Óleo Hidráulico ISO VG 68 Balde 20L",
+          "qtd": 1.0,
+          "valor": 420.0,
+          "subtotal": 420.0
+        }
+      ],
+      "servicosItens": [
+        {
+          "codigo": "SRV-1",
+          "descricao": "Mão de Obra Mecânica de Campo - Desmontagem e Montagem",
+          "servico": "Mão de Obra Mecânica de Campo - Desmontagem e Montagem",
+          "qtd": 3.0,
+          "valor": 150.0,
+          "subtotal": 450.0
+        }
+      ],
+      "observacoes": "Rompimento de mangueira hidráulica do comando principal com perda de fluido."
+    },
+    {
+      "id": "1002",
+      "numeroOS": "1002",
+      "tipo": "os",
+      "data": "2026-09-15 09:15:00",
+      "dataOS": "2026-09-15",
+      "cliente": "Fazenda Santa Cecília Agronegócios",
+      "solicitante": "Eduardo Silveira (Encarregado)",
+      "telefone": "5544998220002",
+      "frota": "Frota 204",
+      "veiculo": "Colheitadeira Case IH Axial-Flow 8250",
+      "modelo": "Case IH 8250",
+      "placa": "AGR-2040",
+      "local": "Fazenda Santa Cecília - Ponto Sede",
+      "horimetro": "1850",
+      "km_final": "1850",
+      "modo_atendimento": "equipe",
+      "tecnico": "5544999112233",
+      "mecanico_nome": "Rodrigo Sanches - Mecânico Especialista",
+      "status": "Concluído",
+      "statusOS": "Concluído",
+      "status_financeiro": "aguardando_faturamento",
+      "valor_total": 1540.0,
+      "valor_pecas": 890.0,
+      "valor_servicos": 650.0,
+      "diagnostico": "Ruído excessivo e superaquecimento no mancal do rotor de debulha.",
+      "servicos_executados": "Troca do rolamento autocompensador e alinhamento das polias variadoras.",
+      "tem_retorno_pendente": false,
+      "status_retorno": "aceito",
+      "retornos_campo": [
+        {
+          "id": "ret_1002_01",
+          "data_retorno": "2026-09-15 11:40:00",
+          "colaborador_nome": "Rodrigo Sanches - Mecânico Especialista",
+          "colaborador_numero": "5544999112233",
+          "status_retorno": "aceito",
+          "status_execucao": "concluido",
+          "status_rotulo": "Concluído",
+          "horimetro": "1850",
+          "servicos_executados": "Rolamento novo instalado com graxa de alta temperatura e esteira testada.",
+          "pecas_utilizadas": "Rolamento autocompensador 22212 e retentor duplo",
+          "observacoes": "Equipamento testado em carga e liberado.",
+          "texto_original": "*RETORNO OS: 1002*\nStatus: Concluído\nHorímetro: 1850\nServiço: Rolamento novo instalado\nObs: Liberada em carga.",
+          "midias": [
+            {
+              "tipo": "foto",
+              "nome_arquivo": "foto_rolamento_novo.jpg",
+              "url": "/uploads/os_1002/foto_rolamento_novo.jpg",
+              "origem": "retorno_campo"
+            }
+          ],
+          "data_analise": "2026-09-15 11:45:10"
+        }
+      ],
+      "itens_pecas": [
+        {
+          "codigo": "ROL-22212",
+          "descricao": "Rolamento Autocompensador de Rolos 22212",
+          "quantidade": 1,
+          "valor_unitario": 890.0,
+          "valor_total": 890.0
+        }
+      ],
+      "itens_servicos": [
+        {
+          "descricao": "Revisão Técnica Mecânica Especializada em Colheitadeira",
+          "horas": 4,
+          "valor_hora": 162.5,
+          "valor_total": 650.0
+        }
+      ],
+      "pecasTotal": 890.0,
+      "servicosFinal": 650.0,
+      "totalGeral": 1540.0,
+      "totalOS": 1540.0,
+      "pecasItens": [
+        {
+          "codigo": "ROL-22212",
+          "descricao": "Rolamento Autocompensador de Rolos 22212",
+          "produto": "Rolamento Autocompensador de Rolos 22212",
+          "qtd": 1.0,
+          "valor": 890.0,
+          "subtotal": 890.0
+        }
+      ],
+      "pecas": [
+        {
+          "codigo": "ROL-22212",
+          "descricao": "Rolamento Autocompensador de Rolos 22212",
+          "produto": "Rolamento Autocompensador de Rolos 22212",
+          "qtd": 1.0,
+          "valor": 890.0,
+          "subtotal": 890.0
+        }
+      ],
+      "servicosItens": [
+        {
+          "codigo": "SRV-1",
+          "descricao": "Revisão Técnica Mecânica Especializada em Colheitadeira",
+          "servico": "Revisão Técnica Mecânica Especializada em Colheitadeira",
+          "qtd": 4.0,
+          "valor": 162.5,
+          "subtotal": 650.0
+        }
+      ],
+      "observacoes": "Ruído excessivo e superaquecimento no mancal do rotor de debulha."
+    },
+    {
+      "id": "1003",
+      "numeroOS": "1003",
+      "tipo": "os",
+      "data": "2026-09-15 10:00:00",
+      "dataOS": "2026-09-15",
+      "cliente": "Cerealista e Grãos São Pedro",
+      "solicitante": "Fernando Dias (Operações)",
+      "telefone": "5544998330003",
+      "frota": "Frota 308",
+      "veiculo": "Pulverizador Automotriz Jacto Uniport 3030",
+      "modelo": "Jacto Uniport 3030",
+      "placa": "PUL-3080",
+      "local": "Cerealista São Pedro - Armazém 02",
+      "horimetro": "2110",
+      "km_final": "2110",
+      "modo_atendimento": "equipe",
+      "tecnico": "5544999223344",
+      "mecanico_nome": "Marcos Vinicius - Técnico Hidráulico",
+      "status": "Pendente Correção",
+      "statusOS": "Pendente Correção",
+      "status_financeiro": "pendente_orcamento",
+      "valor_total": 980.0,
+      "valor_pecas": 480.0,
+      "valor_servicos": 500.0,
+      "diagnostico": "Oscilação na barra de pulverização e desarme eletro-hidráulico.",
+      "servicos_executados": "Inspeção do bloco de comando de barras e chicote elétrico.",
+      "tem_retorno_pendente": true,
+      "status_retorno": "recusado",
+      "justificativa_recusa": "Faltou foto detalhada da pressão calibrada no manômetro e teste das seções acionadas.",
+      "data_recusa": "2026-09-15 11:50:00",
+      "retornos_campo": [
+        {
+          "id": "ret_1003_01",
+          "data_retorno": "2026-09-15 11:30:00",
+          "colaborador_nome": "Marcos Vinicius - Técnico Hidráulico",
+          "colaborador_numero": "5544999223344",
+          "status_retorno": "recusado",
+          "status_execucao": "concluido",
+          "status_rotulo": "Concluído",
+          "horimetro": "2110",
+          "servicos_executados": "Válvula solenoide desobstruída e fiação reconectada.",
+          "pecas_utilizadas": "Reparo de vedação solenoide",
+          "observacoes": "Funcionou na bancada.",
+          "texto_original": "*RETORNO OS: 1003*\nStatus: Concluído\nHorímetro: 2110\nServiço: Solenoide revisada",
+          "midias": [],
+          "justificativa_recusa": "Faltou foto detalhada da pressão calibrada no manômetro e teste das seções acionadas.",
+          "data_recusa": "2026-09-15 11:50:00"
+        }
+      ],
+      "pecasTotal": 480.0,
+      "servicosFinal": 500.0,
+      "totalGeral": 980.0,
+      "totalOS": 980.0,
+      "observacoes": "Oscilação na barra de pulverização e desarme eletro-hidráulico.",
+      "pecasItens": [
+        {
+          "codigo": "SOL-3030",
+          "descricao": "Válvula Solenoide Proporcional de Barra 12V",
+          "produto": "Válvula Solenoide Proporcional de Barra 12V",
+          "qtd": 1.0,
+          "valor": 480.0,
+          "subtotal": 480.0
+        }
+      ],
+      "pecas": [
+        {
+          "codigo": "SOL-3030",
+          "descricao": "Válvula Solenoide Proporcional de Barra 12V",
+          "produto": "Válvula Solenoide Proporcional de Barra 12V",
+          "qtd": 1.0,
+          "valor": 480.0,
+          "subtotal": 480.0
+        }
+      ],
+      "servicosItens": [
+        {
+          "codigo": "SRV-ELETRO",
+          "descricao": "Diagnóstico e Reparo no Bloco Eletro-hidráulico de Barras",
+          "servico": "Diagnóstico e Reparo no Bloco Eletro-hidráulico de Barras",
+          "qtd": 1.0,
+          "valor": 500.0,
+          "subtotal": 500.0
+        }
+      ]
+    },
+    {
+      "id": "1004",
+      "numeroOS": "1004",
+      "tipo": "os",
+      "data": "2026-09-15 10:45:00",
+      "dataOS": "2026-09-15",
+      "cliente": "Usina Alvorada Bioenergia",
+      "solicitante": "Ricardo Antunes (Coord. Frotas)",
+      "telefone": "5544998440004",
+      "frota": "Frota 415",
+      "veiculo": "Trator John Deere 8R 370 Pesado",
+      "modelo": "John Deere 8R 370",
+      "placa": "USI-4150",
+      "local": "Frente de Corte 04 - Canavial",
+      "horimetro": "4600",
+      "km_final": "4600",
+      "modo_atendimento": "equipe",
+      "tecnico": "5544999334455",
+      "mecanico_nome": "Lucas Biazon - Mecânico Diesel",
+      "status": "Aguardando Análise",
+      "statusOS": "Aguardando Análise",
+      "status_financeiro": "pendente_orcamento",
+      "valor_total": 2100.0,
+      "valor_pecas": 1400.0,
+      "valor_servicos": 700.0,
+      "diagnostico": "Vazamento de líquido de arrefecimento e alta temperatura de motor.",
+      "servicos_executados": "Substituição da bomba d água auxiliar, junta de vedação e pressurização do radiador.",
+      "tem_retorno_pendente": true,
+      "status_retorno": "aguardando_analise",
+      "retornos_campo": [
+        {
+          "id": "ret_1004_01",
+          "data_retorno": "2026-09-15 11:10:00",
+          "colaborador_nome": "Lucas Biazon - Mecânico Diesel",
+          "colaborador_numero": "5544999334455",
+          "status_retorno": "recusado",
+          "status_execucao": "concluido",
+          "status_rotulo": "Concluído",
+          "horimetro": "4600",
+          "servicos_executados": "Bomba d água trocada.",
+          "pecas_utilizadas": "Bomba d água John Deere",
+          "observacoes": "Montada no trator.",
+          "justificativa_recusa": "Reenviar fotos nítidas do teste de estanqueidade a 1.5 bar sem vazamentos.",
+          "data_recusa": "2026-09-15 11:25:00"
+        },
+        {
+          "id": "ret_1004_02",
+          "data_retorno": "2026-09-15 12:15:00",
+          "colaborador_nome": "Lucas Biazon - Mecânico Diesel",
+          "colaborador_numero": "5544999334455",
+          "status_retorno": "aguardando_analise",
+          "status_execucao": "concluido",
+          "status_rotulo": "Concluído (Corrigido)",
+          "horimetro": "4600",
+          "servicos_executados": "Teste de estanqueidade realizado com sucesso. Pressão constante por 25 minutos.",
+          "pecas_utilizadas": "Bomba d água e kit de mangueiras reforçadas",
+          "observacoes": "Fotos e manômetro anexados conforme solicitado pela oficina.",
+          "texto_original": "*RETORNO CORRIGIDO OS: 1004*\nStatus: Concluído\nHorímetro: 4600\nTeste de estanqueidade 1.5 bar OK.",
+          "midias": [
+            {
+              "tipo": "foto",
+              "nome_arquivo": "foto_manometro_estanqueidade.jpg",
+              "url": "/uploads/os_1004/foto_manometro.jpg",
+              "origem": "retorno_campo"
+            }
+          ]
+        }
+      ],
+      "pecasTotal": 1400.0,
+      "servicosFinal": 700.0,
+      "totalGeral": 2100.0,
+      "totalOS": 2100.0,
+      "observacoes": "Vazamento de líquido de arrefecimento e alta temperatura de motor.",
+      "pecasItens": [
+        {
+          "codigo": "BMB-8R",
+          "descricao": "Bomba d'Água Auxiliar Original John Deere 8R",
+          "produto": "Bomba d'Água Auxiliar Original John Deere 8R",
+          "qtd": 1.0,
+          "valor": 1150.0,
+          "subtotal": 1150.0
+        },
+        {
+          "codigo": "JNT-VED",
+          "descricao": "Junta Metálica de Vedação Térmica",
+          "produto": "Junta Metálica de Vedação Térmica",
+          "qtd": 1.0,
+          "valor": 250.0,
+          "subtotal": 250.0
+        }
+      ],
+      "pecas": [
+        {
+          "codigo": "BMB-8R",
+          "descricao": "Bomba d'Água Auxiliar Original John Deere 8R",
+          "produto": "Bomba d'Água Auxiliar Original John Deere 8R",
+          "qtd": 1.0,
+          "valor": 1150.0,
+          "subtotal": 1150.0
+        },
+        {
+          "codigo": "JNT-VED",
+          "descricao": "Junta Metálica de Vedação Térmica",
+          "produto": "Junta Metálica de Vedação Térmica",
+          "qtd": 1.0,
+          "valor": 250.0,
+          "subtotal": 250.0
+        }
+      ],
+      "servicosItens": [
+        {
+          "codigo": "SRV-ARREFEC",
+          "descricao": "Substituição de Bomba, Teste de Estanqueidade e Pressurização 1.5 bar",
+          "servico": "Substituição de Bomba, Teste de Estanqueidade e Pressurização 1.5 bar",
+          "qtd": 1.0,
+          "valor": 700.0,
+          "subtotal": 700.0
+        }
+      ]
+    },
+    {
+      "id": "1005",
+      "numeroOS": "1005",
+      "tipo": "os",
+      "data": "2026-09-15 11:00:00",
+      "dataOS": "2026-09-15",
+      "cliente": "Agroindustrial Monte Belo",
+      "solicitante": "Alexandre Pires (Logística)",
+      "telefone": "5544998550005",
+      "frota": "Frota 502",
+      "veiculo": "Caminhão Pipa Mercedes-Benz Axor 2644",
+      "modelo": "Mercedes-Benz Axor",
+      "placa": "PIPA-5020",
+      "local": "Pátio Central - Monte Belo",
+      "horimetro": "",
+      "km_final": "84500",
+      "modo_atendimento": "solo",
+      "status": "Cancelada",
+      "statusOS": "Cancelada",
+      "status_financeiro": "cancelada",
+      "valor_total": 0.0,
+      "valor_pecas": 0.0,
+      "valor_servicos": 0.0,
+      "motivo_cancelamento": "Atendimento cancelado formalmente pelo cliente: equipamento foi recolhido para garantia direta da concessionária.",
+      "diagnostico": "Ruído na tomada de força da bomba de água.",
+      "retornos_campo": [],
+      "pecasTotal": 0.0,
+      "servicosFinal": 0.0,
+      "totalGeral": 0.0,
+      "totalOS": 0.0,
+      "observacoes": "Ruído na tomada de força da bomba de água.",
+      "pecasItens": [],
+      "pecas": [],
+      "servicosItens": []
+    },
+    {
+      "id": "1006",
+      "numeroOS": "1006",
+      "tipo": "os",
+      "data": "2026-09-15 11:30:00",
+      "dataOS": "2026-09-15",
+      "cliente": "Sítio Primavera Fruticultura",
+      "solicitante": "Marcelo Tavares (Proprietário)",
+      "telefone": "5544998660006",
+      "frota": "Frota 610",
+      "veiculo": "Trator Agrícola Valtra BH 180",
+      "modelo": "Valtra BH 180",
+      "placa": "VAL-6100",
+      "local": "Sítio Primavera - Pomar Laranjeiras",
+      "horimetro": "5230",
+      "km_final": "5230",
+      "modo_atendimento": "solo",
+      "tecnico": "Marcelo / Atendimento Campo",
+      "status": "Em andamento",
+      "statusOS": "Em andamento",
+      "status_financeiro": "pendente_orcamento",
+      "valor_total": 680.0,
+      "valor_pecas": 280.0,
+      "valor_servicos": 400.0,
+      "diagnostico": "Dificuldade de partida a frio e entrada de ar na bomba injetora.",
+      "servicos_executados": "Substituição do filtro separador de água e sangria do circuito diesel.",
+      "itens_pecas": [
+        {
+          "codigo": "FLT-SEP10",
+          "descricao": "Filtro Separador Racor Diesel Completo",
+          "quantidade": 1,
+          "valor_unitario": 280.0,
+          "valor_total": 280.0
+        }
+      ],
+      "itens_servicos": [
+        {
+          "descricao": "Mão de Obra de Regulagem e Sangria de Sistema de Alimentação",
+          "horas": 2,
+          "valor_hora": 200.0,
+          "valor_total": 400.0
+        }
+      ],
+      "retornos_campo": [],
+      "pecasTotal": 280.0,
+      "servicosFinal": 400.0,
+      "totalGeral": 680.0,
+      "totalOS": 680.0,
+      "pecasItens": [
+        {
+          "codigo": "FLT-SEP10",
+          "descricao": "Filtro Separador Racor Diesel Completo",
+          "produto": "Filtro Separador Racor Diesel Completo",
+          "qtd": 1.0,
+          "valor": 280.0,
+          "subtotal": 280.0
+        }
+      ],
+      "pecas": [
+        {
+          "codigo": "FLT-SEP10",
+          "descricao": "Filtro Separador Racor Diesel Completo",
+          "produto": "Filtro Separador Racor Diesel Completo",
+          "qtd": 1.0,
+          "valor": 280.0,
+          "subtotal": 280.0
+        }
+      ],
+      "servicosItens": [
+        {
+          "codigo": "SRV-1",
+          "descricao": "Mão de Obra de Regulagem e Sangria de Sistema de Alimentação",
+          "servico": "Mão de Obra de Regulagem e Sangria de Sistema de Alimentação",
+          "qtd": 2.0,
+          "valor": 200.0,
+          "subtotal": 400.0
+        }
+      ],
+      "observacoes": "Dificuldade de partida a frio e entrada de ar na bomba injetora."
+    }
+  ],
+  "equipamentos": [],
+  "clientes": [],
+  "programacoes": []
+}
