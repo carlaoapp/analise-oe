@@ -4439,12 +4439,12 @@ function verificarExibicaoBannerInstalacao() {
 
     const banner = document.getElementById('bannerInstalarApp');
     if (banner) {
-        setTimeout(() => { banner.style.display = 'block'; }, 1500);
+        banner.style.display = 'block';
     }
 }
 
 window.addEventListener('load', () => {
-    setTimeout(verificarExibicaoBannerInstalacao, 2500);
+    setTimeout(verificarExibicaoBannerInstalacao, 1000);
 });
 
 async function confirmarInstalacaoApp() {

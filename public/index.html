@@ -7332,12 +7332,12 @@ function verificarExibicaoBannerInstalacaoIndex() {
 
     const banner = document.getElementById('bannerInstalarAppIndex');
     if (banner) {
-        setTimeout(() => { banner.style.display = 'block'; }, 1500);
+        banner.style.display = 'block';
     }
 }
 
 window.addEventListener('load', () => {
-    setTimeout(verificarExibicaoBannerInstalacaoIndex, 2500);
+    setTimeout(verificarExibicaoBannerInstalacaoIndex, 1000);
 });
 
 async function confirmarInstalacaoAppIndex() {
