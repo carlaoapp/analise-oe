@@ -9,6 +9,8 @@ import json
 import os
 import socket
 import urllib.parse
+import urllib.request
+import threading
 import time
 import re
 import base64
@@ -107,6 +109,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
+        if path in ("/api/health", "/api/ping"):
+            self.send_json({"status": "ok", "uptime": time.time(), "keep_alive": True})
+            return
         if path == "/api/orcamento/modelos-prestadores":
             self.send_json(ler_catalogo_prestadores())
             return
@@ -775,11 +780,43 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
         self.send_json({"error": "not found"}, 404)
 
+def keep_alive_worker():
+    """
+    Mantém o servidor desperto no Render e na nuvem,
+    disparando requisições a cada 7 segundos para evitar que o serviço hiberne (sleep)
+    e agilizando a abertura instantânea do app.
+    """
+    intervalo = int(os.environ.get("KEEP_ALIVE_INTERVAL", 7))
+    time.sleep(3)
+    print(f"[OE] Keep-Alive Render ativado (despertando a cada {intervalo}s)")
+    while True:
+        try:
+            ext_url = (os.environ.get("RENDER_EXTERNAL_URL") or os.environ.get("AUTO_PING_URL") or "").strip()
+            alvos = [f"http://127.0.0.1:{PORT}/api/health"]
+            if ext_url:
+                alvos.insert(0, f"{ext_url.rstrip('/')}/api/health")
+
+            for alvo in alvos:
+                try:
+                    req = urllib.request.Request(alvo, headers={"User-Agent": "Render-KeepAlive/1.0"})
+                    with urllib.request.urlopen(req, timeout=4) as resp:
+                        pass
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        time.sleep(intervalo)
+
 if __name__ == "__main__":
     ip = get_local_ip()
     print(f"[OE] Painel Desktop : http://localhost:{PORT}/")
     print(f"[OE] Rede local     : http://{ip}:{PORT}/")
     print(f"[OE] Dados salvos em: {DATA_FILE}")
+
+    # Inicia thread de keep-alive a cada 7 segundos para não deixar o Render dormir
+    t_keep_alive = threading.Thread(target=keep_alive_worker, daemon=True, name="RenderKeepAlive")
+    t_keep_alive.start()
+
     server = http.server.ThreadingHTTPServer(("0.0.0.0", PORT), Handler)
     server.daemon_threads = True
     try:

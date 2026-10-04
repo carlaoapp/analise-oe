@@ -7318,6 +7318,11 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+// Keep-alive a cada 7 segundos para não deixar o Render dormir e agilizar o app
+setInterval(() => {
+    fetch('/api/health', { cache: 'no-store' }).catch(() => {});
+}, 7000);
+
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredInstallPromptIndex = e;
