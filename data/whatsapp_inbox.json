@@ -85,7 +85,7 @@
     "timestamp": "2026-09-15 11:20:00",
     "remetente_nome": "Marcelo Tavares (Proprietário)",
     "remetente_numero": "5544998660006",
-    "status": "pendente",
+    "status": "importada",
     "mensagem_original": "Olá, meu Trator Frota 610 Valtra não pega de manhã cedo. Suspeita de ar no diesel. Podem vir olhar?",
     "dados_extraidos": {
       "cliente": "Sítio Primavera Fruticultura",
@@ -93,6 +93,7 @@
       "os": "1006",
       "problema": "Entrada de ar no diesel"
     },
-    "midias": []
+    "midias": [],
+    "data_atualizacao": "2026-10-11 19:59:52"
   }
 ]
