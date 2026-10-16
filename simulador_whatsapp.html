@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp - Atendimento em Campo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #0c1317;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #e9edef;
+            padding: 10px;
+        }
+        .whatsapp-container {
+            width: 100%;
+            max-width: 440px;
+            height: 860px;
+            background: #111b21;
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+        }
+        .chat-header {
+            background: #202c33;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            z-index: 10;
+        }
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #00a884;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            font-size: 16px;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #e9edef;
+        }
+        .contact-status {
+            font-size: 11.5px;
+            color: #00a884;
+            font-weight: 500;
+        }
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #aebac1;
+        }
+        .chat-messages {
+            flex: 1;
+            background: #0b141a;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .date-badge {
+            align-self: center;
+            background: #182229;
+            color: #8696a0;
+            font-size: 11px;
+            padding: 5px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .message-bubble {
+            max-width: 82%;
+            padding: 8px 12px 6px 12px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            line-height: 1.4;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .msg-in {
+            align-self: flex-start;
+            background: #202c33;
+            color: #e9edef;
+            border-top-left-radius: 2px;
+        }
+        .msg-out {
+            align-self: flex-end;
+            background: #005c4b;
+            color: #e9edef;
+            border-top-right-radius: 2px;
+        }
+        .msg-time {
+            align-self: flex-end;
+            font-size: 10px;
+            color: #8696a0;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .msg-out .msg-time {
+            color: #84ccba;
+        }
+        .check-double {
+            color: #53bdeb;
+        }
+        .os-summary-card {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-top: 6px;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+        .os-summary-title {
+            font-weight: 700;
+            color: #25d366;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .chat-footer {
+            background: #202c33;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .chat-input {
+            flex: 1;
+            background: #2a3942;
+            border: none;
+            color: #e9edef;
+            border-radius: 8px;
+            padding: 9px 14px;
+            font-size: 13.5px;
+            outline: none;
+        }
+        .chat-input::placeholder {
+            color: #8696a0;
+        }
+        .btn-send {
+            background: #00a884;
+            color: #fff;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .simulation-banner {
+            position: absolute;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(14, 165, 233, 0.95);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="whatsapp-container">
+    <div class="simulation-banner" id="simBanner">
+        <span>●</span> Simulação: Recepção do Chamado
+    </div>
+
+    <div class="chat-header">
+        <div class="chat-header-left">
+            <div class="avatar">AV</div>
+            <div class="contact-info">
+                <span class="contact-name">Agropecuária Vale Verde (Carlos Mendes)</span>
+                <span class="contact-status">online</span>
+            </div>
+        </div>
+        <div class="header-icons">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+        </div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+        <div class="date-badge">Hoje</div>
+
+        <div class="message-bubble msg-in" id="msgChamadoCliente">
+            <div>Bom dia equipe! O trator <b>Frota 101</b> (Massey Ferguson 7719) aqui no setor de plantio da Agropecuária Vale Verde parou com vazamento no circuito hidráulico. Precisamos de atendimento no campo! 🚜⚠️</div>
+            <div class="msg-time">08:15</div>
+        </div>
+
+        <div class="message-bubble msg-out" id="msgRespostaTecnico">
+            <div>Bom dia, Carlos! Mensagem recebida. Nossa equipe de campo já está a caminho com a caminhonete oficina. Ordem de Serviço #1001 aberta! 👨‍🔧🔧</div>
+            <div class="msg-time">08:17 <span class="check-double">✓✓</span></div>
+        </div>
+
+        <div class="message-bubble msg-out" id="msgConclusaoOS" style="display: none;">
+            <div>Olá Carlos! Atendimento concluído com sucesso e testado em carga. Segue o resumo da sua Ordem de Serviço digital:</div>
+            <div class="os-summary-card">
+                <div class="os-summary-title">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>ORDEM DE SERVIÇO CONCLUÍDA</span>
+                </div>
+                <div><b>O.S. Nº:</b> #1001</div>
+                <div><b>Equipamento:</b> Massey Ferguson 7719 - Frota 101</div>
+                <div><b>Local:</b> Agropecuária Vale Verde (Talhão 04)</div>
+                <div><b>Serviço:</b> Reparo no cilindro hidráulico e troca de vedação</div>
+                <div><b>Peças:</b> 1x Kit Reparo Hidráulico, 20L Óleo 68</div>
+                <div><b>Status:</b> Finalizada / Faturada</div>
+                <div><b>Assinado por:</b> Carlos Mendes (Digital)</div>
+            </div>
+            <div class="msg-time">10:30 <span class="check-double">✓✓</span></div>
+        </div>
+    </div>
+
+    <div class="chat-footer">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8696a0" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8696a0" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+        <input type="text" class="chat-input" placeholder="Mensagem" value="" id="txtInputMsg">
+        <button class="btn-send">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const step = urlParams.get('step') || 'chamado';
+    const banner = document.getElementById('simBanner');
+
+    if (step === 'conclusao') {
+        document.getElementById('msgConclusaoOS').style.display = 'flex';
+        banner.innerHTML = '<span>●</span> Simulação: Retorno com O.S. Concluída';
+        banner.style.background = 'rgba(16, 185, 129, 0.95)';
+        const box = document.getElementById('chatMessages');
+        box.scrollTop = box.scrollHeight;
+    }
+</script>
+
+</body>
+</html>

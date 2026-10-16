@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'analise-oe-v24';
+const CACHE_NAME = 'analise-oe-v24';
 const ASSETS_TO_CACHE = [
     '/',
     '/index.html',
@@ -38,6 +38,9 @@ self.addEventListener('activate', event => {
 // Interceptação de requisições de rede
 self.addEventListener('fetch', event => {
     const url = new URL(event.request.url);
+
+    // version.json sempre vem da rede (nunca do cache) para detectar novas versoes
+    if (url.pathname.endsWith('/version.json')) return;
 
     // Requisições para API (/api/...) são SEMPRE Network-first
     if (url.pathname.startsWith('/api/')) {

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Critica de Orcamento - Painel de Manutencao</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+    :root {
+        --bg: #0f172a;
+        --surface: #1e293b;
+        --surface2: #334155;
+        --border: #475569;
+        --txt: #f8fafc;
+        --muted: #94a3b8;
+        --primary: #2563eb;
+        --primary-hover: #1d4ed8;
+        --accent: #38bdf8;
+        --success: #22c55e;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --card-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg);
+        color: var(--txt);
+        min-height: 100vh;
+        padding-bottom: 40px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HEADER */
+    .top-bar {
+        background: rgba(30,41,59,0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 10px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .top-bar img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; }
+    .top-bar .brand { font-size: 1rem; font-weight: 800; color: var(--txt); }
+    .top-bar .subbrand { font-size: 0.7rem; color: var(--muted); }
+    .btn-back {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--txt);
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: auto;
+        transition: background 0.2s;
+    }
+    .btn-back:hover { background: var(--border); text-decoration: none; }
+
+    /* CONTAINER */
+    .page-wrap {
+        max-width: 1000px;
+        margin: 28px auto;
+        padding: 0 24px;
+    }
+    .page-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin-bottom: 4px;
+        color: var(--txt);
+    }
+    .page-sub {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-bottom: 28px;
+    }
+
+    /* CARDS */
+    .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 22px;
+        margin-bottom: 20px;
+        box-shadow: var(--card-shadow);
+    }
+    .card-title {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* FORM ELEMENTS */
+    label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--muted);
+        margin-bottom: 5px;
+    }
+    input[type=text], input[type=number], input[type=date],
+    input[type=email], select, textarea {
+        width: 100%;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--txt);
+        font-size: 0.88rem;
+        padding: 10px 13px;
+        margin-bottom: 14px;
+        outline: none;
+        font-family: inherit;
+        transition: border-color 0.2s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+    textarea { resize: vertical; min-height: 90px; }
+    select option { background: var(--surface); }
+
+    /* GRID */
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    /* BUTTONS */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        border-radius: 10px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        padding: 11px 20px;
+        cursor: pointer;
+        transition: opacity 0.2s, transform 0.1s;
+        font-family: inherit;
+        text-decoration: none;
+    }
+    .btn:active { transform: scale(0.98); opacity: 0.85; }
+    .btn:hover { opacity: 0.88; text-decoration: none; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-secondary { background: var(--surface2); color: var(--txt); border: 1px solid var(--border); }
+    .btn-warning { background: var(--warning); color: #000; }
+    .btn-accent { background: var(--accent); color: #000; }
+    .btn-sm { padding: 7px 14px; font-size: 0.78rem; }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+    /* ITEMS (Critica) */
+    .item-row {
+        background: var(--surface2);
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    .item-row input, .item-row select { margin-bottom: 0; }
+    .item-content { flex: 1; }
+    .item-remove {
+        background: none;
+        border: none;
+        color: var(--danger);
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 4px;
+        flex-shrink: 0;
+    }
+    .item-num {
+        background: var(--primary);
+        color: #fff;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.72rem;
+        font-weight: 800;
+        flex-shrink: 0;
+        margin-top: 4px;
+    }
+
+    /* TOTAL BAR */
+    .total-bar {
+        background: var(--surface2);
+        border-radius: 10px;
+        padding: 14px 16px;
+        margin-top: 8px;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .total-item { flex: 1; min-width: 140px; }
+    .total-label { font-size: 0.72rem; color: var(--muted); margin-bottom: 2px; }
+    .total-value { font-size: 1.15rem; font-weight: 800; color: var(--success); }
+    .total-value.economia { color: var(--accent); }
+
+    /* PHOTOS */
+    .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+    .photo-thumb {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+    .photo-thumb:hover { opacity: 0.7; }
+    .photo-add {
+        width: 100%;
+        aspect-ratio: 1;
+        border: 2px dashed var(--border);
+        border-radius: 10px;
+        background: var(--surface2);
+        color: var(--muted);
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: border-color 0.2s;
+    }
+    .photo-add:hover { border-color: var(--primary); }
+
+    /* CHECKLIST */
+    .check-item {
+        background: var(--surface2);
+        border-radius: 10px;
+        padding: 10px 14px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .check-label { flex: 1; font-size: 0.85rem; }
+    .check-btns { display: flex; gap: 6px; }
+    .check-btn {
+        padding: 5px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+    .check-btn.ok { background: var(--success); color: #fff; border-color: var(--success); }
+    .check-btn.nc { background: var(--danger); color: #fff; border-color: var(--danger); }
+    .check-btn.na { background: var(--surface2); color: var(--muted); border-color: var(--border); font-style: italic; }
+
+    /* SIGNATURE */
+    canvas#sigCanvas {
+        width: 100%;
+        height: 180px;
+        background: #fff;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        display: block;
+        cursor: crosshair;
+    }
+
+    /* BADGE */
+    .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 10px;
+        font-size: 0.7rem;
+        font-weight: 700;
+    }
+    .badge-success { background: rgba(34,197,94,0.15); color: var(--success); }
+    .badge-warning { background: rgba(245,158,11,0.15); color: var(--warning); }
+    .badge-danger  { background: rgba(239,68,68,0.15); color: var(--danger); }
+    .badge-primary { background: rgba(37,99,235,0.2); color: var(--accent); }
+
+    /* INFO BANNER */
+    .info-banner {
+        background: rgba(37,99,235,0.1);
+        border: 1px solid rgba(56,189,248,0.25);
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 0.78rem;
+        color: var(--accent);
+        margin-bottom: 14px;
+    }
+
+    /* ALERT */
+    .alert { padding: 12px 16px; border-radius: 10px; margin-bottom: 14px; font-size: 0.82rem; }
+    .alert-success { background: rgba(34,197,94,0.12); border: 1px solid var(--success); color: var(--success); }
+    .alert-danger  { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); color: var(--danger); }
+
+    .hidden { display: none !important; }
+    .mb0 { margin-bottom: 0 !important; }
+    .mt8 { margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+    <img src="logo.jpg" alt="Logo" onerror="this.src='icon-192.png'">
+    <div>
+        <div class="brand">Painel de Manutencao</div>
+        <div class="subbrand">Nova Critica de Orcamento</div>
+    </div>
+    <a href="index.html" class="btn-back">&#8592; Voltar ao Painel</a>
+</div>
+
+<div class="page-wrap">
+    <div class="page-title">&#128176; Nova Critica de Orcamento</div>
+    <div class="page-sub">Preencha os dados, lance as pecas e servicos, e gere o laudo tecnico em PDF.</div>
+
+    <div id="msgBox"></div>
+
+    <!-- 1. DADOS BASICOS -->
+    <div class="card">
+        <div class="card-title">&#128203; Dados Basicos</div>
+        <div class="row3">
+            <div>
+                <label>Equipamento / Maquina *</label>
+                <input type="text" id="c_equip" placeholder="Ex: Colheitadeira John Deere S760" class="mb0">
+            </div>
+            <div>
+                <label>Numero da Frota *</label>
+                <input type="text" id="c_frota" placeholder="Ex: FR-042" class="mb0">
+            </div>
+            <div>
+                <label>Numero da OS</label>
+                <input type="text" id="c_os" placeholder="Ex: OS-2024-001" class="mb0">
+            </div>
+        </div>
+        <div class="row3" style="margin-top:14px;">
+            <div>
+                <label>Oficina / Fornecedor</label>
+                <input type="text" id="c_oficina" placeholder="Nome da oficina" class="mb0">
+            </div>
+            <div>
+                <label>Tecnico Responsavel</label>
+                <input type="text" id="c_tecnico" placeholder="Nome do tecnico" class="mb0">
+            </div>
+            <div>
+                <label>Data da Critica</label>
+                <input type="date" id="c_data" class="mb0">
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. CRITICA TECNICA -->
+    <div class="card">
+        <div class="card-title">&#128269; Critica Tecnica</div>
+        <div class="row2">
+            <div>
+                <label>Gravidade</label>
+                <select id="c_gravidade">
+                    <option value="alta">Alta - Urgente</option>
+                    <option value="media" selected>Media</option>
+                    <option value="baixa">Baixa</option>
+                </select>
+                <label>Status da Critica</label>
+                <select id="c_status">
+                    <option value="pendente">Pendente</option>
+                    <option value="aprovado">Aprovado</option>
+                    <option value="reprovado">Reprovado</option>
+                    <option value="negociado" selected>Negociado</option>
+                </select>
+            </div>
+            <div>
+                <label>Descricao do Problema Encontrado</label>
+                <textarea id="c_problema" placeholder="Descreva detalhadamente o problema encontrado no equipamento..." style="min-height:110px;"></textarea>
+            </div>
+        </div>
+        <label>Parecer Tecnico Conclusivo</label>
+        <textarea id="c_parecer" placeholder="Conclusao tecnica: o que foi negociado, quais pecas foram aprovadas, recomendacoes..." style="min-height:80px;"></textarea>
+    </div>
+
+    <!-- 3. PECAS E SERVICOS -->
+    <div class="card">
+        <div class="card-title">&#9881; Pecas e Servicos Analisados</div>
+
+        <div id="itensList">
+            <p style="font-size:0.8rem; color:var(--muted); margin-bottom:12px;">Nenhum item adicionado. Clique no botao abaixo para adicionar pecas e servicos.</p>
+        </div>
+
+        <button class="btn btn-secondary" onclick="adicionarItem()" style="margin-bottom:16px;">&#43; Adicionar Peca ou Servico</button>
+
+        <div class="total-bar">
+            <div class="total-item">
+                <div class="total-label">Valor Orcado Total</div>
+                <div class="total-value" id="tot_orcado">R$ 0,00</div>
+            </div>
+            <div class="total-item">
+                <div class="total-label">Valor Negociado Total</div>
+                <div class="total-value" id="tot_negociado">R$ 0,00</div>
+            </div>
+            <div class="total-item">
+                <div class="total-label">Economia Gerada</div>
+                <div class="total-value economia" id="tot_economia">R$ 0,00</div>
+            </div>
+            <div class="total-item">
+                <div class="total-label">% de Desconto</div>
+                <div class="total-value economia" id="tot_perc">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. FOTOS -->
+    <div class="card">
+        <div class="card-title">&#128247; Fotos do Equipamento / Pecas</div>
+        <div class="photo-grid" id="photoGrid">
+            <div class="photo-add" onclick="document.getElementById('photoInput').click()" title="Adicionar fotos">&#43;</div>
+        </div>
+        <input type="file" id="photoInput" accept="image/*" multiple class="hidden" onchange="adicionarFotos(event)">
+        <p style="font-size:0.72rem; color:var(--muted);">Clique no + para adicionar fotos. Clique em uma foto para remover.</p>
+    </div>
+
+    <!-- 5. ACOES -->
+    <div class="btn-row">
+        <button class="btn btn-success" onclick="salvarCritica()">&#128190; Salvar Critica</button>
+        <button class="btn btn-primary" onclick="gerarPDF()">&#128196; Gerar Laudo PDF</button>
+        <button class="btn btn-warning" onclick="exportarParaServidor()">&#128260; Enviar ao Servidor</button>
+        <a href="index.html" class="btn btn-secondary">&#8592; Voltar ao Painel</a>
+    </div>
+</div>
+
+<script>
+
+        function getCriticasFromStorage() {
+            let salvas = JSON.parse(localStorage.getItem('criticas') || '[]');
+            if (salvas.length === 0 && window.INITIAL_CRITICAS && window.INITIAL_CRITICAS.length > 0) {
+                salvas = window.INITIAL_CRITICAS;
+                localStorage.setItem('criticas', JSON.stringify(salvas));
+            }
+            return salvas;
+        }
+
+
+        window.INITIAL_CRITICAS = [{"id": "1785506419692", "equipamento": "5266", "os": "138258", "fazenda": "Fazenda SL 1", "localizacao": "MG Vedação ", "dataChegada": "2026-07-24", "dataInicio": "2026-07-30T10:00", "dataFim": "2026-08-22T20:47", "status": "Em andamento", "componentes": [{"nome": "Base do Facão ", "fotos": ["/uploads/img_8e399062.jpg", "/uploads/img_7bb93dad.jpg", "/uploads/img_73755faf.jpg", "/uploads/img_4c43c20c.jpg", "/uploads/img_c4f3d07f.jpg", "/uploads/img_41fda6a4.jpg", "/uploads/img_7ddb7d39.jpg", "/uploads/img_d20f146e.jpg", "/uploads/img_6b47206f.jpg", "/uploads/img_e5652392.jpg", "/uploads/img_a535d8ad.jpg", "/uploads/img_91a34a82.jpg", "/uploads/img_bdc1261d.jpg", "/uploads/img_71759654.jpg", "/uploads/img_77b3d660.jpg", "/uploads/img_e200073d.jpg", "/uploads/img_2cd76a17.jpg", "/uploads/img_9cb89897.jpg", "/uploads/img_ae631df6.jpg", "/uploads/img_74e48f4a.jpg", "/uploads/img_d3708fcb.jpg", "/uploads/img_eac97695.jpg", "/uploads/img_f9645f58.jpg", "/uploads/img_3eb98688.jpg", "/uploads/img_3c330af9.jpg", "/uploads/img_1be5d7c2.jpg", "/uploads/img_b61e792f.jpg", "/uploads/img_524b9939.jpg"]}], "valores": {"moAtual": "3544.15", "moNegociado": "3100", "pecasAtual": "14067.76", "pecasNegociado": "13364"}, "fotosOrcamento": ["/uploads/img_673f588c.jpg", "/uploads/img_10bf9ae6.jpg"], "observacao": "", "historicoValores": [{"titulo": "Orçamento Inicial", "mo": "3544.15", "pecas": "14067.76", "observacao": "Base da faca foi solicitado para Renato Fazer Orçamento", "moAtual": 14067.78, "moCortes": 13364, "pecasAtual": 3544.15, "pecasCortes": 3100, "moFinal": 703.7800000000007, "pecasFinal": 444.1500000000001}, {"titulo": "1ª Negociação", "mo": "3100", "pecas": "13364", "observacao": "Orçamento da base da faca ficará entre R$ 500,00 as  R$ 800,00, autorizado a fazer", "moAtual": 13364, "moFinal": 11905.97, "pecasAtual": 3100, "pecasFinal": 3100, "moCortes": 1458.03, "pecasCortes": 0}], "prestador": "MG Vedação"}, {"id": "1785792954369", "equipamento": "234", "os": "138635", "fazenda": "São Severino ", "localizacao": "Oficina Equagril ", "dataChegada": "2026-07-27", "dataInicio": "2026-08-03T11:00", "dataFim": "2026-08-04T18:02", "status": "Em andamento", "prestador": "Equagril - Mecânico Carlos", "componentes": [{"nome": "Peças transmissão, vazamentos correia motor e agregados ", "fotos": ["/uploads/img_7f0bc0dc.jpg", "/uploads/img_6d795583.jpg", "/uploads/img_a6f6f7aa.jpg", "/uploads/img_2f69ca2b.jpg", "/uploads/img_5898979a.jpg", "/uploads/img_939f6f2c.jpg", "/uploads/img_4d7306df.jpg", "/uploads/img_d4408691.jpg", "/uploads/img_76393c69.jpg", "/uploads/img_30f5fbf0.jpg", "/uploads/img_aef6e8d8.jpg", "/uploads/img_82e35070.jpg", "/uploads/img_cdbc9203.jpg", "/uploads/img_a079b21b.jpg", "/uploads/img_7c315ec9.jpg", "/uploads/img_c26b0ba5.jpg", "/uploads/img_44fb83b6.jpg", "/uploads/img_085c2bfc.jpg", "/uploads/img_f70c5726.jpg", "/uploads/img_b947eb8e.jpg", "/uploads/img_108c74e0.jpg", "/uploads/img_5fd22081.jpg", "/uploads/img_98a010bb.jpg", "/uploads/img_7d3c2132.jpg", "/uploads/img_5348414e.jpg", "/uploads/img_d2709256.jpg", "/uploads/img_f7781d0b.jpg", "/uploads/img_14e452d1.jpg", "/uploads/img_d01bbbf7.jpg", "/uploads/img_74901700.jpg", "/uploads/img_1ea046b7.jpg", "/uploads/img_d2664f2d.jpg", "/uploads/img_df39f2b4.jpg", "/uploads/img_94abab71.jpg", "/uploads/img_b237c82d.jpg", "/uploads/img_990a62de.jpg", "/uploads/img_72ffca04.jpg", "/uploads/img_eafd81db.jpg", "/uploads/img_d4aac891.jpg", "/uploads/img_9eb7b93e.jpg", "/uploads/img_bee9ad67.jpg", "/uploads/img_64c7339c.jpg", "/uploads/img_89c2e826.jpg", "/uploads/img_e8d63a60.jpg"]}], "historicoValores": [{"titulo": "Orçamento Inicial", "moAtual": 7720, "moCortes": 5500, "moFinal": 2220, "pecasAtual": 6180, "pecasCortes": 5035, "pecasFinal": 1145, "observacao": ""}], "fotosOrcamento": ["/uploads/img_75332a72.jpg#DESC:Or%C3%A7amento%20234", "/uploads/img_eb38bb5b.jpg#DESC:Or%C3%A7amento%20234"], "observacao": ""}, {"id": "1786037190653", "equipamento": "286", "os": "139225", "fazenda": "São Paulo", "localizacao": "Oficina - Interna", "prestador": "Diego - DMa", "dataChegada": "2026-08-04", "dataInicio": "2026-08-06T08:00", "dataFim": "2026-08-23T07:11", "status": "Em andamento", "componentes": [{"nome": "Cambio", "fotos": ["/uploads/img_02018f19.jpg#EXPORT:1", "/uploads/img_45bfba87.jpg#EXPORT:1", "/uploads/img_b31a1159.jpg#EXPORT:1", "/uploads/img_4d22bcba.jpg#EXPORT:1", "/uploads/img_0552b977.jpg#EXPORT:1", "/uploads/img_7194ef60.jpg#EXPORT:1", "/uploads/img_b0e53443.jpg#EXPORT:1", "/uploads/img_f4aa7fbf.jpg#EXPORT:1", "/uploads/img_0a559d0e.jpg#EXPORT:1", "/uploads/img_7b3cd2bd.jpg#EXPORT:1", "/uploads/img_d62b4d49.jpg#EXPORT:1", "/uploads/img_45c2b5ba.jpg#EXPORT:1", "/uploads/img_c54e2592.jpg#EXPORT:1", "/uploads/img_95e20ddd.jpg#EXPORT:1", "/uploads/img_31ad60ca.jpg#EXPORT:1", "/uploads/img_f350e953.jpg#EXPORT:1"]}], "historicoValores": [{"titulo": "Orçamento Inicial", "moAtual": 4500, "moCortes": 3950, "moFinal": 550, "pecasAtual": 0, "pecasCortes": 0, "pecasFinal": 0, "observacao": "Separa peças almoxarifado e pedir o que faltar"}], "fotosOrcamento": ["/uploads/img_2c32283f.jpg#DESC:Pe%C3%A7as%20a%20pedir%20e%20valor%20de%20m%C3%A3o%20de%20obra%20or%C3%A7amento#EXPORT:1", "/uploads/img_da86f686.jpg#EXPORT:1", "/uploads/img_3fed83b9.jpg#EXPORT:1"], "observacao": "Trator está com regulagem embreagem no ultimo estárgil . Embreagem feita pelo Terceiro Diego da DMA, data (10-03-2026) horas: 7136 - Hora atual: 8131 - Rodou 995hs. Analisar ", "cliente": "", "setor": "São Paulo"}, {"id": "1786039877522", "equipamento": "318", "os": "199083", "fazenda": "São Severino ", "localizacao": "Oficina Equagril ", "prestador": "Equagril - Mecânico - João Paulo ", "dataChegada": "2026-08-04", "dataInicio": "2026-08-05T13:30", "dataFim": "2026-08-23T01:33", "status": "Em andamento", "componentes": [{"nome": "Caixa de transmissão ", "fotos": ["/uploads/img_53e3cb28.jpg#DESC:Disco%20de%20embreagem.condi%C3%A7oes%20de%20uso", "/uploads/img_b8794295.jpg", "/uploads/img_953ce3c5.jpg", "/uploads/img_90de87da.jpg", "/uploads/img_0abb33ce.jpg#DESC:Caixa%20de%20rolamento%20em%20condi%C3%A7%C3%B5es%20de%20uso", "/uploads/img_9e6f1a2e.jpg", "/uploads/img_8136a12b.jpg", "/uploads/img_ec26b285.jpg", "/uploads/img_e6f28f1d.jpg", "/uploads/img_14677af4.jpg#DESC:Rolamento%20se%20esferas%20com%20desgaste%20-%20Trocar", "/uploads/img_67307f8e.jpg", "/uploads/img_c4e806af.jpg", "/uploads/img_81d364d6.jpg", "/uploads/img_5c30c1c4.jpg#DESC:Vazamento%20retorno%20virabrequim", "/uploads/img_f85f7619.jpg", "/uploads/img_0d60a170.jpg", "/uploads/img_3a12f760.jpg", "/uploads/img_c354bbf5.jpg"]}], "historicoValores": [{"titulo": "Orçamento Inicial", "moAtual": 13101, "moCortes": 0, "moFinal": 13101, "pecasAtual": 8057.79, "pecasCortes": 0, "pecasFinal": 8057.79, "observacao": ""}], "fotosOrcamento": [], "observacao": "", "setor": "São Severino ", "cliente": ""}, {"id": "1786711914396", "equipamento": "5532", "os": "139171", "fazenda": "São Paulo", "localizacao": "MG Vedação ", "prestador": "MG Vedação ", "dataChegada": "2026-08-10", "dataInicio": "2026-08-13T10:30", "dataFim": "2026-08-14T09:51", "status": "Em andamento", "componentes": [{"nome": "Caixa facas", "fotos": ["/uploads/img_ac76e37d8cfd4e1a8331070e8b14132c.jpg", "/uploads/img_41b13f5fd6fc4bc1808d39f01bd107a8.jpg", "/uploads/img_9fd98b519d984345a348e0eaefe3f2fc.mp4"]}], "historicoValores": [{"titulo": "Orçamento Inicial", "moAtual": 0, "moCortes": 0, "moFinal": 0, "pecasAtual": 0, "pecasCortes": 0, "pecasFinal": 0, "observacao": ""}], "fotosOrcamento": ["/uploads/img_a150ff4a9c7e4afba5aa5875208a3321.jpg", "/uploads/img_edb677f74ce543d1a7405aaf48d151ac.jpg"], "observacao": ""}];
+
+var itens = [];
+var fotos = [];
+
+window.addEventListener('DOMContentLoaded', function() {
+    var hoje = new Date().toISOString().split('T')[0];
+    document.getElementById('c_data').value = hoje;
+    renderItens();
+    carregarRascunho();
+});
+
+function carregarRascunho() {
+    var raw = localStorage.getItem('critica_rascunho');
+    if (!raw) return;
+    try {
+        var d = JSON.parse(raw);
+        if (d.equip) document.getElementById('c_equip').value = d.equip;
+        if (d.frota) document.getElementById('c_frota').value = d.frota;
+        if (d.os) document.getElementById('c_os').value = d.os;
+        if (d.oficina) document.getElementById('c_oficina').value = d.oficina;
+        if (d.tecnico) document.getElementById('c_tecnico').value = d.tecnico;
+        if (d.gravidade) document.getElementById('c_gravidade').value = d.gravidade;
+        if (d.status) document.getElementById('c_status').value = d.status;
+        if (d.problema) document.getElementById('c_problema').value = d.problema;
+        if (d.parecer) document.getElementById('c_parecer').value = d.parecer;
+        if (d.itens) { itens = d.itens; renderItens(); }
+        if (d.fotos) { fotos = d.fotos; renderFotos(); }
+    } catch(e) {}
+}
+
+// Auto-save rascunho
+setInterval(function() {
+    localStorage.setItem('critica_rascunho', JSON.stringify({
+        equip: document.getElementById('c_equip').value,
+        frota: document.getElementById('c_frota').value,
+        os: document.getElementById('c_os').value,
+        oficina: document.getElementById('c_oficina').value,
+        tecnico: document.getElementById('c_tecnico').value,
+        gravidade: document.getElementById('c_gravidade').value,
+        status: document.getElementById('c_status').value,
+        problema: document.getElementById('c_problema').value,
+        parecer: document.getElementById('c_parecer').value,
+        itens: itens,
+        fotos: fotos
+    }));
+}, 5000);
+
+function adicionarItem() {
+    itens.push({ id: Date.now(), desc: '', qtd: 1, orcado: 0, negociado: 0 });
+    renderItens();
+}
+
+function removerItem(id) {
+    itens = itens.filter(function(x) { return x.id !== id; });
+    renderItens();
+}
+
+function renderItens() {
+    var c = document.getElementById('itensList');
+    if (itens.length === 0) {
+        c.innerHTML = '<p style="font-size:0.8rem; color:var(--muted); margin-bottom:12px;">Nenhum item adicionado. Clique no botao abaixo para adicionar pecas e servicos.</p>';
+        calcTotais();
+        return;
+    }
+    c.innerHTML = itens.map(function(it, idx) {
+        return '<div class="item-row">' +
+            '<div class="item-num">' + (idx+1) + '</div>' +
+            '<div class="item-content">' +
+            '<div class="row2" style="margin-bottom:8px;">' +
+            '<div><label style="margin-bottom:3px;">Descricao da Peca / Servico</label>' +
+            '<input type="text" value="' + (it.desc||'').replace(/"/g,'&quot;') + '" placeholder="Ex: Filtro de oleo motor" onchange="itens[' + idx + '].desc=this.value" style="margin-bottom:0;"></div>' +
+            '<div><label style="margin-bottom:3px;">Quantidade</label>' +
+            '<input type="number" min="1" value="' + (it.qtd||1) + '" onchange="itens[' + idx + '].qtd=parseFloat(this.value)||1;calcTotais()" style="margin-bottom:0;"></div>' +
+            '</div>' +
+            '<div class="row2">' +
+            '<div><label style="margin-bottom:3px;">Valor Orcado (R$)</label>' +
+            '<input type="number" min="0" step="0.01" value="' + (it.orcado||0) + '" onchange="itens[' + idx + '].orcado=parseFloat(this.value)||0;calcTotais()" style="margin-bottom:0;"></div>' +
+            '<div><label style="margin-bottom:3px;">Valor Negociado (R$)</label>' +
+            '<input type="number" min="0" step="0.01" value="' + (it.negociado||0) + '" onchange="itens[' + idx + '].negociado=parseFloat(this.value)||0;calcTotais()" style="margin-bottom:0;"></div>' +
+            '</div>' +
+            '</div>' +
+            '<button class="item-remove" onclick="removerItem(' + it.id + ')" title="Remover item">&#128465;</button>' +
+            '</div>';
+    }).join('');
+    calcTotais();
+}
+
+function calcTotais() {
+    var orc = 0, neg = 0;
+    itens.forEach(function(it) {
+        orc += (it.orcado||0) * (it.qtd||1);
+        neg += (it.negociado||0) * (it.qtd||1);
+    });
+    var eco = orc - neg;
+    var perc = orc > 0 ? ((eco/orc)*100).toFixed(1) : '0';
+    var fmt = function(v) { return 'R$ ' + Math.abs(v).toFixed(2).replace('.', ','); };
+    document.getElementById('tot_orcado').textContent = fmt(orc);
+    document.getElementById('tot_negociado').textContent = fmt(neg);
+    document.getElementById('tot_economia').textContent = fmt(eco);
+    document.getElementById('tot_perc').textContent = perc + '%';
+}
+
+function adicionarFotos(e) {
+    Array.from(e.target.files).forEach(function(f) {
+        var reader = new FileReader();
+        reader.onload = function(ev) { fotos.push(ev.target.result); renderFotos(); };
+        reader.readAsDataURL(f);
+    });
+    e.target.value = '';
+}
+
+function renderFotos() {
+    var grid = document.getElementById('photoGrid');
+    grid.innerHTML = fotos.map(function(src, i) {
+        return '<img src="' + src + '" class="photo-thumb" onclick="removerFoto(' + i + ')" title="Clique para remover">';
+    }).join('') + '<div class="photo-add" onclick="document.getElementById(\'photoInput\').click()">&#43;</div>';
+}
+
+function removerFoto(idx) {
+    if (!confirm('Remover esta foto?')) return;
+    fotos.splice(idx, 1);
+    renderFotos();
+}
+
+function coletarDados() {
+    return {
+        id: 'crit_' + Date.now(),
+        tipo: 'critica',
+        dataCriado: new Date().toISOString(),
+        equipamento: document.getElementById('c_equip').value,
+        frota: document.getElementById('c_frota').value,
+        numeroOS: document.getElementById('c_os').value,
+        oficina: document.getElementById('c_oficina').value,
+        tecnico: document.getElementById('c_tecnico').value,
+        dataCritica: document.getElementById('c_data').value,
+        gravidade: document.getElementById('c_gravidade').value,
+        status: document.getElementById('c_status').value,
+        problema: document.getElementById('c_problema').value,
+        parecer: document.getElementById('c_parecer').value,
+        itens: JSON.parse(JSON.stringify(itens)),
+        fotos: fotos.slice()
+    };
+}
+
+function mostrarMsg(txt, tipo) {
+    var box = document.getElementById('msgBox');
+    box.innerHTML = '<div class="alert alert-' + tipo + '">' + txt + '</div>';
+    setTimeout(function() { box.innerHTML = ''; }, 5000);
+}
+
+function salvarCritica() {
+    var d = coletarDados();
+    if (!d.equipamento || !d.frota) {
+        mostrarMsg('Preencha pelo menos Equipamento e Frota!', 'danger');
+        return;
+    }
+    // Save to server API
+    fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(d)
+    }).then(function() {
+        mostrarMsg('Critica salva com sucesso no servidor!', 'success');
+        localStorage.removeItem('critica_rascunho');
+    }).catch(function() {
+        // Fallback: save to localStorage
+        var stored = JSON.parse(localStorage.getItem('criticas_local') || '[]');
+        stored.push(d);
+        localStorage.setItem('criticas_local', JSON.stringify(stored));
+        mostrarMsg('Critica salva localmente (servidor offline).', 'success');
+    });
+}
+
+function exportarParaServidor() {
+    var d = coletarDados();
+    fetch('/api/data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
+        .then(function(r) { return r.json(); })
+        .then(function() { mostrarMsg('Enviado ao servidor com sucesso!', 'success'); })
+        .catch(function() { mostrarMsg('Erro: servidor nao disponivel.', 'danger'); });
+}
+
+function gerarPDF() {
+    var d = coletarDados();
+    var orc = 0, neg = 0;
+    d.itens.forEach(function(it) { orc += (it.orcado||0)*(it.qtd||1); neg += (it.negociado||0)*(it.qtd||1); });
+    var eco = orc - neg;
+    var fmt = function(v) { return 'R$ ' + v.toFixed(2).replace('.', ','); };
+
+    var html = '<html><head><meta charset="UTF-8"><style>' +
+        'body { font-family: Arial, sans-serif; padding: 30px; color: #000; }' +
+        'h1 { font-size: 18px; margin-bottom: 4px; }' +
+        '.sub { color: #555; font-size: 12px; margin-bottom: 20px; }' +
+        'table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }' +
+        'th { background: #1e3a6e; color: #fff; padding: 8px; text-align: left; font-size: 12px; }' +
+        'td { padding: 7px 8px; border-bottom: 1px solid #ddd; font-size: 12px; }' +
+        '.label { font-weight: bold; color: #333; }' +
+        '.total-row { background: #f0f4ff; font-weight: bold; }' +
+        '.economy { color: #166534; font-weight: bold; }' +
+        '</style></head><body>' +
+        '<h1>LAUDO TECNICO - CRITICA DE ORCAMENTO</h1>' +
+        '<div class="sub">Gerado em: ' + new Date().toLocaleString('pt-BR') + '</div>' +
+
+        '<table><tr><th colspan="2">Dados do Equipamento</th></tr>' +
+        '<tr><td class="label">Equipamento</td><td>' + (d.equipamento||'-') + '</td></tr>' +
+        '<tr><td class="label">Frota</td><td>' + (d.frota||'-') + '</td></tr>' +
+        '<tr><td class="label">OS</td><td>' + (d.numeroOS||'-') + '</td></tr>' +
+        '<tr><td class="label">Oficina</td><td>' + (d.oficina||'-') + '</td></tr>' +
+        '<tr><td class="label">Tecnico</td><td>' + (d.tecnico||'-') + '</td></tr>' +
+        '<tr><td class="label">Data</td><td>' + (d.dataCritica||'-') + '</td></tr>' +
+        '<tr><td class="label">Gravidade</td><td>' + (d.gravidade||'-') + '</td></tr>' +
+        '<tr><td class="label">Status</td><td>' + (d.status||'-') + '</td></tr>' +
+        '</table>' +
+
+        '<table><tr><th colspan="1">Descricao do Problema</th></tr><tr><td>' + (d.problema||'-') + '</td></tr></table>' +
+        '<table><tr><th colspan="1">Parecer Tecnico</th></tr><tr><td>' + (d.parecer||'-') + '</td></tr></table>' +
+
+        '<table><tr><th>Item</th><th>Qtd</th><th>V. Orcado</th><th>V. Negociado</th><th>Economia</th></tr>' +
+        d.itens.map(function(it) {
+            var e = ((it.orcado||0) - (it.negociado||0)) * (it.qtd||1);
+            return '<tr><td>' + (it.desc||'-') + '</td><td>' + (it.qtd||1) + '</td><td>' + fmt((it.orcado||0)*(it.qtd||1)) + '</td><td>' + fmt((it.negociado||0)*(it.qtd||1)) + '</td><td class="economy">' + fmt(e) + '</td></tr>';
+        }).join('') +
+        '<tr class="total-row"><td colspan="2">TOTAL</td><td>' + fmt(orc) + '</td><td>' + fmt(neg) + '</td><td class="economy">' + fmt(eco) + '</td></tr>' +
+        '</table>' +
+        '<p style="margin-top:40px; font-size:11px; color:#888;">Documento gerado automaticamente pelo Painel de Manutencao v2.0</p>' +
+        '</body></html>';
+
+    var w = window.open('', '_blank');
+    if (!w) { alert('Permita pop-ups para gerar o PDF.'); return; }
+    w.document.write(html);
+    w.document.close();
+    w.print();
+}
+</script>
+</body>
+</html>

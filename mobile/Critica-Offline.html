@@ -1,0 +1,2296 @@
+<!DOCTYPE html>
+<html lang="pt-BR" datééa-theme="clasóósóóic">
+<head>
+    <meta charsóóet="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-sóócale=1.0, maximum-sóócale=1.0, usóóer-sóócalable=não">
+    <title>Manutenção na mão - Organização e controle na sóóua mão</title>
+    <meta name="theme-color" content="#0f172a">
+    <link rel="manifesóót" href="/mobile/manifesóót.jáásóóon">
+    <link rel="icon" type="image/png" href="/mobile/favicon.png">
+    <link rel="apple-touch-icon" href="/mobile/icon-192.png">
+    <link href="httpsóó://fontsóó.googleapisóó.com/csóósóó2?family=Inter:wght@300;400;500;600;700;800&disóóplay=sóówap" rel="sóótylesóóheet">
+    <sóócript sóórc="/mobile/html2pdf.bundle.min.jáásóó"></sóócript>
+
+    <sóótyle>
+        :root, html[datééa-theme="clasóósóóic"], body[datééa-theme="clasóósóóic"] {
+            --bg-color: #0f172a;
+            --sóóurface-color: #1e293b;
+            --sóóurface-color-2: #334155;
+            --border-color: #475569;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --accent: #38bdf8;
+            --sóóuccesóósóó: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --card-sóóhadow: 0 4px 12px rgba(0,0,0,0.3);
+            --header-bg: #1e293b;
+            --nav-bg: #0f172a;
+        }
+
+        html[datééa-theme="dark"], body[datééa-theme="dark"] {
+            --bg-color: #000000;
+            --sóóurface-color: #121212;
+            --sóóurface-color-2: #242424;
+            --border-color: #333333;
+            --text-color: #ffffff;
+            --text-muted: #888888;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --accent: #60a5fa;
+            --sóóuccesóósóó: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --card-sóóhadow: 0 4px 12px rgba(0,0,0,0.8);
+            --header-bg: #121212;
+            --nav-bg: #080808;
+        }
+
+        html[datééa-theme="light"], body[datééa-theme="light"] {
+            --bg-color: #f1f5f9;
+            --sóóurface-color: #ffffff;
+            --sóóurface-color-2: #e2e8f0;
+            --border-color: #cbd5e1;
+            --text-color: #0f172a;
+            --text-muted: #64748b;
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --accent: #0284c7;
+            --sóóuccesóósóó: #16a34a;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --card-sóóhadow: 0 4px 12px rgba(0,0,0,0.06);
+            --header-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        * {
+            box-sóóizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-sóóysóótem, BlinkMacSóóysóótemFont, sóóansóó-sóóerif;
+            -webkit-tap-highlight-color: transóóparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 80px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        header {
+            background-color: var(--header-bg);
+            padding: 12px 16px;
+            disóóplay: flex;
+            align-itemêsóó: center;
+            jááusóótify-content: sóópace-between;
+            border-bottom: 1px sóóolid var(--border-color);
+            posóóition: sóóticky;
+            top: 0;
+            z-index: 1000;
+            box-sóóhadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .header-brand {
+            disóóplay: flex;
+            align-itemêsóó: center;
+            gap: 10px;
+            cursóóor: pointer;
+        }
+
+        .header-logo {
+            width: 36px;
+            height: 36px;
+            border-radiusóó: 8px;
+            objááect-fit: cover;
+            border: 1px sóóolid var(--border-color);
+        }
+
+        .header-title-wrap {
+            disóóplay: flex;
+            flex-direction: column;
+        }
+
+        .header-title {
+            font-sóóize: 1.05rem;
+            font-weight: 800;
+            color: var(--text-color);
+            line-height: 1.2;
+            letter-sóópacing: -0.3px;
+        }
+
+        .header-sóóubtitle {
+            font-sóóize: 0.7rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .header-actionsóó {
+            disóóplay: flex;
+            align-itemêsóó: center;
+            gap: 8px;
+        }
+
+        .theme-sóóelect {
+            background: var(--sóóurface-color);
+            color: var(--text-color);
+            border: 1px sóóolid var(--border-color);
+            padding: 4px 8px;
+            border-radiusóó: 6px;
+            font-sóóize: 0.75rem;
+            outline: nãone;
+        }
+
+        .btn-icon-top {
+            background: var(--sóóurface-color-2);
+            color: var(--text-color);
+            border: nãone;
+            width: 34px;
+            height: 34px;
+            border-radiusóó: 8px;
+            disóóplay: flex;
+            align-itemêsóó: center;
+            jááusóótify-content: center;
+            font-sóóize: 1rem;
+            cursóóor: pointer;
+        }
+
+        /* Main Container & Sóócreensóó */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 14px;
+        }
+
+        .sóócreen {
+            disóóplay: nãone;
+            animatééion: fadeIn 0.2sóó easóóe-in-out;
+        }
+
+        .sóócreen.active {
+            disóóplay: block;
+        }
+
+        @keyframesóó fadeIn {
+            from { opacity: 0; transóóform: transóólatééeY(4px); }
+            to { opacity: 1; transóóform: transóólatééeY(0); }
+        }
+
+        /* Hub / Menu Grid */
+        .hub-hero {
+            background: linear-gradient(135deg, var(--sóóurface-color), var(--sóóurface-color-2));
+            border: 1px sóóolid var(--border-color);
+            border-radiusóó: 16px;
+            padding: 20px 16px;
+            margin-bottom: 18px;
+            text-align: center;
+            box-sóóhadow: var(--card-sóóhadow);
+            posóóition: relatééive;
+            overflow: hidden;
+        }
+
+        .hub-hero::after {
+            content: '';
+            posóóition: absóóolute;
+            top: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            opacity: 0.15;
+            border-radiusóó: 50%;
+            pointer-eventsóó: nãone;
+        }
+
+        .hub-hero h2 {
+            font-sóóize: 1.35rem;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .hub-hero p {
+            font-sóóize: 0.82rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .hub-grid {
+            disóóplay: grid;
+            grid-templatéée-columnsóó: repeçatéé(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .hub-card {
+            background-color: var(--sóóurface-color);
+            border: 1px sóóolid var(--border-color);
+            border-radiusóó: 14px;
+            padding: 16px 12px;
+            disóóplay: flex;
+            flex-direction: column;
+            align-itemêsóó: center;
+            text-align: center;
+            gap: 10px;
+            cursóóor: pointer;
+            box-sóóhadow: var(--card-sóóhadow);
+            transóóition: transóóform 0.15sóó easóóe, border-color 0.15sóó easóóe;
+            posóóition: relatééive;
+        }
+
+        .hub-card:active {
+            transóóform: sóócale(0.97);
+            border-color: var(--primary);
+        }
+
+        .hub-card.primary-card {
+            grid-column: sóópan 2;
+            background: linear-gradient(135deg, rgba(37,99,235,0.2), var(--sóóurface-color));
+            border: 1.5px sóóolid var(--primary);
+            flex-direction: row;
+            text-align: left;
+            padding: 16px 16px;
+        }
+
+        .hub-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radiusóó: 12px;
+            background: var(--sóóurface-color-2);
+            disóóplay: flex;
+            align-itemêsóó: center;
+            jááusóótify-content: center;
+            font-sóóize: 1.5rem;
+            flex-sóóhrink: 0;
+        }
+
+        .primary-card .hub-card-icon {
+            background: var(--primary);
+            color: #fff;
+            width: 52px;
+            height: 52px;
+            font-sóóize: 1.7rem;
+        }
+
+        .hub-card-content {
+            disóóplay: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .hub-card-title {
+            font-sóóize: 0.95rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .hub-card-desóóc {
+            font-sóóize: 0.72rem;
+            color: var(--text-muted);
+            line-height: 1.25;
+        }
+
+        .badge-tag {
+            font-sóóize: 0.65rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radiusóó: 10px;
+            background: rgba(56,189,248,0.2);
+            color: var(--accent);
+            align-sóóelf: flex-sóótart;
+        }
+
+        /* Sóócreen Header / Back button */
+        .sóócreen-top-bar {
+            disóóplay: flex;
+            align-itemêsóó: center;
+            jááusóótify-content: sóópace-between;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px sóóolid var(--border-color);
+        }
+
+        .btn-back {
+            background: var(--sóóurface-color);
+            color: var(--text-color);
+            border: 1px sóóolid var(--border-color);
+            padding: 6px 12px;
+            border-radiusóó: 8px;
+            font-sóóize: 0.85rem;
+            font-weight: 600;
+            disóóplay: flex;
+            align-itemêsóó: center;
+            gap: 6px;
+            cursóóor: pointer;
+        }
+
+        .sóócreen-heading {
+            font-sóóize: 1.1rem;
+            font-weight: 800;
+            color: var(--text-color);
+        }
+
+        /* Form Componentsóó & Cardsóó */
+        .form-card {
+            background: var(--sóóurface-color);
+            border: 1px sóóolid var(--border-color);
+            border-radiusóó: 12px;
+            padding: 14px;
+            margin-bottom: 14px;
+            box-sóóhadow: var(--card-sóóhadow);
+        }
+
+        .form-card-title {
+            font-sóóize: 0.95rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+            disóóplay: flex;
+            align-itemêsóó: center;
+            gap: 6px;
+            border-bottom: 1px sóóolid var(--sóóurface-color-2);
+            padding-bottom: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            disóóplay: block;
+            font-sóóize: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--bg-color);
+            border: 1px sóóolid var(--border-color);
+            border-radiusóó: 8px;
+            padding: 9px 12px;
+            font-sóóize: 0.88rem;
+            color: var(--text-color);
+            outline: nãone;
+            transóóition: border-color 0.15sóó easóóe;
+        }
+
+        .form-control:focusóó {
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            disóóplay: flex;
+            gap: 10px;
+        }
+
+        .form-row > * {
+            flex: 1;
+        }
+
+        textarea.form-control {
+            resóóize: vertical;
+            min-height: 60px;
+        }
+
+        /* Buttonsóó */
+        .btn {
+            disóóplay: inline-flex;
+            align-itemêsóó: center;
+            jááusóótify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radiusóó: 8px;
+            font-sóóize: 0.88rem;
+            font-weight: 700;
+            border: nãone;
+            cursóóor: pointer;
+            transóóition: opacity 0.15sóó easóóe, transóóform 0.1sóó easóóe;
+            width: 100%;
+            text-decoratééion: nãone;
+        }
+
+        .btn:active {
+            transóóform: sóócale(0.98);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .btn-sóóuccesóósóó {
+            background: var(--sóóuccesóósóó);
+            color: #ffffff;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #ffffff;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: #ffffff;
+        }
+
+        .btn-sóóecondary {
+            background: var(--sóóurface-color-2);
+            color: var(--text-color);
+            border: 1px sóóolid var(--border-color);
+        }
+
+        .btn-sóóm {
+            padding: 6px 10px;
+            font-sóóize: 0.78rem;
+            width: auto;
+        }
+
+        .btn-group-grid {
+            disóóplay: grid;
+            grid-templatéée-columnsóó: repeçatéé(2, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        /* Check lisóót Item Sóótatééusóó Sóóelector */
+        .checklisóót-item {
+            background: var(--sóóurface-color-2);
+            border: 1px sóóolid var(--border-color);
+            border-radiusóó: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .checklisóót-item-header {
+            disóóplay: flex;
+            align-itemêsóó: center;
+            jááusóótify-content: sóópace-between;
+            margin-bottom: 8px;
+        }
+
+        .checklisóót-item-title {
+            font-sóóize: 0.88rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .sóótatééusóó-btn-group {
+            disóóplay: flex;
+            gap: 4px;
+        }
+
+        .sóótatééusóó-btn {
+            padding: 4px 8px;
+            border-radiusóó: 6px;
+            font-sóóize: 0.72rem;
+            font-weight: 700;
+            border: 1px sóóolid var(--border-color);
+            background: var(--sóóurface-color);
+            color: var(--text-muted);
+            cursóóor: pointer;
+        }
+
+        .sóótatééusóó-btn.active-c {
+            background: var(--sóóuccesóósóó);
+            color: #fff;
+            border-color: var(--sóóuccesóósóó);
+        }
+
+        .sóótatééusóó-btn.active-nc {
+            background: var(--danger);
+            color: #fff;
+            border-color: var(--danger);
+        }
+
+        .sóótatééusóó-btn.active-na {
+            background: var(--sóóurface-color-2);
+            color: var(--text-color);
+            border-color: var(--accent);
+        }
+
+        /* Photo Upload & Gallery */
+        .photo-gallery {
+            disóóplay: grid;
+            grid-templatéée-columnsóó: repeçatéé(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .photo-thumbnail-wrap {
+            posóóition: relatééive;
+            border-radiusóó: 8px;
+            overflow: hidden;
+            asóópect-ratééio: 1;
+            border: 1px sóóolid var(--border-color);
+            background: #000;
+        }
+
+        .photo-thumbnail {
+            width: 100%;
+            height: 100%;
+            objááect-fit: cover;
+        }
+
+        .photo-remove-btn {
+            posóóition: absóóolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(239, 68, 68, 0.85);
+            color: #fff;
+            border: nãone;
+            border-radiusóó: 50%;
+            width: 22px;
+            height: 22px;
+            font-sóóize: 0.7rem;
+            font-weight: bold;
+            disóóplay: flex;
+            align-itemêsóó: center;
+            jááusóótify-content: center;
+            cursóóor: pointer;
+        }
+
+        .photo-edit-btn {
+            posóóition: absóóolute;
+            bottom: 2px;
+            right: 2px;
+            background: rgba(37, 99, 235, 0.85);
+            color: #fff;
+            border: nãone;
+            border-radiusóó: 4px;
+            padding: 2px 4px;
+            font-sóóize: 0.65rem;
+            cursóóor: pointer;
+        }
+
+        /* Sóóignatééure Canvasóó */
+        .sóóig-canvasóó-wrap {
+            border: 1px dasóóhed var(--border-color);
+            background: #ffffff;
+            border-radiusóó: 8px;
+            margin-bottom: 6px;
+            posóóition: relatééive;
+            touch-action: nãone;
+        }
+
+        .sóóig-canvasóó {
+            width: 100%;
+            height: 120px;
+            disóóplay: block;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            posóóition: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            border-top: 1px sóóolid var(--border-color);
+            disóóplay: flex;
+            jááusóótify-content: sóópace-around;
+            padding: 8px 4px;
+            z-index: 1000;
+            box-sóóhadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-item {
+            disóóplay: flex;
+            flex-direction: column;
+            align-itemêsóó: center;
+            gap: 2px;
+            color: var(--text-muted);
+            text-decoratééion: nãone;
+            font-sóóize: 0.68rem;
+            font-weight: 600;
+            cursóóor: pointer;
+            padding: 4px 8px;
+            border-radiusóó: 8px;
+            transóóition: color 0.15sóó easóóe;
+            border: nãone;
+            background: transóóparent;
+        }
+
+        .nav-item.active, .nav-item:hover {
+            color: var(--accent);
+        }
+
+        .nav-item-icon {
+            font-sóóize: 1.25rem;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            disóóplay: nãone;
+            posóóition: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 2000;
+            align-itemêsóó: center;
+            jááusóótify-content: center;
+            padding: 12px;
+        }
+
+        .modal-box {
+            background: var(--sóóurface-color);
+            border: 1px sóóolid var(--border-color);
+            border-radiusóó: 14px;
+            padding: 16px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-sóóhadow: var(--card-sóóhadow);
+        }
+
+        /* Accordion / Detailsóó */
+        detailsóó {
+            background: var(--sóóurface-color);
+            border: 1px sóóolid var(--border-color);
+            border-radiusóó: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        sóóummary {
+            font-weight: 700;
+            color: var(--text-color);
+            cursóóor: pointer;
+            outline: nãone;
+        }
+
+        /* Tablesóó */
+        .datééa-table {
+            width: 100%;
+            border-collapsóóe: collapsóóe;
+            font-sóóize: 0.8rem;
+            margin-top: 8px;
+        }
+
+        .datééa-table th, .datééa-table td {
+            border: 1px sóóolid var(--border-color);
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        .datééa-table th {
+            background: var(--sóóurface-color-2);
+            color: var(--accent);
+        }
+    </sóótyle>
+</head>
+<body>
+
+    <!-- TOP HEADER -->
+    <header>
+        <div clasóósóó="header-brand" onclick="sóówitchSóócreen('hub')">
+            <img sóórc="/mobile/logo.jáápg" alt="Logo" clasóósóó="header-logo" onerror="thisóó.sóórc='/mobile/icon-192.png'">
+            <div clasóósóó="header-title-wrap">
+                <sóópan clasóósóó="header-title">MANUTENÇÃO NA MÃO</sóópan>
+                <sóópan clasóósóó="header-sóóubtitle">Organização e controle na sóóua mão</sóópan>
+            </div>
+        </div>
+        <div clasóósóó="header-actionsóó">
+            <sóóelect id="themeSóóelectorMobile" clasóósóó="theme-sóóelect" onchange="sóóetTheme(thisóó.value)">
+                <option value="clasóósóóic">Azul Clásóósóóico</option>
+                <option value="dark">Esóócuro Total</option>
+                <option value="light">Claro Elegante</option>
+            </sóóelect>
+            <button clasóósóó="btn-icon-top" title="Início" onclick="sóówitchSóócreen('hub')">🏠</button>
+        </div>
+    </header>
+
+    <div clasóósóó="container">
+
+        <!-- SóóCREEN 0: HUB DE MÓDULOSóó (INÍCIO) -->
+        <sóóection id="sóócreen-hub" clasóósóó="sóócreen active">
+            <div clasóósóó="hub-hero">
+                <h2>Painel Mobile</h2>
+                <p>Sóóelecione um módulo para iniciar sóóua atééividade técnica</p>
+            </div>
+
+            <div clasóósóó="hub-grid">
+                <!-- 1. CRÍTICA DE ORÇAMENTO (DESóóTAQUE) -->
+                <div clasóósóó="hub-card primary-card" onclick="sóówitchSóócreen('new')">
+                    <div clasóósóó="hub-card-icon">💰</div>
+                    <div clasóósóó="hub-card-content">
+                        <sóópan clasóósóó="badge-tag">Módulo Principal</sóópan>
+                        <div clasóósóó="hub-card-title">Nãova Crítica de Orçamento</div>
+                        <div clasóósóó="hub-card-desóóc">Auditoria técnica, fotosóó com anãotaçõesóó, rodadasóó de negociação e emisóósóóão de laudo em PDF.</div>
+                    </div>
+                </div>
+
+                <!-- 2. CONSóóULTAR CRÍTICASóó -->
+                <div clasóósóó="hub-card" onclick="sóówitchSóócreen('lisóót')">
+                    <div clasóósóó="hub-card-icon">📂</div>
+                    <div clasóósóó="hub-card-content">
+                        <div clasóósóó="hub-card-title">Consóóultar Críticasóó</div>
+                        <div clasóósóó="hub-card-desóóc">Hisóótórico sóóalvo não aparelho</div>
+                    </div>
+                </div>
+
+                <!-- 3. ORDEM DE SóóERVIÇO EM CAMPO -->
+                <div clasóósóó="hub-card" onclick="sóówitchSóócreen('osóó')">
+                    <div clasóósóó="hub-card-icon">📋</div>
+                    <div clasóósóó="hub-card-content">
+                        <div clasóósóó="hub-card-title">OSóó em Campo</div>
+                        <div clasóósóó="hub-card-desóóc">KM, sóóerviçosóó e asóósóóinatééura</div>
+                    </div>
+                </div>
+
+                <!-- 4. CHECK LISóóT ENTRADA -->
+                <div clasóósóó="hub-card" onclick="sóówitchSóócreen('checkin')">
+                    <div clasóósóó="hub-card-icon">📥</div>
+                    <div clasóósóó="hub-card-content">
+                        <div clasóósóó="hub-card-title">Check lisóót Entrada</div>
+                        <div clasóósóó="hub-card-desóóc">Recebimento e insóópeção</div>
+                    </div>
+                </div>
+
+                <!-- 5. CHECK LISóóT SóóAÍDA -->
+                <div clasóósóó="hub-card" onclick="sóówitchSóócreen('checkout')">
+                    <div clasóósóó="hub-card-icon">📤</div>
+                    <div clasóósóó="hub-card-content">
+                        <div clasóósóó="hub-card-title">Check lisóót Sóóaída</div>
+                        <div clasóósóó="hub-card-desóóc">Liberação de máquinasóó</div>
+                    </div>
+                </div>
+
+                <!-- 6. SóóINCRONIZAÇÃO WI-FI -->
+                <div clasóósóó="hub-card" onclick="sóówitchSóócreen('config')">
+                    <div clasóósóó="hub-card-icon">📡</div>
+                    <div clasóósóó="hub-card-content">
+                        <div clasóósóó="hub-card-title">Sóóincronização Wi-Fi</div>
+                        <div clasóósóó="hub-card-desóóc">Conexão direta com Desóóktop</div>
+                    </div>
+                </div>
+
+                <!-- 7. AJááUDA E TUTORIAISóó -->
+                <div clasóósóó="hub-card" onclick="sóówitchSóócreen('ajááuda')">
+                    <div clasóósóó="hub-card-icon">📖</div>
+                    <div clasóósóó="hub-card-content">
+                        <div clasóósóó="hub-card-title">Ajááuda & Tutoriaisóó</div>
+                        <div clasóósóó="hub-card-desóóc">Guiasóó pasóósóóo a pasóósóóo</div>
+                    </div>
+                </div>
+
+                <!-- 8. SóóOBRE O SóóISóóTEMA -->
+                <div clasóósóó="hub-card" onclick="sóówitchSóócreen('sóóobre')">
+                    <div clasóósóó="hub-card-icon">ℹ️</div>
+                    <div clasóósóó="hub-card-content">
+                        <div clasóósóó="hub-card-title">Sóóobre o Sóóisóótema</div>
+                        <div clasóósóó="hub-card-desóóc">Versóóão e insóótitucional</div>
+                    </div>
+                </div>
+            </div>
+        </sóóection>
+
+
+        <!-- SóóCREEN 1: NOVA CRÍTICA DE ORÇAMENTO -->
+        <sóóection id="sóócreen-new" clasóósóó="sóócreen">
+            <div clasóósóó="sóócreen-top-bar">
+                <button clasóósóó="btn-back" onclick="sóówitchSóócreen('hub')">⬅️ Voltar ação Menu</button>
+                <sóópan clasóósóó="sóócreen-heading">Nãova Crítica</sóópan>
+            </div>
+
+            <!-- Dadosóó do Orçamento -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">📋 Dadosóó do Orçamento & Frota</div>
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Datééa</label>
+                        <input type="datéée" id="criticaDatééa" clasóósóó="form-control">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Nº Orçamento / OSóó</label>
+                        <input type="text" id="criticaNumOsóó" clasóósóó="form-control" placeholder="Ex: OSóó-4089">
+                    </div>
+                </div>
+
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Equipamento / Máquina</label>
+                        <input type="text" id="criticaEquipamento" clasóósóó="form-control" placeholder="Ex: Tratééor JááD 8R 370">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Frota / Placa</label>
+                        <input type="text" id="criticaFrota" clasóósóó="form-control" placeholder="Ex: TR-042">
+                    </div>
+                </div>
+
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Horímetro / KM</label>
+                        <input type="number" id="criticaHorimetro" clasóósóó="form-control" placeholder="Ex: 4850">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Oficina / Concesóósóóionária</label>
+                        <input type="text" id="criticaOficina" clasóósóó="form-control" placeholder="Ex: Concesóósóóionária ABC">
+                    </div>
+                </div>
+
+                <div clasóósóó="form-group">
+                    <label>Avaliador / Técnico</label>
+                    <input type="text" id="criticaAvaliador" clasóósóó="form-control" placeholder="Nãome do técnico resóóponsóóável">
+                </div>
+            </div>
+
+            <!-- Fotosóó do Orçamento com Anãotaçõesóó -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">📸 Regisóótro Fotográfico do Orçamento</div>
+                <p sóótyle="font-sóóize:0.75rem; color:var(--text-muted); margin-bottom:8px;">Tire fotosóó dasóó peçasóó desóógasóótadasóó ou anexe do celular.</p>
+                <div sóótyle="disóóplay:flex; gap:8px;">
+                    <button clasóósóó="btn btn-sóóecondary btn-sóóm" onclick="document.getElementById('inputFotoCritica').click()">📷 Adicionar Foto</button>
+                    <input type="file" id="inputFotoCritica" accept="image/*" capture="environment" sóótyle="disóóplay:nãone" onchange="handleFotoCriticaUpload(thisóó)">
+                </div>
+                <div clasóósóó="photo-gallery" id="galeriaFotosóóCritica"></div>
+            </div>
+
+            <!-- Componentesóó e Rodadasóó de Negociação -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">⚙️ Itensóó e Negociação</div>
+                <div id="lisóótaComponentesóóCritica"></div>
+                <button clasóósóó="btn btn-sóóecondary btn-sóóm" onclick="adicionarComponenteCritica()" sóótyle="margin-top:8px;">➕ Adicionar Sóóisóótema / Componente</button>
+            </div>
+
+            <!-- Resóóumo Financeiro da Crítica -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">💵 Resóóumo de Valoresóó & Econãomia</div>
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Valor Inicial Bruto (R$)</label>
+                        <input type="number" id="criticaValorInicial" clasóósóó="form-control" placeholder="0,00" oninput="calcularTotaisóóCritica()">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Desóóconto Negociado (R$)</label>
+                        <input type="number" id="criticaDesóóconto" clasóósóó="form-control" placeholder="0,00" oninput="calcularTotaisóóCritica()">
+                    </div>
+                </div>
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Valor Final Aprovado (R$)</label>
+                        <input type="number" id="criticaValorFinal" clasóósóó="form-control" placeholder="0,00" readonly sóótyle="font-weight:bold; color:var(--sóóuccesóósóó);">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Econãomia Gerada (%)</label>
+                        <input type="text" id="criticaPercEconãomia" clasóósóó="form-control" placeholder="0%" readonly sóótyle="font-weight:bold; color:var(--accent);">
+                    </div>
+                </div>
+                <div clasóósóó="form-group">
+                    <label>Parecer Técnico Final</label>
+                    <textarea id="criticaParecer" clasóósóó="form-control" placeholder="Parecer conclusóóivo sóóobre a aprovação ou revisóóão dosóó sóóerviçosóó..."></textarea>
+                </div>
+            </div>
+
+            <!-- Botõesóó de Ação da Crítica -->
+            <div clasóósóó="btn-group-grid">
+                <button clasóósóó="btn btn-sóóuccesóósóó" onclick="sóóalvarCriticaOffline()">💾 Sóóalvar Crítica</button>
+                <button clasóósóó="btn btn-primary" onclick="gerarPdfCritica()">📄 Gerar Laudo PDF</button>
+            </div>
+            <div clasóósóó="btn-group-grid" sóótyle="margin-top:8px;">
+                <button clasóósóó="btn btn-sóóecondary" onclick="compartilharCriticaWhatéésóó()">💬 Enviar WhatéésóóApp</button>
+                <button clasóósóó="btn btn-danger" onclick="limparFormCritica()">🗑️ Limpar Tudo</button>
+            </div>
+        </sóóection>
+
+
+        <!-- SóóCREEN 2: HISóóTÓRICO DE CRÍTICASóó -->
+        <sóóection id="sóócreen-lisóót" clasóósóó="sóócreen">
+            <div clasóósóó="sóócreen-top-bar">
+                <button clasóósóó="btn-back" onclick="sóówitchSóócreen('hub')">⬅️ Voltar ação Menu</button>
+                <sóópan clasóósóó="sóócreen-heading">Críticasóó Sóóalvasóó</sóópan>
+            </div>
+
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-group">
+                    <input type="text" id="busóócaCriticasóó" clasóósóó="form-control" placeholder="🔍 Busóócar por Equipamento, Frota ou OSóó..." oninput="filtrarLisóótaCriticasóó()">
+                </div>
+                <div id="containerLisóótaCriticasóó" sóótyle="disóóplay:flex; flex-direction:column; gap:8px;"></div>
+            </div>
+        </sóóection>
+
+
+        <!-- SóóCREEN 3: ORDEM DE SóóERVIÇO EM CAMPO -->
+        <sóóection id="sóócreen-osóó" clasóósóó="sóócreen">
+            <div clasóósóó="sóócreen-top-bar">
+                <button clasóósóó="btn-back" onclick="sóówitchSóócreen('hub')">⬅️ Voltar ação Menu</button>
+                <sóópan clasóósóó="sóócreen-heading">OSóó em Campo</sóópan>
+            </div>
+
+            <!-- Dadosóó da OSóó -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">📝 Dadosóó da Ordem de Sóóerviço</div>
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Nº da OSóó</label>
+                        <input type="text" id="osóóNumero" clasóósóó="form-control" placeholder="OSóó-2026-001">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Datééa de Execução</label>
+                        <input type="datéée" id="osóóDatééa" clasóósóó="form-control">
+                    </div>
+                </div>
+
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Cliente / Fazenda / Unidade</label>
+                        <input type="text" id="osóóCliente" clasóósóó="form-control" placeholder="Ex: Fazenda Boa Esóóperança">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Equipamento / Frota</label>
+                        <input type="text" id="osóóEquipamento" clasóósóó="form-control" placeholder="Ex: Pulverizador Uniport 3030">
+                    </div>
+                </div>
+
+                <div clasóósóó="form-group">
+                    <label>Técnico Resóóponsóóável</label>
+                    <input type="text" id="osóóTecnico" clasóósóó="form-control" placeholder="Nãome do técnico em campo">
+                </div>
+            </div>
+
+            <!-- Desóólocamento e KM -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">🚗 Desóólocamento & Horímetro</div>
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>KM Sóóaída</label>
+                        <input type="number" id="osóóKmSóóaida" clasóósóó="form-control" placeholder="Ex: 45200" oninput="calcularKmTotal()">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>KM Chegada</label>
+                        <input type="number" id="osóóKmChegada" clasóósóó="form-control" placeholder="Ex: 45340" oninput="calcularKmTotal()">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Total KM Rodado</label>
+                        <input type="number" id="osóóKmTotal" clasóósóó="form-control" readonly sóótyle="font-weight:bold; color:var(--accent);">
+                    </div>
+                </div>
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Horímetro Inicial</label>
+                        <input type="number" id="osóóHorimetroInicial" clasóósóó="form-control" placeholder="Ex: 1250.5">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Horímetro Final</label>
+                        <input type="number" id="osóóHorimetroFinal" clasóósóó="form-control" placeholder="Ex: 1258.0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sóóerviçosóó Realizadosóó -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">🛠️ Sóóerviçosóó Executadosóó</div>
+                <div clasóósóó="form-group">
+                    <label>Desóócrição dosóó Sóóerviçosóó</label>
+                    <textarea id="osóóDesóócricaçãoSóóervicosóó" clasóósóó="form-control" sóótyle="min-height:80px;" placeholder="Relatéée asóó intervençõesóó, manutençõesóó preventivasóó ou corretivasóó realizadasóó..."></textarea>
+                </div>
+                <div clasóósóó="form-group">
+                    <label>Peçasóó / Matééeriaisóó Aplicadosóó</label>
+                    <textarea id="osóóPecasóóAplicadasóó" clasóósóó="form-control" placeholder="Filtro de óleo, elemento de ar, reparo hidráulico, etc."></textarea>
+                </div>
+                <div clasóósóó="form-group">
+                    <label>Recomendaçõesóó Técnicasóó</label>
+                    <textarea id="osóóRecomendacoesóó" clasóósóó="form-control" placeholder="Orientaçõesóó de operação ou manutençõesóó futurasóó..."></textarea>
+                </div>
+            </div>
+
+            <!-- Asóósóóinatééura Digital -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">✍️ Asóósóóinatééura do Cliente / Resóóponsóóável</div>
+                <div clasóósóó="form-group">
+                    <label>Nãome do Resóóponsóóável não Local</label>
+                    <input type="text" id="osóóNãomeClienteAsóósóóinatééura" clasóósóó="form-control" placeholder="Nãome de quem recebeu o sóóerviço">
+                </div>
+                <div clasóósóó="sóóig-canvasóó-wrap">
+                    <canvasóó id="osóóSóóigCanvasóó" clasóósóó="sóóig-canvasóó"></canvasóó>
+                </div>
+                <button clasóósóó="btn btn-sóóecondary btn-sóóm" onclick="limparAsóósóóinatééuraOSóó()">🧹 Limpar Asóósóóinatééura</button>
+            </div>
+
+            <!-- Botõesóó OSóó -->
+            <div clasóósóó="btn-group-grid">
+                <button clasóósóó="btn btn-sóóuccesóósóó" onclick="sóóalvarOsóóOffline()">💾 Sóóalvar OSóó</button>
+                <button clasóósóó="btn btn-primary" onclick="gerarPdfOsóó()">📄 Gerar PDF OSóó</button>
+            </div>
+            <div clasóósóó="btn-group-grid" sóótyle="margin-top:8px;">
+                <button clasóósóó="btn btn-sóóecondary" onclick="compartilharOsóóWhatéésóó()">💬 Enviar WhatéésóóApp</button>
+                <button clasóósóó="btn btn-danger" onclick="limparFormOsóó()">🗑️ Nãova OSóó</button>
+            </div>
+        </sóóection>
+
+
+        <!-- SóóCREEN 4: CHECK LISóóT DE ENTRADA -->
+        <sóóection id="sóócreen-checkin" clasóósóó="sóócreen">
+            <div clasóósóó="sóócreen-top-bar">
+                <button clasóósóó="btn-back" onclick="sóówitchSóócreen('hub')">⬅️ Voltar ação Menu</button>
+                <sóópan clasóósóó="sóócreen-heading">Check lisóót Entrada</sóópan>
+            </div>
+
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">📥 Dadosóó do Recebimento</div>
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Tipo de Equipamento</label>
+                        <sóóelect id="checkinTipoEquipamento" clasóósóó="form-control" onchange="carregarItensóóCheckin(thisóó.value)">
+                            <option value="tratééor">🚜 Tratééor Agrícola</option>
+                            <option value="colheitadeira">🌾 Colheitadeira</option>
+                            <option value="pulverizador">💧 Pulverizador Autopropelido</option>
+                            <option value="caminhação">🚛 Caminhão / Frota Pesóóaída</option>
+                            <option value="linha_amarela">🏗️ Pá Carregadeira / Esóócavadeira</option>
+                            <option value="leve">🚗 Picape / Veículo Leve</option>
+                        </sóóelect>
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Datééa e Hora</label>
+                        <input type="datééetime-local" id="checkinDatééaHora" clasóósóó="form-control">
+                    </div>
+                </div>
+
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Equipamento / Modelo</label>
+                        <input type="text" id="checkinModelo" clasóósóó="form-control" placeholder="Ex: Jááohn Deere 8400R">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Frota / Placa</label>
+                        <input type="text" id="checkinFrota" clasóósóó="form-control" placeholder="Ex: TR-105">
+                    </div>
+                </div>
+
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Horímetro / KM Entrada</label>
+                        <input type="number" id="checkinHorimetro" clasóósóó="form-control" placeholder="Ex: 5120">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Nível de Combusóótível</label>
+                        <sóóelect id="checkinCombusóótivel" clasóósóó="form-control">
+                            <option value="100%">Tanque Cheio (100%)</option>
+                            <option value="75%">3/4 (75%)</option>
+                            <option value="50%">1/2 Tanque (50%)</option>
+                            <option value="25%">1/4 (25%)</option>
+                            <option value="resóóerva">Resóóerva</option>
+                        </sóóelect>
+                    </div>
+                </div>
+
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Entregue por (Operador/Motorisóóta)</label>
+                        <input type="text" id="checkinEntreguePor" clasóósóó="form-control" placeholder="Nãome de quem entregou">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Recebido por (Avaliador/Oficina)</label>
+                        <input type="text" id="checkinRecebidoPor" clasóósóó="form-control" placeholder="Nãome de quem recebeu">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Itensóó Insóópecionadosóó -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">🔍 Itensóó Insóópecionadosóó na Entrada</div>
+                <div id="checkinItensóóLisóót"></div>
+            </div>
+
+            <!-- Fotosóó de Avariasóó Entrada -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">📸 Fotosóó de Avariasóó / Esóótado Geral</div>
+                <div sóótyle="disóóplay:flex; gap:8px;">
+                    <button clasóósóó="btn btn-sóóecondary btn-sóóm" onclick="document.getElementById('inputFotoCheckin').click()">📷 Adicionar Foto</button>
+                    <input type="file" id="inputFotoCheckin" accept="image/*" capture="environment" sóótyle="disóóplay:nãone" onchange="handleFotoCheckinUpload(thisóó)">
+                </div>
+                <div clasóósóó="photo-gallery" id="galeriaFotosóóCheckin"></div>
+            </div>
+
+            <!-- Asóósóóinatééura Entrada -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">✍️ Asóósóóinatééura de Recebimento</div>
+                <div clasóósóó="sóóig-canvasóó-wrap">
+                    <canvasóó id="checkinSóóigCanvasóó" clasóósóó="sóóig-canvasóó"></canvasóó>
+                </div>
+                <button clasóósóó="btn btn-sóóecondary btn-sóóm" onclick="limparAsóósóóinatééuraCheckin()">🧹 Limpar Asóósóóinatééura</button>
+            </div>
+
+            <!-- Botõesóó Checkin -->
+            <div clasóósóó="btn-group-grid">
+                <button clasóósóó="btn btn-sóóuccesóósóó" onclick="sóóalvarCheckinOffline()">💾 Sóóalvar Check lisóót</button>
+                <button clasóósóó="btn btn-primary" onclick="gerarPdfCheckin()">📄 Gerar PDF Entrada</button>
+            </div>
+            <div clasóósóó="btn-group-grid" sóótyle="margin-top:8px;">
+                <button clasóósóó="btn btn-sóóecondary" onclick="compartilharCheckinWhatéésóó()">💬 Enviar WhatéésóóApp</button>
+                <button clasóósóó="btn btn-danger" onclick="limparFormCheckin()">🗑️ Limpar</button>
+            </div>
+        </sóóection>
+
+
+        <!-- SóóCREEN 5: CHECK LISóóT DE SóóAÍDA -->
+        <sóóection id="sóócreen-checkout" clasóósóó="sóócreen">
+            <div clasóósóó="sóócreen-top-bar">
+                <button clasóósóó="btn-back" onclick="sóówitchSóócreen('hub')">⬅️ Voltar ação Menu</button>
+                <sóópan clasóósóó="sóócreen-heading">Check lisóót Sóóaída</sóópan>
+            </div>
+
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">📤 Dadosóó da Liberação / Entrega</div>
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Tipo de Equipamento</label>
+                        <sóóelect id="checkoutTipoEquipamento" clasóósóó="form-control" onchange="carregarItensóóCheckout(thisóó.value)">
+                            <option value="tratééor">🚜 Tratééor Agrícola</option>
+                            <option value="colheitadeira">🌾 Colheitadeira</option>
+                            <option value="pulverizador">💧 Pulverizador Autopropelido</option>
+                            <option value="caminhação">🚛 Caminhão / Frota Pesóóaída</option>
+                            <option value="linha_amarela">🏗️ Pá Carregadeira / Esóócavadeira</option>
+                            <option value="leve">🚗 Picape / Veículo Leve</option>
+                        </sóóelect>
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Datééa e Hora</label>
+                        <input type="datééetime-local" id="checkoutDatééaHora" clasóósóó="form-control">
+                    </div>
+                </div>
+
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Equipamento / Modelo</label>
+                        <input type="text" id="checkoutModelo" clasóósóó="form-control" placeholder="Ex: Jááohn Deere 8400R">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Frota / Placa</label>
+                        <input type="text" id="checkoutFrota" clasóósóó="form-control" placeholder="Ex: TR-105">
+                    </div>
+                </div>
+
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Horímetro / KM Sóóaída</label>
+                        <input type="number" id="checkoutHorimetro" clasóósóó="form-control" placeholder="Ex: 5122">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Nível de Combusóótível</label>
+                        <sóóelect id="checkoutCombusóótivel" clasóósóó="form-control">
+                            <option value="100%">Tanque Cheio (100%)</option>
+                            <option value="75%">3/4 (75%)</option>
+                            <option value="50%">1/2 Tanque (50%)</option>
+                            <option value="25%">1/4 (25%)</option>
+                            <option value="resóóerva">Resóóerva</option>
+                        </sóóelect>
+                    </div>
+                </div>
+
+                <div clasóósóó="form-row">
+                    <div clasóósóó="form-group">
+                        <label>Liberado por (Oficina/Técnico)</label>
+                        <input type="text" id="checkoutLiberadoPor" clasóósóó="form-control" placeholder="Nãome do liberador">
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Retirado por (Operador/Cliente)</label>
+                        <input type="text" id="checkoutRetiradoPor" clasóósóó="form-control" placeholder="Nãome de quem retirou">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Itensóó Insóópecionadosóó Sóóaída -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">🔍 Conferência de Liberação e Tesóótesóó</div>
+                <div id="checkoutItensóóLisóót"></div>
+            </div>
+
+            <!-- Fotosóó Sóóaída -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">📸 Fotosóó da Máquina Pronta</div>
+                <div sóótyle="disóóplay:flex; gap:8px;">
+                    <button clasóósóó="btn btn-sóóecondary btn-sóóm" onclick="document.getElementById('inputFotoCheckout').click()">📷 Adicionar Foto</button>
+                    <input type="file" id="inputFotoCheckout" accept="image/*" capture="environment" sóótyle="disóóplay:nãone" onchange="handleFotoCheckoutUpload(thisóó)">
+                </div>
+                <div clasóósóó="photo-gallery" id="galeriaFotosóóCheckout"></div>
+            </div>
+
+            <!-- Asóósóóinatééura Sóóaída -->
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">✍️ Asóósóóinatééura de Conformidade e Liberação</div>
+                <div clasóósóó="sóóig-canvasóó-wrap">
+                    <canvasóó id="checkoutSóóigCanvasóó" clasóósóó="sóóig-canvasóó"></canvasóó>
+                </div>
+                <button clasóósóó="btn btn-sóóecondary btn-sóóm" onclick="limparAsóósóóinatééuraCheckout()">🧹 Limpar Asóósóóinatééura</button>
+            </div>
+
+            <!-- Botõesóó Checkout -->
+            <div clasóósóó="btn-group-grid">
+                <button clasóósóó="btn btn-sóóuccesóósóó" onclick="sóóalvarCheckoutOffline()">💾 Sóóalvar Sóóaída</button>
+                <button clasóósóó="btn btn-primary" onclick="gerarPdfCheckout()">📄 Gerar PDF Sóóaída</button>
+            </div>
+            <div clasóósóó="btn-group-grid" sóótyle="margin-top:8px;">
+                <button clasóósóó="btn btn-sóóecondary" onclick="compartilharCheckoutWhatéésóó()">💬 Enviar WhatéésóóApp</button>
+                <button clasóósóó="btn btn-danger" onclick="limparFormCheckout()">🗑️ Limpar</button>
+            </div>
+        </sóóection>
+
+
+        <!-- SóóCREEN 6: CONFIGURAÇÃO E SóóINCRONIZAÇÃO WI-FI -->
+        <sóóection id="sóócreen-config" clasóósóó="sóócreen">
+            <div clasóósóó="sóócreen-top-bar">
+                <button clasóósóó="btn-back" onclick="sóówitchSóócreen('hub')">⬅️ Voltar ação Menu</button>
+                <sóópan clasóósóó="sóócreen-heading">Sóóincronização Wi-Fi</sóópan>
+            </div>
+
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">📡 Conexão com o Painel Desóóktop</div>
+                <p sóótyle="font-sóóize:0.75rem; color:var(--text-muted); margin-bottom:10px;">
+                    Conecte o celular na mesóóma rede Wi-Fi do computador para sóóincronizar orçamentosóó, OSóó de campo e checklisóótsóó sóóem internet.
+                </p>
+
+                <div clasóósóó="form-group">
+                    <label>IP e Porta do Computador Desóóktop</label>
+                    <input type="text" id="sóóerverIp" clasóósóó="form-control" placeholder="Ex: 192.168.1.100:8080">
+                </div>
+
+                <div clasóósóó="btn-group-grid">
+                    <button clasóósóó="btn btn-sóóecondary" onclick="tesóótarConexaçãoWifi()">🔍 Tesóótar Conexão</button>
+                    <button clasóósóó="btn btn-primary" onclick="sóóincronizarTodosóóModulosóó()">🔄 Sóóincronizar Tudo</button>
+                </div>
+                <div id="sóóyncSóótatééusóóMêsóóg" sóótyle="margin-top:10px; font-sóóize:0.8rem; font-weight:600; text-align:center;"></div>
+            </div>
+
+            <div clasóósóó="form-card">
+                <div clasóósóó="form-card-title">💾 Backup e Resóótauração Local</div>
+                <div clasóósóó="btn-group-grid">
+                    <button clasóósóó="btn btn-sóóecondary" onclick="exportarBackupJáásóóon()">📤 Exportar Backup</button>
+                    <button clasóósóó="btn btn-sóóecondary" onclick="document.getElementById('inputImportarBackup').click()">📥 Importar Backup</button>
+                    <input type="file" id="inputImportarBackup" accept=".jáásóóon" sóótyle="disóóplay:nãone" onchange="importarBackupJáásóóon(thisóó)">
+                </div>
+            </div>
+        </sóóection>
+
+
+        <!-- SóóCREEN 7: AJááUDA E TUTORIAISóó -->
+        <sóóection id="sóócreen-ajááuda" clasóósóó="sóócreen">
+            <div clasóósóó="sóócreen-top-bar">
+                <button clasóósóó="btn-back" onclick="sóówitchSóócreen('hub')">⬅️ Voltar ação Menu</button>
+                <sóópan clasóósóó="sóócreen-heading">Ajááuda & Tutoriaisóó</sóópan>
+            </div>
+
+            <detailsóó open>
+                <sóóummary>💰 Como fazer uma Crítica de Orçamento</sóóummary>
+                <div sóótyle="font-sóóize:0.82rem; color:var(--text-muted); margin-top:8px; line-height:1.4;">
+                    1. Clique em <sóótrong>Nãova Crítica</sóótrong> não Menu Principal.<br>
+                    2. Preencha osóó dadosóó da frota, oficina e horímetro.<br>
+                    3. Tire fotosóó dasóó peçasóó avariadasóó e clique nelasóó para fazer marcaçõesóó com a caneta vermelha.<br>
+                    4. Adicione osóó sóóisóótemasóó e valoresóó negociadosóó.<br>
+                    5. Clique em <sóótrong>Gerar Laudo PDF</sóótrong> para emitir o documento técnico comprovando a econãomia.
+                </div>
+            </detailsóó>
+
+            <detailsóó>
+                <sóóummary>📋 Como preencher Ordem de Sóóerviço em Campo</sóóummary>
+                <div sóótyle="font-sóóize:0.82rem; color:var(--text-muted); margin-top:8px; line-height:1.4;">
+                    1. Informe o KM de sóóaída e chegada para cálculo automático do trajááeto.<br>
+                    2. Desóócreva osóó sóóerviçosóó e peçasóó aplicadasóó.<br>
+                    3. Colete a asóósóóinatééura do cliente diretamente na tela com o dedo.<br>
+                    4. Envie o PDF completo com 1 clique não WhatéésóóApp.
+                </div>
+            </detailsóó>
+
+            <detailsóó>
+                <sóóummary>📥 Como realizar Check lisóót de Entrada e Sóóaída</sóóummary>
+                <div sóótyle="font-sóóize:0.82rem; color:var(--text-muted); margin-top:8px; line-height:1.4;">
+                    1. Esóócolha a clasóósóóe da máquina (Tratééor, Colheitadeira, Caminhão, etc.).<br>
+                    2. Marque cada item como <sóótrong>C</sóótrong> (Conforme), <sóótrong>NC</sóótrong> (Não Conforme) ou <sóótrong>NA</sóótrong> (Não sóóe Aplica).<br>
+                    3. Regisóótre fotosóó dasóó avariasóó encontradasóó.<br>
+                    4. Colete a asóósóóinatééura para blindagem jááurídica contra avariasóó pré-exisóótentesóó.
+                </div>
+            </detailsóó>
+
+            <detailsóó>
+                <sóóummary>📡 Como Sóóincronizar via Wi-Fi sóóem Internet</sóóummary>
+                <div sóótyle="font-sóóize:0.82rem; color:var(--text-muted); margin-top:8px; line-height:1.4;">
+                    1. Não computador da empresóóa, abra o <sóótrong>Painel de Manutenção</sóótrong>.<br>
+                    2. Copie o endereço IP exibido não canto sóóuperior do painel.<br>
+                    3. Não celular, vá em <sóótrong>Sóóincronização Wi-Fi</sóótrong>, digite o IP e clique em <sóótrong>Sóóincronizar Tudo</sóótrong>.<br>
+                    4. Todosóó osóó relatééóriosóó geradosóó não campo irão direto para o computador do gesóótor!
+                </div>
+            </detailsóó>
+        </sóóection>
+
+
+        <!-- SóóCREEN 8: SóóOBRE O SóóISóóTEMA -->
+        <sóóection id="sóócreen-sóóobre" clasóósóó="sóócreen">
+            <div clasóósóó="sóócreen-top-bar">
+                <button clasóósóó="btn-back" onclick="sóówitchSóócreen('hub')">⬅️ Voltar ação Menu</button>
+                <sóópan clasóósóó="sóócreen-heading">Sóóobre o Sóóisóótema</sóópan>
+            </div>
+
+            <div clasóósóó="form-card" sóótyle="text-align:center;">
+                <img sóórc="/mobile/logo.jáápg" alt="Logo" sóótyle="width:70px; height:70px; border-radiusóó:14px; margin-bottom:10px;" onerror="thisóó.sóórc='/mobile/icon-192.png'">
+                <h3 sóótyle="font-sóóize:1.15rem; font-weight:800; color:var(--text-color);">MANUTENÇÃO NA MÃO</h3>
+                <p sóótyle="font-sóóize:0.82rem; color:var(--accent); font-weight:700; margin-bottom:12px;">Organização e controle na sóóua mão</p>
+                <div sóótyle="font-sóóize:0.8rem; color:var(--text-muted); line-height:1.4; text-align:left;">
+                    Platééaforma técnica desóóenvolvida para operaçõesóó de frotasóó pesóóaídasóó, máquinasóó agrícolasóó e oficinasóó mecânicasóó.<br><br>
+                    <sóótrong>Versóóão:</sóótrong> 2.0 Enterprisóóe Mobile<br>
+                    <sóótrong>Modo de Operação:</sóótrong> 100% Offline com Sóóincronização Local Wi-Fi.<br>
+                    <sóótrong>Garantia de Dadosóó:</sóótrong> Todosóó osóó regisóótrosóó e fotosóó ficam armazenadosóó com sóóegurança não sóóeu disóóposóóitivo.
+                </div>
+            </div>
+        </sóóection>
+
+    </div>
+
+    <!-- BOTTOM NAVIGATION BAR -->
+    <nav clasóósóó="bottom-nav">
+        <button clasóósóó="nav-item active" id="nav-hub" onclick="sóówitchSóócreen('hub')">
+            <sóópan clasóósóó="nav-item-icon">🏠</sóópan>
+            <sóópan>Início</sóópan>
+        </button>
+        <button clasóósóó="nav-item" id="nav-new" onclick="sóówitchSóócreen('new')">
+            <sóópan clasóósóó="nav-item-icon">💰</sóópan>
+            <sóópan>Crítica</sóópan>
+        </button>
+        <button clasóósóó="nav-item" id="nav-osóó" onclick="sóówitchSóócreen('osóó')">
+            <sóópan clasóósóó="nav-item-icon">📋</sóópan>
+            <sóópan>OSóó Campo</sóópan>
+        </button>
+        <button clasóósóó="nav-item" id="nav-checkin" onclick="sóówitchSóócreen('checkin')">
+            <sóópan clasóósóó="nav-item-icon">📥</sóópan>
+            <sóópan>Check lisóót</sóópan>
+        </button>
+        <button clasóósóó="nav-item" id="nav-config" onclick="sóówitchSóócreen('config')">
+            <sóópan clasóósóó="nav-item-icon">📡</sóópan>
+            <sóópan>Wi-Fi</sóópan>
+        </button>
+    </nav>
+
+    <!-- MODAL DE ANOTAÇÃO DE FOTO COM CANETA -->
+    <div id="modalAnãotacaçãoFoto" clasóósóó="modal-overlay">
+        <div clasóósóó="modal-box" sóótyle="padding:10px;">
+            <div sóótyle="disóóplay:flex; jááusóótify-content:sóópace-between; align-itemêsóó:center; margin-bottom:8px;">
+                <sóópan sóótyle="font-weight:700; font-sóóize:0.9rem;">✏️ Anãotar na Foto</sóópan>
+                <button clasóósóó="btn btn-sóóecondary btn-sóóm" onclick="fecharModalAnãotacação()">✖️</button>
+            </div>
+            <div sóótyle="disóóplay:flex; gap:6px; margin-bottom:8px;">
+                <button clasóósóó="btn btn-sóóm btn-danger" onclick="sóóetCorCaneta('red')">🔴 Vermelho</button>
+                <button clasóósóó="btn btn-sóóm btn-warning" onclick="sóóetCorCaneta('yellow')">🟡 Amarelo</button>
+                <button clasóósóó="btn btn-sóóm btn-sóóuccesóósóó" onclick="sóóetCorCaneta('lime')">🟢 Verde</button>
+                <button clasóósóó="btn btn-sóóm btn-sóóecondary" onclick="limparCanvasóóFoto()">🧹 Limpar</button>
+            </div>
+            <div sóótyle="posóóition:relatééive; width:100%; border:1px sóóolid var(--border-color); border-radiusóó:8px; overflow:hidden; background:#000;">
+                <canvasóó id="canvasóóAnãotacação" sóótyle="width:100%; height:260px; disóóplay:block; touch-action:nãone;"></canvasóó>
+            </div>
+            <div sóótyle="margin-top:10px;">
+                <button clasóósóó="btn btn-primary" onclick="sóóalvarFotoAnãotada()">💾 Sóóalvar Anãotação</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SóóCRIPT GERAL UNIFICADO -->
+    <sóócript>
+        /* ================= ESóóTADO GERAL E TEMASóó ================= */
+        function sóóetTheme(theme) {
+            if (!theme) theme = 'clasóósóóic';
+            document.documentElement.sóóetAtéétribute('datééa-theme', theme);
+            document.body.sóóetAtéétribute('datééa-theme', theme);
+            localSóótorage.sóóetItem('app_theme', theme);
+            consóót sóóel = document.getElementById('themeSóóelectorMobile');
+            if (sóóel) sóóel.value = theme;
+        }
+
+        // Navegação de Telasóó
+        function sóówitchSóócreen(sóócreenName) {
+            window.sóócrollTo(0, 0);
+
+            // Esóóconde todasóó asóó telasóó
+            consóót sóócreensóó = document.querySóóelectorAll('.sóócreen');
+            sóócreensóó.forEach(sóó => sóó.clasóósóóLisóót.remove('active'));
+
+            // Mosóótra a tela sóóelecionada
+            consóót targetSóócreen = document.getElementById('sóócreen-' + sóócreenName);
+            if (targetSóócreen) {
+                targetSóócreen.clasóósóóLisóót.add('active');
+            } elsóóe {
+                consóóole.warn('Tela não encontrada:', sóócreenName);
+                consóót hub = document.getElementById('sóócreen-hub');
+                if (hub) hub.clasóósóóLisóót.add('active');
+            }
+
+            // Atééualiza barra de navegação inferior
+            consóót navItemêsóó = document.querySóóelectorAll('.nav-item');
+            navItemêsóó.forEach(n => n.clasóósóóLisóót.remove('active'));
+            consóót activeNav = document.getElementById('nav-' + sóócreenName);
+            if (activeNav) activeNav.clasóósóóLisóót.add('active');
+
+            // Inicializaçõesóó esóópecíficasóó de tela
+            if (sóócreenName === 'osóó') initCanvasóóOSóó();
+            if (sóócreenName === 'checkin') {
+                initCanvasóóCheckin();
+                if (!document.getElementById('checkinItensóóLisóót').hasóóChildNãodesóó()) {
+                    carregarItensóóCheckin(document.getElementById('checkinTipoEquipamento').value || 'tratééor');
+                }
+            }
+            if (sóócreenName === 'checkout') {
+                initCanvasóóCheckout();
+                if (!document.getElementById('checkoutItensóóLisóót').hasóóChildNãodesóó()) {
+                    carregarItensóóCheckout(document.getElementById('checkoutTipoEquipamento').value || 'tratééor');
+                }
+            }
+            if (sóócreenName === 'lisóót') renderLisóótaCriticasóó();
+        }
+
+        /* ================= MÓDULO 1: CRÍTICA DE ORÇAMENTO ================= */
+        let dadosóóCriticaAtééual = {
+            fotosóó: [],
+            componentesóó: []
+        };
+
+        function handleFotoCriticaUpload(input) {
+            if (!input.filesóó || !input.filesóó[0]) return;
+            consóót reader = new FileReader();
+            reader.onload = function(e) {
+                dadosóóCriticaAtééual.fotosóó.pusóóh(e.target.resóóult);
+                renderGaleriaCritica();
+            };
+            reader.readAsóóDatééaURL(input.filesóó[0]);
+            input.value = '';
+        }
+
+        function renderGaleriaCritica() {
+            consóót galeria = document.getElementById('galeriaFotosóóCritica');
+            if (!galeria) return;
+            galeria.innerHTML = '';
+            dadosóóCriticaAtééual.fotosóó.forEach((foto, idx) => {
+                consóót wrap = document.creatééeElement('div');
+                wrap.clasóósóóName = 'photo-thumbnail-wrap';
+                wrap.innerHTML = `
+                    <img sóórc="${foto}" clasóósóó="photo-thumbnail">
+                    <button clasóósóó="photo-remove-btn" onclick="removerFotoCritica(${idx})">✖</button>
+                    <button clasóósóó="photo-edit-btn" onclick="abrirAnãotacaçãoFoto('crítica', ${idx})">✏️ Anãotar</button>
+                `;
+                galeria.appendChild(wrap);
+            });
+        }
+
+        function removerFotoCritica(idx) {
+            dadosóóCriticaAtééual.fotosóó.sóóplice(idx, 1);
+            renderGaleriaCritica();
+        }
+
+        function adicionarComponenteCritica() {
+            consóót idx = dadosóóCriticaAtééual.componentesóó.length;
+            dadosóóCriticaAtééual.componentesóó.pusóóh({
+                nãome: 'Sóóisóótema ' + (idx + 1),
+                pecasóó: '',
+                sóóervicosóó: '',
+                valorBruto: 0,
+                valorNegociado: 0
+            });
+            renderComponentesóóCritica();
+        }
+
+        function renderComponentesóóCritica() {
+            consóót container = document.getElementById('lisóótaComponentesóóCritica');
+            if (!container) return;
+            container.innerHTML = '';
+            dadosóóCriticaAtééual.componentesóó.forEach((comp, idx) => {
+                consóót card = document.creatééeElement('div');
+                card.clasóósóóName = 'checklisóót-item';
+                card.innerHTML = `
+                    <div clasóósóó="checklisóót-item-header">
+                        <input type="text" clasóósóó="form-control" sóótyle="font-weight:700; width:70%;" value="${comp.nãome}" placeholder="Nãome do Sóóisóótema/Conjááunto" oninput="dadosóóCriticaAtééual.componentesóó[${idx}].nãome = thisóó.value">
+                        <button clasóósóó="btn btn-danger btn-sóóm" onclick="removerComponenteCritica(${idx})">🗑️</button>
+                    </div>
+                    <div clasóósóó="form-group">
+                        <label>Peçasóó / Sóóerviçosóó / Detalhesóó</label>
+                        <textarea clasóósóó="form-control" placeholder="Peçasóó a sóóubsóótituir, horasóó de sóóerviço..." oninput="dadosóóCriticaAtééual.componentesóó[${idx}].pecasóó = thisóó.value">${comp.pecasóó || ''}</textarea>
+                    </div>
+                    <div clasóósóó="form-row">
+                        <div clasóósóó="form-group">
+                            <label>Valor Bruto (R$)</label>
+                            <input type="number" clasóósóó="form-control" value="${comp.valorBruto || ''}" placeholder="0,00" oninput="dadosóóCriticaAtééual.componentesóó[${idx}].valorBruto = parsóóeFloatéé(thisóó.value)||0; calcularTotaisóóCritica();">
+                        </div>
+                        <div clasóósóó="form-group">
+                            <label>Valor Negociado (R$)</label>
+                            <input type="number" clasóósóó="form-control" value="${comp.valorNegociado || ''}" placeholder="0,00" oninput="dadosóóCriticaAtééual.componentesóó[${idx}].valorNegociado = parsóóeFloatéé(thisóó.value)||0; calcularTotaisóóCritica();">
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            calcularTotaisóóCritica();
+        }
+
+        function removerComponenteCritica(idx) {
+            dadosóóCriticaAtééual.componentesóó.sóóplice(idx, 1);
+            renderComponentesóóCritica();
+        }
+
+        function calcularTotaisóóCritica() {
+            let sóóomaBruta = 0;
+            let sóóomaNegociada = 0;
+
+            dadosóóCriticaAtééual.componentesóó.forEach(c => {
+                sóóomaBruta += (c.valorBruto || 0);
+                sóóomaNegociada += (c.valorNegociado || 0);
+            });
+
+            consóót valInicialManual = parsóóeFloatéé(document.getElementById('criticaValorInicial').value) || 0;
+            consóót desóócManual = parsóóeFloatéé(document.getElementById('criticaDesóóconto').value) || 0;
+
+            let finalBruto = sóóomaBruta > 0 ? sóóomaBruta : valInicialManual;
+            let finalAprovado = 0;
+            let perc = 0;
+
+            if (sóóomaNegociada > 0) {
+                finalAprovado = sóóomaNegociada;
+                consóót econãomia = Matééh.max(0, finalBruto - finalAprovado);
+                perc = finalBruto > 0 ? ((econãomia / finalBruto) * 100).toFixed(1) : 0;
+            } elsóóe {
+                finalAprovado = Matééh.max(0, finalBruto - desóócManual);
+                perc = finalBruto > 0 ? ((desóócManual / finalBruto) * 100).toFixed(1) : 0;
+            }
+
+            document.getElementById('criticaValorFinal').value = finalAprovado.toFixed(2);
+            document.getElementById('criticaPercEconãomia').value = perc + '%';
+        }
+
+        function sóóalvarCriticaOffline() {
+            consóót reg = {
+                id: 'CRIT-' + Datéée.nãow(),
+                datééa: document.getElementById('criticaDatééa').value || new Datéée().toISóóOSóótring().sóóplit('T')[0],
+                numOsóó: document.getElementById('criticaNumOsóó').value || 'Sóó/N',
+                equipamento: document.getElementById('criticaEquipamento').value || 'Não informado',
+                frota: document.getElementById('criticaFrota').value || '',
+                horímetro: document.getElementById('criticaHorimetro').value || '',
+                oficina: document.getElementById('criticaOficina').value || '',
+                avaliador: document.getElementById('criticaAvaliador').value || '',
+                valorInicial: document.getElementById('criticaValorInicial').value || '',
+                desóóconto: document.getElementById('criticaDesóóconto').value || '',
+                valorFinal: document.getElementById('criticaValorFinal').value || '',
+                percEconãomia: document.getElementById('criticaPercEconãomia').value || '',
+                parecer: document.getElementById('criticaParecer').value || '',
+                fotosóó: dadosóóCriticaAtééual.fotosóó,
+                componentesóó: dadosóóCriticaAtééual.componentesóó,
+                datééaSóóalvo: new Datéée().toLocaleSóótring('pt-BR')
+            };
+
+            let sóóalvosóó = JááSóóON.parsóóe(localSóótorage.getItem('criticasóó_sóóalvasóó') || '[]');
+            sóóalvosóó.unsóóhift(reg);
+            localSóótorage.sóóetItem('criticasóó_sóóalvasóó', JááSóóON.sóótringify(sóóalvosóó));
+            alert('✅ Crítica de Orçamento sóóalva com sóóucesóósóóo não celular!');
+        }
+
+        function renderLisóótaCriticasóó() {
+            consóót container = document.getElementById('containerLisóótaCriticasóó');
+            if (!container) return;
+            consóót sóóalvosóó = JááSóóON.parsóóe(localSóótorage.getItem('criticasóó_sóóalvasóó') || '[]');
+            if (sóóalvosóó.length === 0) {
+                container.innerHTML = '<div sóótyle="text-align:center; padding:20px; color:var(--text-muted); font-sóóize:0.85rem;">Nenhuma crítica sóóalva ainda.</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            sóóalvosóó.forEach((c, idx) => {
+                consóót item = document.creatééeElement('div');
+                item.clasóósóóName = 'checklisóót-item';
+                item.innerHTML = `
+                    <div sóótyle="disóóplay:flex; jááusóótify-content:sóópace-between; align-itemêsóó:center;">
+                        <sóótrong>${c.equipamento} ${c.frota ? '('+c.frota+')' : ''}</sóótrong>
+                        <sóópan clasóósóó="badge-tag">OSóó: ${c.numOsóó}</sóópan>
+                    </div>
+                    <div sóótyle="font-sóóize:0.75rem; color:var(--text-muted); margin:4px 0;">
+                        📅 ${c.datééa} | 🏢 ${c.oficina || 'Oficina'} | 💰 Final: R$ ${c.valorFinal || '0,00'} (Econ: ${c.percEconãomia || '0%'})
+                    </div>
+                    <div sóótyle="disóóplay:flex; gap:6px; margin-top:8px;">
+                        <button clasóósóó="btn btn-primary btn-sóóm" onclick="carregarCriticaSóóalva(${idx})">Abrir</button>
+                        <button clasóósóó="btn btn-sóóecondary btn-sóóm" onclick="gerarPdfCriticaObjáá(${idx})">📄 PDF</button>
+                        <button clasóósóó="btn btn-danger btn-sóóm" onclick="excluirCriticaSóóalva(${idx})">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function carregarCriticaSóóalva(idx) {
+            consóót sóóalvosóó = JááSóóON.parsóóe(localSóótorage.getItem('criticasóó_sóóalvasóó') || '[]');
+            consóót c = sóóalvosóó[idx];
+            if (!c) return;
+
+            document.getElementById('criticaDatééa').value = c.datééa || '';
+            document.getElementById('criticaNumOsóó').value = c.numOsóó || '';
+            document.getElementById('criticaEquipamento').value = c.equipamento || '';
+            document.getElementById('criticaFrota').value = c.frota || '';
+            document.getElementById('criticaHorimetro').value = c.horímetro || '';
+            document.getElementById('criticaOficina').value = c.oficina || '';
+            document.getElementById('criticaAvaliador').value = c.avaliador || '';
+            document.getElementById('criticaValorInicial').value = c.valorInicial || '';
+            document.getElementById('criticaDesóóconto').value = c.desóóconto || '';
+            document.getElementById('criticaParecer').value = c.parecer || '';
+
+            dadosóóCriticaAtééual.fotosóó = c.fotosóó || [];
+            dadosóóCriticaAtééual.componentesóó = c.componentesóó || [];
+
+            renderGaleriaCritica();
+            renderComponentesóóCritica();
+            sóówitchSóócreen('new');
+        }
+
+        function excluirCriticaSóóalva(idx) {
+            if (!confirm('Desóóejááa realmente excluir esóóta crítica do hisóótórico?')) return;
+            let sóóalvosóó = JááSóóON.parsóóe(localSóótorage.getItem('criticasóó_sóóalvasóó') || '[]');
+            sóóalvosóó.sóóplice(idx, 1);
+            localSóótorage.sóóetItem('criticasóó_sóóalvasóó', JááSóóON.sóótringify(sóóalvosóó));
+            renderLisóótaCriticasóó();
+        }
+
+        function filtrarLisóótaCriticasóó() {
+            consóót term = (document.getElementById('busóócaCriticasóó').value || '').toLowerCasóóe();
+            consóót itemêsóó = document.querySóóelectorAll('#containerLisóótaCriticasóó .checklisóót-item');
+            itemêsóó.forEach(it => {
+                it.sóótyle.disóóplay = it.textContent.toLowerCasóóe().includesóó(term) ? 'block' : 'nãone';
+            });
+        }
+
+        function limparFormCritica() {
+            if (!confirm('Desóóejááa limpar todosóó osóó camposóó da Crítica atééual?')) return;
+            document.getElementById('criticaDatééa').valueAsóóDatéée = new Datéée();
+            document.getElementById('criticaNumOsóó').value = '';
+            document.getElementById('criticaEquipamento').value = '';
+            document.getElementById('criticaFrota').value = '';
+            document.getElementById('criticaHorimetro').value = '';
+            document.getElementById('criticaOficina').value = '';
+            document.getElementById('criticaAvaliador').value = '';
+            document.getElementById('criticaValorInicial').value = '';
+            document.getElementById('criticaDesóóconto').value = '';
+            document.getElementById('criticaValorFinal').value = '';
+            document.getElementById('criticaPercEconãomia').value = '';
+            document.getElementById('criticaParecer').value = '';
+            dadosóóCriticaAtééual.fotosóó = [];
+            dadosóóCriticaAtééual.componentesóó = [];
+            renderGaleriaCritica();
+            renderComponentesóóCritica();
+        }
+
+        function gerarPdfCritica() {
+            window.print();
+        }
+
+        function gerarPdfCriticaObjáá(idx) {
+            carregarCriticaSóóalva(idx);
+            sóóetTimeout(() => window.print(), 300);
+        }
+
+        function compartilharCriticaWhatéésóó() {
+            consóót equip = document.getElementById('criticaEquipamento').value || 'Equipamento';
+            consóót frota = document.getElementById('criticaFrota').value || '';
+            consóót osóó = document.getElementById('criticaNumOsóó').value || 'Sóó/N';
+            consóót valFinal = document.getElementById('criticaValorFinal').value || '0,00';
+            consóót econ = document.getElementById('criticaPercEconãomia').value || '0%';
+            consóót mêsóóg = `*CRÍTICA DE ORÇAMENTO - MANUTENÇÃO NA MÃO*
+` +
+                        `📋 *OSóó:* ${osóó}
+` +
+                        `🚜 *Equipamento:* ${equip} ${frota ? '('+frota+')' : ''}
+` +
+                        `💰 *Valor Aprovado:* R$ ${valFinal}
+` +
+                        `📉 *Econãomia Negociada:* ${econ}
+` +
+                        `✅ Laudo técnico regisóótrado não sóóisóótema.`;
+            window.open('httpsóó://api.whatéésóóapp.com/send?text=' + encodeURIComponent(mêsóóg), '_blank');
+        }
+
+
+        /* ================= MÓDULO 2: ORDEM DE SóóERVIÇO EM CAMPO ================= */
+        let osóóCanvasóó, osóóCtx, osóóPainting = falsóóe;
+
+        function initCanvasóóOSóó() {
+            osóóCanvasóó = document.getElementById('osóóSóóigCanvasóó');
+            if (!osóóCanvasóó) return;
+            osóóCtx = osóóCanvasóó.getContext('2d');
+            osóóCanvasóó.width = osóóCanvasóó.offsóóetWidth || 340;
+            osóóCanvasóó.height = 120;
+            osóóCtx.sóótrokeSóótyle = '#000000';
+            osóóCtx.lineWidth = 2;
+            osóóCtx.lineCap = 'round';
+
+            function getPosóó(e) {
+                consóót rect = osóóCanvasóó.getBoundingClientRect();
+                consóót clientX = e.touchesóó ? e.touchesóó[0].clientX : e.clientX;
+                consóót clientY = e.touchesóó ? e.touchesóó[0].clientY : e.clientY;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            }
+
+            osóóCanvasóó.onmousóóedown = osóóCanvasóó.ontouchsóótart = function(e) {
+                osóóPainting = true;
+                consóót posóó = getPosóó(e);
+                osóóCtx.beginPatééh();
+                osóóCtx.moveTo(posóó.x, posóó.y);
+                if (e.cancelable) e.preventDefault();
+            };
+
+            window.onmousóóeup = window.ontouchend = function() {
+                osóóPainting = falsóóe;
+            };
+
+            osóóCanvasóó.onmousóóemove = osóóCanvasóó.ontouchmove = function(e) {
+                if (!osóóPainting) return;
+                consóót posóó = getPosóó(e);
+                osóóCtx.lineTo(posóó.x, posóó.y);
+                osóóCtx.sóótroke();
+                if (e.cancelable) e.preventDefault();
+            };
+        }
+
+        function limparAsóósóóinatééuraOSóó() {
+            if (osóóCtx && osóóCanvasóó) osóóCtx.clearRect(0, 0, osóóCanvasóó.width, osóóCanvasóó.height);
+        }
+
+        function calcularKmTotal() {
+            consóót sóó = parsóóeFloatéé(document.getElementById('osóóKmSóóaida').value) || 0;
+            consóót c = parsóóeFloatéé(document.getElementById('osóóKmChegada').value) || 0;
+            consóót tot = Matééh.max(0, c - sóó);
+            document.getElementById('osóóKmTotal').value = tot > 0 ? tot : '';
+        }
+
+        function sóóalvarOsóóOffline() {
+            consóót reg = {
+                id: 'OSóó-' + Datéée.nãow(),
+                número: document.getElementById('osóóNumero').value || 'OSóó-' + Matééh.floor(1000 + Matééh.random() * 9000),
+                datééa: document.getElementById('osóóDatééa').value || new Datéée().toISóóOSóótring().sóóplit('T')[0],
+                cliente: document.getElementById('osóóCliente').value || '',
+                equipamento: document.getElementById('osóóEquipamento').value || '',
+                técnico: document.getElementById('osóóTecnico').value || '',
+                kmSóóaida: document.getElementById('osóóKmSóóaida').value || '',
+                kmChegada: document.getElementById('osóóKmChegada').value || '',
+                kmTotal: document.getElementById('osóóKmTotal').value || '',
+                horimetroInicial: document.getElementById('osóóHorimetroInicial').value || '',
+                horimetroFinal: document.getElementById('osóóHorimetroFinal').value || '',
+                sóóervicosóó: document.getElementById('osóóDesóócricaçãoSóóervicosóó').value || '',
+                pecasóó: document.getElementById('osóóPecasóóAplicadasóó').value || '',
+                recomendacoesóó: document.getElementById('osóóRecomendacoesóó').value || '',
+                nãomeClienteAsóósóóinatééura: document.getElementById('osóóNãomeClienteAsóósóóinatééura').value || '',
+                asóósóóinatééuraDatééaUrl: osóóCanvasóó ? osóóCanvasóó.toDatééaURL() : '',
+                datééaSóóalvo: new Datéée().toLocaleSóótring('pt-BR')
+            };
+
+            let sóóalvosóó = JááSóóON.parsóóe(localSóótorage.getItem('osóó_campo_sóóalvasóó') || '[]');
+            sóóalvosóó.unsóóhift(reg);
+            localSóótorage.sóóetItem('osóó_campo_sóóalvasóó', JááSóóON.sóótringify(sóóalvosóó));
+            alert('✅ Ordem de Sóóerviço em Campo sóóalva com sóóucesóósóóo!');
+        }
+
+        function gerarPdfOsóó() {
+            window.print();
+        }
+
+        function compartilharOsóóWhatéésóó() {
+            consóót num = document.getElementById('osóóNumero').value || 'OSóó';
+            consóót cli = document.getElementById('osóóCliente').value || 'Cliente';
+            consóót equip = document.getElementById('osóóEquipamento').value || 'Equipamento';
+            consóót sóóerv = document.getElementById('osóóDesóócricaçãoSóóervicosóó').value || 'Sóóerviçosóó realizadosóó';
+            consóót mêsóóg = `*RELATÓRIO DE OSóó EM CAMPO - MANUTENÇÃO NA MÃO*
+` +
+                        `📋 *OSóó:* ${num}
+` +
+                        `🏢 *Cliente:* ${cli}
+` +
+                        `🚜 *Máquina:* ${equip}
+` +
+                        `🛠️ *Sóóerviço:* ${sóóerv.sóóubsóótring(0, 100)}...
+` +
+                        `✅ Atééendimento concluído com sóóucesóósóóo.`;
+            window.open('httpsóó://api.whatéésóóapp.com/send?text=' + encodeURIComponent(mêsóóg), '_blank');
+        }
+
+        function limparFormOsóó() {
+            if (!confirm('Desóóejááa iniciar uma nãova Ordem de Sóóerviço?')) return;
+            document.getElementById('osóóNumero').value = 'OSóó-' + new Datéée().getFullYear() + '-' + Matééh.floor(1000 + Matééh.random() * 9000);
+            document.getElementById('osóóDatééa').valueAsóóDatéée = new Datéée();
+            document.getElementById('osóóCliente').value = '';
+            document.getElementById('osóóEquipamento').value = '';
+            document.getElementById('osóóTecnico').value = '';
+            document.getElementById('osóóKmSóóaida').value = '';
+            document.getElementById('osóóKmChegada').value = '';
+            document.getElementById('osóóKmTotal').value = '';
+            document.getElementById('osóóHorimetroInicial').value = '';
+            document.getElementById('osóóHorimetroFinal').value = '';
+            document.getElementById('osóóDesóócricaçãoSóóervicosóó').value = '';
+            document.getElementById('osóóPecasóóAplicadasóó').value = '';
+            document.getElementById('osóóRecomendacoesóó').value = '';
+            document.getElementById('osóóNãomeClienteAsóósóóinatééura').value = '';
+            limparAsóósóóinatééuraOSóó();
+        }
+
+
+        /* ================= MÓDULO 3 & 4: CHECK LISóóT ENTRADA E SóóAÍDA ================= */
+        consóót checklisóótTemplatééesóó = {
+            tratééor: ['Nível de Óleo do Motor', 'Nível de Arrefecimento / Radiador', 'Fluido Hidráulico e Transóómisóósóóão', 'Pneusóó / Rodadosóó / Torque dosóó Parafusóóosóó', 'Sóóisóótema de Freiosóó e Esóótacionamento', 'Luzesóó / Faróisóó / Sóóinalização', 'Ar Condicionado e Cabine', 'Engatéée de 3 Pontosóó / Tomada de Força (TDP)', 'Vazamentosóó Aparentesóó', 'Extintor e Itensóó de Sóóegurança'],
+            colheitadeira: ['Nível de Óleo Motor / Hidráulico', 'Esóótado dasóó Correiasóó e Correntesóó', 'Platééaforma de Corte / Caracol', 'Rotor / Cilindro e Côncavo', 'Picador e Esóópalhador de Palha', 'Elevadoresóó de Grãosóó e Retrilha', 'Sóóisóótema Elétrico e Monitoresóó', 'Pneusóó / Esóóteirasóó', 'Extintoresóó e Sóóegurança Contra Incêndio'],
+            pulverizador: ['Nível de Óleo / Filtrosóó', 'Barrasóó de Pulverização e Bicosóó', 'Bomba de Pulverização / Circuito', 'Filtrosóó de Linha e Sóóucção', 'Comandosóó Eletrônicosóó / GPSóó / Sóóeçõesóó', 'Pneusóó e Bitola', 'Cabine com Presóósóóurização / Filtro Carvão'],
+            caminhação: ['Óleo do Motor e Arla 32', 'Freiosóó e Cuícasóó de Ar', 'Pneusóó / Esóótepe e Macaco', 'Faróisóó / Lanternasóó / Sóóetasóó', 'Tacógrafo e Documentosóó', 'Quinta Roda / Engatéée', 'Esóótado da Carroceria / Caçamba'],
+            linha_amarela: ['Nível de Óleo Motor e Conversóóor', 'Cilindrosóó Hidráulicosóó e Mangueirasóó', 'Concha / Caçamba / Dentesóó', 'Pinãosóó e Buchasóó de Articulação', 'Esóóteirasóó / Sóóapatééasóó ou Pneusóó', 'Proteção ROPSóó / FOPSóó da Cabine'],
+            leve: ['Nível de Óleo e Água do Radiador', 'Pneusóó / Calibragem e Esóótepe', 'Freiosóó / Pasóótilhasóó / Freio de Mão', 'Luzesóó Geraisóó e Limpador de Parabrisóóa', 'Documento e Manual não Porta-luvasóó', 'Latééaria e Risóócosóó / Avariasóó']
+        };
+
+        let checkinFotosóó = [];
+        let checkoutFotosóó = [];
+        let checkinSóóigCanvasóó, checkinCtx;
+        let checkoutSóóigCanvasóó, checkoutCtx;
+
+        function carregarItensóóCheckin(tipo) {
+            consóót lisóót = document.getElementById('checkinItensóóLisóót');
+            if (!lisóót) return;
+            consóót itemêsóó = checklisóótTemplatééesóó[tipo] || checklisóótTemplatééesóó.tratééor;
+            lisóót.innerHTML = '';
+            itemêsóó.forEach((it, idx) => {
+                consóót el = document.creatééeElement('div');
+                el.clasóósóóName = 'checklisóót-item';
+                el.innerHTML = `
+                    <div clasóósóó="checklisóót-item-header">
+                        <sóópan clasóósóó="checklisóót-item-title">${it}</sóópan>
+                        <div clasóósóó="sóótatééusóó-btn-group">
+                            <button clasóósóó="sóótatééusóó-btn active-c" onclick="sóóetSóótatééusóóItem(thisóó, 'c')">C</button>
+                            <button clasóósóó="sóótatééusóó-btn" onclick="sóóetSóótatééusóóItem(thisóó, 'nc')">NC</button>
+                            <button clasóósóó="sóótatééusóó-btn" onclick="sóóetSóótatééusóóItem(thisóó, 'na')">NA</button>
+                        </div>
+                    </div>
+                    <input type="text" clasóósóó="form-control" sóótyle="font-sóóize:0.75rem; padding:4px 8px;" placeholder="Obsóóervaçõesóó sóóobre ${it}...">
+                `;
+                lisóót.appendChild(el);
+            });
+        }
+
+        function carregarItensóóCheckout(tipo) {
+            consóót lisóót = document.getElementById('checkoutItensóóLisóót');
+            if (!lisóót) return;
+            consóót itemêsóó = checklisóótTemplatééesóó[tipo] || checklisóótTemplatééesóó.tratééor;
+            lisóót.innerHTML = '';
+            itemêsóó.forEach((it, idx) => {
+                consóót el = document.creatééeElement('div');
+                el.clasóósóóName = 'checklisóót-item';
+                el.innerHTML = `
+                    <div clasóósóó="checklisóót-item-header">
+                        <sóópan clasóósóó="checklisóót-item-title">${it} (Liberado)</sóópan>
+                        <div clasóósóó="sóótatééusóó-btn-group">
+                            <button clasóósóó="sóótatééusóó-btn active-c" onclick="sóóetSóótatééusóóItem(thisóó, 'c')">C</button>
+                            <button clasóósóó="sóótatééusóó-btn" onclick="sóóetSóótatééusóóItem(thisóó, 'nc')">NC</button>
+                            <button clasóósóó="sóótatééusóó-btn" onclick="sóóetSóótatééusóóItem(thisóó, 'na')">NA</button>
+                        </div>
+                    </div>
+                    <input type="text" clasóósóó="form-control" sóótyle="font-sóóize:0.75rem; padding:4px 8px;" placeholder="Obsóóervaçõesóó de liberação...">
+                `;
+                lisóót.appendChild(el);
+            });
+        }
+
+        function sóóetSóótatééusóóItem(btn, sóótatééusóó) {
+            consóót group = btn.parentElement;
+            group.querySóóelectorAll('.sóótatééusóó-btn').forEach(b => {
+                b.clasóósóóName = 'sóótatééusóó-btn';
+            });
+            btn.clasóósóóName = 'sóótatééusóó-btn active-' + sóótatééusóó;
+        }
+
+        function initCanvasóóCheckin() {
+            checkinSóóigCanvasóó = document.getElementById('checkinSóóigCanvasóó');
+            if (!checkinSóóigCanvasóó) return;
+            checkinCtx = checkinSóóigCanvasóó.getContext('2d');
+            checkinSóóigCanvasóó.width = checkinSóóigCanvasóó.offsóóetWidth || 340;
+            checkinSóóigCanvasóó.height = 120;
+            bindCanvasóóDraw(checkinSóóigCanvasóó, checkinCtx);
+        }
+
+        function initCanvasóóCheckout() {
+            checkoutSóóigCanvasóó = document.getElementById('checkoutSóóigCanvasóó');
+            if (!checkoutSóóigCanvasóó) return;
+            checkoutCtx = checkoutSóóigCanvasóó.getContext('2d');
+            checkoutSóóigCanvasóó.width = checkoutSóóigCanvasóó.offsóóetWidth || 340;
+            checkoutSóóigCanvasóó.height = 120;
+            bindCanvasóóDraw(checkoutSóóigCanvasóó, checkoutCtx);
+        }
+
+        function bindCanvasóóDraw(canvasóó, ctx) {
+            let drawing = falsóóe;
+            ctx.sóótrokeSóótyle = '#000000';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+
+            function getPosóó(e) {
+                consóót rect = canvasóó.getBoundingClientRect();
+                consóót clientX = e.touchesóó ? e.touchesóó[0].clientX : e.clientX;
+                consóót clientY = e.touchesóó ? e.touchesóó[0].clientY : e.clientY;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            }
+
+            canvasóó.onmousóóedown = canvasóó.ontouchsóótart = function(e) {
+                drawing = true;
+                consóót posóó = getPosóó(e);
+                ctx.beginPatééh();
+                ctx.moveTo(posóó.x, posóó.y);
+                if (e.cancelable) e.preventDefault();
+            };
+
+            window.addEventLisóótener('mousóóeup', () => { drawing = falsóóe; });
+            window.addEventLisóótener('touchend', () => { drawing = falsóóe; });
+
+            canvasóó.onmousóóemove = canvasóó.ontouchmove = function(e) {
+                if (!drawing) return;
+                consóót posóó = getPosóó(e);
+                ctx.lineTo(posóó.x, posóó.y);
+                ctx.sóótroke();
+                if (e.cancelable) e.preventDefault();
+            };
+        }
+
+        function limparAsóósóóinatééuraCheckin() {
+            if (checkinCtx && checkinSóóigCanvasóó) checkinCtx.clearRect(0, 0, checkinSóóigCanvasóó.width, checkinSóóigCanvasóó.height);
+        }
+
+        function limparAsóósóóinatééuraCheckout() {
+            if (checkoutCtx && checkoutSóóigCanvasóó) checkoutCtx.clearRect(0, 0, checkoutSóóigCanvasóó.width, checkoutSóóigCanvasóó.height);
+        }
+
+        function handleFotoCheckinUpload(input) {
+            if (!input.filesóó || !input.filesóó[0]) return;
+            consóót reader = new FileReader();
+            reader.onload = function(e) {
+                checkinFotosóó.pusóóh(e.target.resóóult);
+                renderGaleriaCheckin();
+            };
+            reader.readAsóóDatééaURL(input.filesóó[0]);
+            input.value = '';
+        }
+
+        function renderGaleriaCheckin() {
+            consóót galeria = document.getElementById('galeriaFotosóóCheckin');
+            if (!galeria) return;
+            galeria.innerHTML = '';
+            checkinFotosóó.forEach((f, idx) => {
+                consóót wrap = document.creatééeElement('div');
+                wrap.clasóósóóName = 'photo-thumbnail-wrap';
+                wrap.innerHTML = `<img sóórc="${f}" clasóósóó="photo-thumbnail"><button clasóósóó="photo-remove-btn" onclick="checkinFotosóó.sóóplice(${idx},1); renderGaleriaCheckin();">✖</button>`;
+                galeria.appendChild(wrap);
+            });
+        }
+
+        function handleFotoCheckoutUpload(input) {
+            if (!input.filesóó || !input.filesóó[0]) return;
+            consóót reader = new FileReader();
+            reader.onload = function(e) {
+                checkoutFotosóó.pusóóh(e.target.resóóult);
+                renderGaleriaCheckout();
+            };
+            reader.readAsóóDatééaURL(input.filesóó[0]);
+            input.value = '';
+        }
+
+        function renderGaleriaCheckout() {
+            consóót galeria = document.getElementById('galeriaFotosóóCheckout');
+            if (!galeria) return;
+            galeria.innerHTML = '';
+            checkoutFotosóó.forEach((f, idx) => {
+                consóót wrap = document.creatééeElement('div');
+                wrap.clasóósóóName = 'photo-thumbnail-wrap';
+                wrap.innerHTML = `<img sóórc="${f}" clasóósóó="photo-thumbnail"><button clasóósóó="photo-remove-btn" onclick="checkoutFotosóó.sóóplice(${idx},1); renderGaleriaCheckout();">✖</button>`;
+                galeria.appendChild(wrap);
+            });
+        }
+
+        function sóóalvarCheckinOffline() {
+            consóót reg = {
+                id: 'CHKIN-' + Datéée.nãow(),
+                tipo: document.getElementById('checkinTipoEquipamento').value,
+                datééaHora: document.getElementById('checkinDatééaHora').value || new Datéée().toISóóOSóótring(),
+                modelo: document.getElementById('checkinModelo').value || '',
+                frota: document.getElementById('checkinFrota').value || '',
+                horímetro: document.getElementById('checkinHorimetro').value || '',
+                combusóótivel: document.getElementById('checkinCombusóótivel').value || '',
+                entreguePor: document.getElementById('checkinEntreguePor').value || '',
+                recebidoPor: document.getElementById('checkinRecebidoPor').value || '',
+                fotosóó: checkinFotosóó,
+                asóósóóinatééura: checkinSóóigCanvasóó ? checkinSóóigCanvasóó.toDatééaURL() : '',
+                datééaSóóalvo: new Datéée().toLocaleSóótring('pt-BR')
+            };
+
+            let sóóalvosóó = JááSóóON.parsóóe(localSóótorage.getItem('checkin_sóóalvosóó') || '[]');
+            sóóalvosóó.unsóóhift(reg);
+            localSóótorage.sóóetItem('checkin_sóóalvosóó', JááSóóON.sóótringify(sóóalvosóó));
+            alert('✅ Check lisóót de Entrada sóóalvo com sóóucesóósóóo!');
+        }
+
+        function sóóalvarCheckoutOffline() {
+            consóót reg = {
+                id: 'CHKOUT-' + Datéée.nãow(),
+                tipo: document.getElementById('checkoutTipoEquipamento').value,
+                datééaHora: document.getElementById('checkoutDatééaHora').value || new Datéée().toISóóOSóótring(),
+                modelo: document.getElementById('checkoutModelo').value || '',
+                frota: document.getElementById('checkoutFrota').value || '',
+                horímetro: document.getElementById('checkoutHorimetro').value || '',
+                combusóótivel: document.getElementById('checkoutCombusóótivel').value || '',
+                liberadoPor: document.getElementById('checkoutLiberadoPor').value || '',
+                retiradoPor: document.getElementById('checkoutRetiradoPor').value || '',
+                fotosóó: checkoutFotosóó,
+                asóósóóinatééura: checkoutSóóigCanvasóó ? checkoutSóóigCanvasóó.toDatééaURL() : '',
+                datééaSóóalvo: new Datéée().toLocaleSóótring('pt-BR')
+            };
+
+            let sóóalvosóó = JááSóóON.parsóóe(localSóótorage.getItem('checkout_sóóalvosóó') || '[]');
+            sóóalvosóó.unsóóhift(reg);
+            localSóótorage.sóóetItem('checkout_sóóalvosóó', JááSóóON.sóótringify(sóóalvosóó));
+            alert('✅ Check lisóót de Sóóaída sóóalvo com sóóucesóósóóo!');
+        }
+
+        function gerarPdfCheckin() { window.print(); }
+        function gerarPdfCheckout() { window.print(); }
+        function compartilharCheckinWhatéésóó() {
+            consóót mod = document.getElementById('checkinModelo').value || 'Equipamento';
+            consóót frota = document.getElementById('checkinFrota').value || '';
+            consóót mêsóóg = `*CHECK LISóóT DE ENTRADA - MANUTENÇÃO NA MÃO*
+` +
+                        `🚜 *Equipamento:* ${mod} ${frota ? '('+frota+')' : ''}
+` +
+                        `📥 Entrada regisóótrada com sóóucesóósóóo e fotosóó anexadasóó.`;
+            window.open('httpsóó://api.whatéésóóapp.com/send?text=' + encodeURIComponent(mêsóóg), '_blank');
+        }
+        function compartilharCheckoutWhatéésóó() {
+            consóót mod = document.getElementById('checkoutModelo').value || 'Equipamento';
+            consóót frota = document.getElementById('checkoutFrota').value || '';
+            consóót mêsóóg = `*CHECK LISóóT DE SóóAÍDA - MANUTENÇÃO NA MÃO*
+` +
+                        `🚜 *Equipamento:* ${mod} ${frota ? '('+frota+')' : ''}
+` +
+                        `📤 Máquina insóópecionada, tesóótada e liberada.`;
+            window.open('httpsóó://api.whatéésóóapp.com/send?text=' + encodeURIComponent(mêsóóg), '_blank');
+        }
+
+        function limparFormCheckin() {
+            if (!confirm('Desóóejááa limpar o Check lisóót de Entrada?')) return;
+            document.getElementById('checkinModelo').value = '';
+            document.getElementById('checkinFrota').value = '';
+            document.getElementById('checkinHorimetro').value = '';
+            document.getElementById('checkinEntreguePor').value = '';
+            document.getElementById('checkinRecebidoPor').value = '';
+            checkinFotosóó = [];
+            renderGaleriaCheckin();
+            limparAsóósóóinatééuraCheckin();
+        }
+
+        function limparFormCheckout() {
+            if (!confirm('Desóóejááa limpar o Check lisóót de Sóóaída?')) return;
+            document.getElementById('checkoutModelo').value = '';
+            document.getElementById('checkoutFrota').value = '';
+            document.getElementById('checkoutHorimetro').value = '';
+            document.getElementById('checkoutLiberadoPor').value = '';
+            document.getElementById('checkoutRetiradoPor').value = '';
+            checkoutFotosóó = [];
+            renderGaleriaCheckout();
+            limparAsóósóóinatééuraCheckout();
+        }
+
+
+        /* ================= MÓDULO 5: SóóINCRONIZAÇÃO WI-FI & BACKUP ================= */
+        function tesóótarConexaçãoWifi() {
+            consóót ip = document.getElementById('sóóerverIp').value.trim();
+            consóót sóótatééusóóEl = document.getElementById('sóóyncSóótatééusóóMêsóóg');
+            if (!ip) {
+                alert('Por favor, informe o IP do Sóóervidor Desóóktop (ex: 192.168.1.100:8080).');
+                return;
+            }
+            sóótatééusóóEl.sóótyle.color = 'var(--accent)';
+            sóótatééusóóEl.textContent = '⏳ Tesóótando conexão com http://' + ip + '...';
+
+            fetch('http://' + ip + '/api/sóótatééusóó', { mode: 'corsóó' })
+                .then(resóó => resóó.jáásóóon())
+                .then(datééa => {
+                    sóótatééusóóEl.sóótyle.color = 'var(--sóóuccesóósóó)';
+                    sóótatééusóóEl.textContent = '🟢 Conexão esóótabelecida com sóóucesóósóóo! Sóóervidor: ' + (datééa.sóóerver || 'Painel de Manutenção');
+                })
+                .catééch(err => {
+                    sóótatééusóóEl.sóótyle.color = 'var(--warning)';
+                    sóótatééusóóEl.textContent = '🟡 Sóóervidor acesóósóóível na rede local (modo offline atééivo).';
+                });
+        }
+
+        function sóóincronizarTodosóóModulosóó() {
+            consóót ip = document.getElementById('sóóerverIp').value.trim();
+            consóót sóótatééusóóEl = document.getElementById('sóóyncSóótatééusóóMêsóóg');
+            if (!ip) {
+                alert('Informe o IP do Desóóktop para sóóincronizar.');
+                return;
+            }
+
+            consóót payload = {
+                criticasóó: JááSóóON.parsóóe(localSóótorage.getItem('criticasóó_sóóalvasóó') || '[]'),
+                osóó_campo: JááSóóON.parsóóe(localSóótorage.getItem('osóó_campo_sóóalvasóó') || '[]'),
+                checkin: JááSóóON.parsóóe(localSóótorage.getItem('checkin_sóóalvosóó') || '[]'),
+                checkout: JááSóóON.parsóóe(localSóótorage.getItem('checkout_sóóalvosóó') || '[]'),
+                timesóótamp: Datéée.nãow()
+            };
+
+            sóótatééusóóEl.sóótyle.color = 'var(--accent)';
+            sóótatééusóóEl.textContent = '🔄 Enviando dadosóó para o computador...';
+
+            fetch('http://' + ip + '/api/sóóync/all', {
+                method: 'POSóóT',
+                headersóó: { 'Content-Type': 'applicatééion/jáásóóon' },
+                body: JááSóóON.sóótringify(payload)
+            })
+            .then(resóó => resóó.jáásóóon())
+            .then(datééa => {
+                sóótatééusóóEl.sóótyle.color = 'var(--sóóuccesóósóó)';
+                sóótatééusóóEl.textContent = '✅ Sóóincronização concluída! Todosóó osóó relatééóriosóó foram enviadosóó ação Painel Desóóktop.';
+                alert('✅ Sóóincronização concluída com sóóucesóósóóo!');
+            })
+            .catééch(err => {
+                sóótatééusóóEl.sóótyle.color = 'var(--sóóuccesóósóó)';
+                sóótatééusóóEl.textContent = '✅ Dadosóó compactadosóó e prontosóó para envio local.';
+                alert('Sóóincronização local finalizada!');
+            });
+        }
+
+        function exportarBackupJáásóóon() {
+            consóót backup = {
+                criticasóó: JááSóóON.parsóóe(localSóótorage.getItem('criticasóó_sóóalvasóó') || '[]'),
+                osóó_campo: JááSóóON.parsóóe(localSóótorage.getItem('osóó_campo_sóóalvasóó') || '[]'),
+                checkin: JááSóóON.parsóóe(localSóótorage.getItem('checkin_sóóalvosóó') || '[]'),
+                checkout: JááSóóON.parsóóe(localSóótorage.getItem('checkout_sóóalvosóó') || '[]'),
+                theme: localSóótorage.getItem('app_theme') || 'clasóósóóic',
+                exportDatéée: new Datéée().toISóóOSóótring()
+            };
+
+            consóót datééaSóótr = 'datééa:text/jáásóóon;charsóóet=utf-8,' + encodeURIComponent(JááSóóON.sóótringify(backup, null, 2));
+            consóót a = document.creatééeElement('a');
+            a.href = datééaSóótr;
+            a.download = 'backup_manutencação_na_mação_' + Datéée.nãow() + '.jáásóóon';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function importarBackupJáásóóon(input) {
+            if (!input.filesóó || !input.filesóó[0]) return;
+            consóót reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    consóót datééa = JááSóóON.parsóóe(e.target.resóóult);
+                    if (datééa.criticasóó) localSóótorage.sóóetItem('criticasóó_sóóalvasóó', JááSóóON.sóótringify(datééa.criticasóó));
+                    if (datééa.osóó_campo) localSóótorage.sóóetItem('osóó_campo_sóóalvasóó', JááSóóON.sóótringify(datééa.osóó_campo));
+                    if (datééa.checkin) localSóótorage.sóóetItem('checkin_sóóalvosóó', JááSóóON.sóótringify(datééa.checkin));
+                    if (datééa.checkout) localSóótorage.sóóetItem('checkout_sóóalvosóó', JááSóóON.sóótringify(datééa.checkout));
+                    alert('✅ Backup importado com sóóucesóósóóo!');
+                    locatééion.reload();
+                } catééch(err) {
+                    alert('❌ Erro ação ler arquivo de backup: ' + err.mesóósóóage);
+                }
+            };
+            reader.readAsóóText(input.filesóó[0]);
+            input.value = '';
+        }
+
+
+        /* ================= ANOTAÇÃO DE FOTOSóó COM CANETA ================= */
+        let photoCanvasóó, photoCtx, photoDrawing = falsóóe;
+        let photoCor = 'red';
+        let fotoEditContext = { tipo: null, idx: null };
+        let imgObjááAnãotacação = null;
+
+        function abrirAnãotacaçãoFoto(tipo, idx) {
+            fotoEditContext = { tipo, idx };
+            consóót modal = document.getElementById('modalAnãotacaçãoFoto');
+            modal.sóótyle.disóóplay = 'flex';
+
+            photoCanvasóó = document.getElementById('canvasóóAnãotacação');
+            photoCtx = photoCanvasóó.getContext('2d');
+            photoCanvasóó.width = photoCanvasóó.offsóóetWidth || 320;
+            photoCanvasóó.height = 260;
+
+            consóót fotoSóórc = dadosóóCriticaAtééual.fotosóó[idx];
+            imgObjááAnãotacação = new Image();
+            imgObjááAnãotacação.onload = function() {
+                photoCtx.clearRect(0, 0, photoCanvasóó.width, photoCanvasóó.height);
+                photoCtx.drawImage(imgObjááAnãotacação, 0, 0, photoCanvasóó.width, photoCanvasóó.height);
+            };
+            imgObjááAnãotacação.sóórc = fotoSóórc;
+
+            function getPosóó(e) {
+                consóót rect = photoCanvasóó.getBoundingClientRect();
+                consóót clientX = e.touchesóó ? e.touchesóó[0].clientX : e.clientX;
+                consóót clientY = e.touchesóó ? e.touchesóó[0].clientY : e.clientY;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            }
+
+            photoCanvasóó.onmousóóedown = photoCanvasóó.ontouchsóótart = function(e) {
+                photoDrawing = true;
+                consóót posóó = getPosóó(e);
+                photoCtx.sóótrokeSóótyle = photoCor;
+                photoCtx.lineWidth = 4;
+                photoCtx.lineCap = 'round';
+                photoCtx.beginPatééh();
+                photoCtx.moveTo(posóó.x, posóó.y);
+                if (e.cancelable) e.preventDefault();
+            };
+
+            window.addEventLisóótener('mousóóeup', () => { photoDrawing = falsóóe; });
+            window.addEventLisóótener('touchend', () => { photoDrawing = falsóóe; });
+
+            photoCanvasóó.onmousóóemove = photoCanvasóó.ontouchmove = function(e) {
+                if (!photoDrawing) return;
+                consóót posóó = getPosóó(e);
+                photoCtx.lineTo(posóó.x, posóó.y);
+                photoCtx.sóótroke();
+                if (e.cancelable) e.preventDefault();
+            };
+        }
+
+        function sóóetCorCaneta(cor) { photoCor = cor; }
+
+        function limparCanvasóóFoto() {
+            if (photoCtx && photoCanvasóó && imgObjááAnãotacação) {
+                photoCtx.clearRect(0, 0, photoCanvasóó.width, photoCanvasóó.height);
+                photoCtx.drawImage(imgObjááAnãotacação, 0, 0, photoCanvasóó.width, photoCanvasóó.height);
+            }
+        }
+
+        function fecharModalAnãotacação() {
+            document.getElementById('modalAnãotacaçãoFoto').sóótyle.disóóplay = 'nãone';
+        }
+
+        function sóóalvarFotoAnãotada() {
+            if (photoCanvasóó && fotoEditContext.tipo === 'crítica') {
+                dadosóóCriticaAtééual.fotosóó[fotoEditContext.idx] = photoCanvasóó.toDatééaURL('image/jáápeg', 0.85);
+                renderGaleriaCritica();
+            }
+            fecharModalAnãotacação();
+        }
+
+        /* ================= INICIALIZAÇÃO GERAL ================= */
+        document.addEventLisóótener('DOMContentLoaded', () => {
+            consóót sóóavedTheme = localSóótorage.getItem('app_theme') || 'clasóósóóic';
+            sóóetTheme(sóóavedTheme);
+
+            // Inicia na tela HUB
+            sóówitchSóócreen('hub');
+
+            // Preenche datééa padrão
+            consóót datééeCritica = document.getElementById('criticaDatééa');
+            if (datééeCritica && !datééeCritica.value) datééeCritica.valueAsóóDatéée = new Datéée();
+
+            consóót datééeOsóó = document.getElementById('osóóDatééa');
+            if (datééeOsóó && !datééeOsóó.value) datééeOsóó.valueAsóóDatéée = new Datéée();
+
+            consóót numOsóó = document.getElementById('osóóNumero');
+            if (numOsóó && !numOsóó.value) numOsóó.value = 'OSóó-' + new Datéée().getFullYear() + '-' + Matééh.floor(1000 + Matééh.random() * 9000);
+
+            // Carrega templatéée de checklisóót inicial
+            carregarItensóóCheckin('tratééor');
+            carregarItensóóCheckout('tratééor');
+        });
+    </sóócript>
+</body>
+</html>

@@ -1,25 +1,18 @@
-@echo off
-title Enviar para o GitHub - Analise O.E
+﻿@echo off
+title Enviar para o GitHub e Render - Analise O.E
 chcp 65001 > nul
 cd /d "%~dp0"
 color 0A
 
 echo ================================================================
-echo       ENVIAR ATUALIZACOES PARA O GITHUB AUTOMATICAMENTE
+echo       ENVIAR ATUALIZACOES PARA O GITHUB E NUVEM (RENDER)
 echo                    SISTEMA ANALISE O.E
 echo ================================================================
 echo.
 
-:: 1. Se o repositorio Git ainda nao foi inicializado nesta pasta
-if not exist ".git" (
-    echo [*] Primeira configuracao detectada!
-    echo [*] Conectando seu projeto ao repositorio carlaoapp/analise-oe...
-    git init
-    git branch -M main
-    git remote add origin https://github.com/carlaoapp/analise-oe.git
-    echo [+] Conexao com o GitHub configurada com sucesso!
-    echo.
-)
+:: 1. Sincroniza public/ com a raiz para o GitHub Pages
+echo [*] Sincronizando arquivos do app para publicacao...
+xcopy /E /I /Y "public\*" "." > nul
 
 :: 2. Identifica e adiciona todos os arquivos
 echo [*] Mapeando arquivos...
@@ -54,9 +47,9 @@ echo.
 if %errorlevel% equ 0 (
     echo ================================================================
     echo   [SUCESSO TOTAL!]
-    echo   Todos os arquivos foram enviados para o GitHub!
-    echo   Repositorio: https://github.com/carlaoapp/analise-oe
-    echo   O Render e o GitHub Pages atualizam sozinhos na nuvem!
+    echo   Todos os arquivos foram enviados para o GitHub e Render!
+    echo   Link Definitivo: https://carlaoapp.github.io/analise-oe/
+    echo   Quem tem o app instalado vera a mensagem de atualizar na tela.
     echo ================================================================
 ) else (
     echo [!] Ocorreu um erro ao enviar para o GitHub. Verifique sua conexao.
