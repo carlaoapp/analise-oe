@@ -36,3 +36,5 @@ desktop.ini
 .vscode/
 .idea/
 APK Analise O.E/
+
+.env
